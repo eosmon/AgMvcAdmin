@@ -54,27 +54,29 @@
       <HintPath>..\..\AgMvcAdmin\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppBase">
-      <HintPath>..\..\..\SharedBase\AppBase\bin\Release\AppBase.dll</HintPath>
+    <Reference Include="AppBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\AppBase.dll</HintPath>
     </Reference>
-    <Reference Include="AppBase.FedEx">
-      <HintPath>..\..\..\SharedBase\AppBase.FedEx\bin\Debug\AppBase.FedEx.dll</HintPath>
+    <Reference Include="AppBase.FedEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\AppBase.FedEx.dll</HintPath>
     </Reference>
     <Reference Include="AppBase.Images, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SharedBase\AppBase.Images\bin\Release\AppBase.Images.dll</HintPath>
+      <HintPath>Common\Drivers\AppBase.Images.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.57.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\..\AgMvcAdmin\packages\HtmlAgilityPack.1.11.57\lib\Net45\HtmlAgilityPack.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\AgMvcAdmin\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\HtmlRenderer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\AgMvcAdmin\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\HtmlRenderer.PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.3.11, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\AgMvcAdmin\packages\SharpZipLib.1.3.3\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -128,8 +130,9 @@
       <HintPath>..\..\AgMvcAdmin\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Primera.Print">
-      <HintPath>..\..\..\..\Installs\Primera LX500\SDK\Primera.Print.dll</HintPath>
+    <Reference Include="Primera.Print, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\Primera.Print.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\..\AgMvcAdmin\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
@@ -267,8 +270,9 @@
       <HintPath>..\..\AgMvcAdmin\packages\Tesseract.3.0.2.0\lib\net451\Tesseract.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebBase">
-      <HintPath>..\..\..\SharedBase\WebBase\bin\Debug\WebBase.dll</HintPath>
+    <Reference Include="WebBase, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Common\Drivers\WebBase.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\AgMvcAdmin\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -458,6 +462,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\Drivers\AppBase.dll" />
+    <Content Include="Common\Drivers\AppBase.FedEx.dll" />
+    <Content Include="Common\Drivers\AppBase.Images.dll" />
+    <Content Include="Common\Drivers\HtmlAgilityPack.dll" />
+    <Content Include="Common\Drivers\HtmlAgilityPack.xml" />
+    <Content Include="Common\Drivers\HtmlRenderer.dll" />
+    <Content Include="Common\Drivers\HtmlRenderer.PdfSharp.dll" />
+    <Content Include="Common\Drivers\Primera.Print.dll" />
+    <Content Include="Common\Drivers\WebBase.dll" />
     <Content Include="Common\Images\AddImg.jpg" />
     <Content Include="Common\Images\AG_Logo.png" />
     <Content Include="Common\Images\AllegroTech_Logo.png" />
