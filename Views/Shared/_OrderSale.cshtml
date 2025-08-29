@@ -1,0 +1,924 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+@{
+    var ordDt = DateTime.Now.ToString("MM/dd/yyyy");
+}
+
+<div id="TransModal" class="modal" style="display:none">
+    <div id="dvg4" class="well-order-grp row" style="margin:0 auto; max-width:1125px">
+        <div id="dvg7" style="clear:both">
+            <div style="vertical-align:top; font-size:1.4em; width:100%; padding-bottom:5px" class="ord-block">
+                <div id="tt1" class="ord-block" style="font-weight:bold; color:#00FFFF; width:49%"></div>
+                <div id="dvOrdNav" style="display:none; width:40%; text-align:right; margin-top:3px; padding-right:25px; vertical-align:top" class="ord-nav-txt">
+                    <div id="dvNavTtp"><div id="dvHovTtp" class="ord-block" style="padding-right:10px" onclick="NavPanel('1')">Transfer Type</div><div id="dvArwTtp" class="ord-block">>></div></div>
+                    <div id="dvNavAit" class="ord-block"><div id="dvHovAit" class="ord-block" style="padding-left:10px; padding-right:10px" onclick="NavPanel('2')">Add Item</div></div>
+                    <div id="dvNavFul" class="ord-block"><div class="ord-block">>></div><div id="dvHovFul" class="ord-block" style="padding-left:10px; padding-right:10px" onclick="NavPanel('3')">Fulfillment</div></div>
+                    <div id="dvNavInv" class="ord-block"><div class="ord-block">>></div><div id="dvHovInv" class="ord-block" style="padding-left:10px; padding-right:25px" onclick="NavPanel('4')">Invoice</div></div>
+                </div>
+                <div class="trans-cancel" style="max-width:115px" id="dvTransCan"><a class="cancel-lnk" href="#" onclick="dropTrans()">Cancel Transaction</a></div>
+                <div class="trans-cancel" style="max-width:115px; display:none" id="dvEditCan"><a class="cancel-lnk" href="#" onclick="returnEdit()">Cancel Edit</a></div>
+            </div>
+        </div>
+        <div>
+
+            @*Consignment = 102,
+            Transfers = 103,
+            Shipping = 104,
+            Storage = 105,
+            Repair = 106,
+            Acquisition = 107,
+            Transport = 108,
+            Recovery = 109,*@
+
+            <form id="form-transaction" name="form-transaction">
+                <input type="hidden" id="ttp" />
+                <input type="hidden" id="ppt" />
+                <input type="hidden" id="nav" />
+                <input type="hidden" id="ipu" />
+                <input type="hidden" id="mns" value="0" />
+                <div id="dvg1" style="padding-bottom:10px; display:none">
+                    <div style="clear: both; height: 10px"></div>
+                    <div class="well-grp" id="dvSelTrans">Select Transaction</div>
+                    <div id="dvg2" class="well-text row" style="margin-left: 0; width: 100%">
+                        <div style="display:inline-block; width:100%">
+                            <div id="dvg3" style="display:inline-block; width:100%">
+                                <div class="top-buffer">
+                                    <label for="so1" class="label-form control-label lbl-black">Transaction: </label>
+                                    <select id="so1" class="ag-control input-sm ctrl-width" name="AddItem" data-rule-required="true" aria-required="true" onchange="setTransType(this.value)">
+                                        <option value="0" selected>- SELECT -</option>
+                                        <option value="101">Sales</option>
+                                        <option value="102">Consignment</option>
+                                        <option value="103">FFL Transfer</option>
+                                        <option value="104">Shipping</option>
+                                        <option value="105">Storage</option>
+                                        <option value="106">Repair</option>
+                                        <option value="107">Acquisition</option>
+                                        <option value="108">Transport</option>
+                                        <option value="109">Gun Recovery</option>
+                                        @*<option value="10">Services: Return</option>*@
+                                        <option value="200">Generic Transaction</option>
+                                    </select>
+                                    <div id="errorso4" class="has-error cust-err-pad"></div>
+                                </div>
+                            </div>
+                            <div id="dvg11" style="display:none; width:100%">
+                                <div class="top-buffer">
+                                    <label for="so8" class="label-form control-label lbl-black">Transfer Type: </label>
+                                    <select id="so8" class="ag-control input-sm ctrl-width" name="AddItem" data-rule-required="true" aria-required="true" onchange="resetFflTransType(this.value)">
+                                        <option>- SELECT -</option>
+                                        <option value="1">FFL Transfer</option>
+                                        <option value="2">CA Private-Party Transfer</option>
+                                    </select>
+                                    <div id="errorso8" class="has-error cust-err-pad"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="dvCartBody" style="display:none">
+            <div style="width:100%; display:none; float:left" id="dvGenCat">
+                <form id="form-generic" name="form-generic">
+                    <div class="well-grp" id="dvItemTitle">Add Generic Order</div>
+                    <div class="well-text row" style="margin-left: 0; width: 100%">
+                        <div class="panel-left" style="width:50%">
+                            <div class="top-buffer">
+                                <label for="so10" class="label-form control-label lbl-black">Taxable: </label>
+                                <select id="so10" class="ag-control input-sm ctrl-width" name="GenTax" data-rule-required="true" aria-required="true">
+                                    <option value="">- SELECT -</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <div id="errorso10" class="has-error" style="padding-left: 114px"></div>
+                            </div>
+                        </div>
+                        <div class="panel-right" style="width:50%">
+                            <div class="top-buffer">
+                                <label for="tb29" class="label-form control-label lbl-black">Price: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="GenPrice" id="tb29" data-rule-required="true" aria-required="true" placeholder="Decimal Values Only" onkeypress="return isDecimal(event)">
+                                <div id="errortb29" class="has-error"  style="padding-left: 114px"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:23px">
+                            <label for="tb30" class="label-form control-label lbl-black txtArea" style="vertical-align: top; padding-top: 5px;">Order Desc: </label>
+                            <textarea id="tb30" name="GenDesc" class="ag-control input-sm ctrl-width" rows="5"></textarea>
+                            <div id="errortb30" class="has-error"  style="padding-left: 114px"></div>
+                        </div>
+                        <div style="width:100%; text-align:center; margin:0 auto">
+                            <span id="spGenBtns" style="margin:0 auto; text-align:center; width:100%">
+                                <button type="button" class="btn btn-xs btn-c-red" id="btnGenCan" name="btnGenClr" style="margin-right:5px" onclick="clearGeneric()">Clear</button>
+                                <button type="button" class="btn btn-xs btn-c-green" id="btnGenAdd" name="btnGenAdd" onclick="addGenericItem()">Add Item</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div style="width:50%; display:inline-block; float:left" id="dvSchCat">
+                <div class="well-grp" id="dvItemTitle">Select Group Category</div>
+                <div class="well-text row" style="margin-left: 0; width: 100%">
+                    <div style="display:inline-block; width:100%">
+                        <div id="dvg5" style="width:100%">
+                            <div class="top-buffer">
+                                <label for="so2" class="label-form control-label lbl-black">Item Group: </label>
+                                <select id="so2" name="ItemGrp" class="ag-control input-sm ctrl-width" onchange="addItemGrp(this.value)">
+                                    <option value="0">- SELECT -</option>
+                                    <option value="100">Guns</option>
+                                    <option value="200">Ammunition</option>
+                                    <option value="300">Accessories</option>
+                                </select>
+                                <span id="spItmCat" style="font-weight:bold; color:black; display:none">Guns</span>
+                                <div id="errorsb1" class="has-error pad-err"></div>
+                            </div>
+                        </div>
+                        <div id="dvg6" style="display:none">
+                            <div class="top-buffer">
+                                <label for="so3" class="label-form control-label lbl-black">Inventory Source: </label>
+                                <select id="so3" class="ag-control input-sm ctrl-width" name="InvSource" data-rule-required="true" aria-required="true" onchange="showCatPanel()">
+                                    <option value="" selected>- SELECT -</option>
+                                    <option value="150">Available Stock</option>
+                                    <option value="151">Special Order</option>
+                                    @*<option value="152">Customer Provided</option>*@
+                                </select>
+                                <div id="errorso5" class="has-error cust-err-pad"></div>
+                            </div>
+                        </div>
+
+                        <div id="dvg10" style="display:none">
+                            <div class="top-buffer">
+                                <label for="so7" class="label-form control-label lbl-black">CA Private Party Trans: </label>
+                                <select id="so7" class="ag-control input-sm ctrl-width" name="InvSource" data-rule-required="true" aria-required="true">
+                                    <option value="" selected>- SELECT -</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                                <div id="errorso7" class="has-error cust-err-pad"></div>
+                            </div>
+                        </div>
+                        <div id="dvg9" style="display:none">
+                            <div class="top-buffer">
+                                <label for="so6" class="label-form control-label lbl-black">Customer Item: </label>
+                                <select id="so6" class="ag-control input-sm ctrl-width" name="CustItem" data-rule-required="true" aria-required="true" onchange="setTransAction(this.value)"></select>
+                                <div id="errorso6" class="has-error cust-err-pad"></div>
+                            </div>
+                        </div>
+                        <div id="dvg12" style="display:none">
+                            <div class="top-buffer">
+                                <label for="so9" class="label-form control-label lbl-black">PPT Seller: </label>
+                                <div class="top-buffer" id="dvPptSup" style="display:none"></div>
+                                @*<select id="so9" class="ag-control input-sm ctrl-width" name="PptSeller" data-rule-required="true" aria-required="true" onchange="setPptItems(this.value)"></select>
+                                <div id="errorso9" class="has-error cust-err-pad"></div>*@
+                            </div>
+                        </div>
+                        <div id="dvg13" style="display:none">
+                            <div style="text-align:right"><button type="button" class="btn btn-xs btn-nav-blue" id="btnCont" name="btnCont" style="width:140px" onclick="addPptItem()">Add To Cart</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dvCartMain" style="width:50%; float:right; padding-left:7px" onmouseover="viewCart()">
+                <div class="cartpop">
+                    <div class="well-grp" id="dvItemTitle">Transaction Cart: <span id="spZeroCt">0 Items</span> <span id="spItemCt" style="text-decoration:underline; color:#00FF00"></span></div>
+                    <div class="poptext" id="cartIcon" style="display: none" onmouseleave="hideTheCart()">
+
+                        <div class="cartpop-oop" style="display: none;">
+                            <span class="glyphicon glyphicon-warning-sign" style="height: 12px;"></span>&nbsp;Your shopping cart contains items that are no longer available or out of stock.
+                        </div>
+                        <div style="max-height: 125px; overflow-y: scroll" id="cartItems">
+                        </div>
+                        <div style="width: 100%; padding-top: 5px; padding-bottom: 20px">
+                            <div class="cartpop-subTxt">Subtotal:</div>
+                            <div class="cartpop-subTotal">$0.00</div>
+                        </div>
+                        <hr style="border-top: 3px double #666666; width: 95%; margin-bottom:10px !important">
+                    </div>
+                </div>
+                <div class="well-text row" style="margin-left: 0; width: 100%; min-height:51px; text-align:center">
+                    <div id="cartHov" class="glyphicon glyphicon-shopping-cart">
+                        <span id="spTtl" class="cartTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div id="dvBtnCart" style="display:none; width:50%">
+                <div style="padding-bottom:10px"><button type="button" class="btn btn-xs btn-nav-blue" id="btnAddMore" name="btnAddMore" onclick="addMoreItems()">Ann Another Item</button></div>
+                <div id="dvBtnFulfill"><button type="button" class="btn btn-xs btn-nav-green" id="btnCont" name="btnCont" onclick="setFulfill()">Continue</button></div>
+                <div id="dvBtnEdit" style="display:none"><button type="button" class="btn btn-xs btn-green2 align-submit" id="btnOrdCont" name="Continue" onclick="returnEdit()">Return To Invoice</button></div>
+            </div>
+            <div id="dvOrdFulfill" style="display:none; float:left">
+                <form id="form-item-search" name="form-item-search">
+                    <input type="hidden" id="fsAcq" />
+                    <input type="hidden" id="fidAcq" />
+                    <input type="hidden" id="aqFnm" />
+                    <input type="hidden" id="aqFlc" />
+                    <input type="hidden" id="sid" value="0" />
+                    <input type="hidden" id="sup" value="0" />
+                    <input type="hidden" id="fcd" value="0" />
+                    <input type="hidden" id="pup" value="0" />
+                    <input type="hidden" id="pfc" value="0" />
+                    <input type="hidden" id="prf" value="0" />
+                    <input type="hidden" id="cat" value="0" />
+                    <input type="hidden" id="stp" value="0" />
+                    <input type="hidden" id="suc" name="supcount" data-rule-validsupcount="true" aria-required="true" />
+
+                    <div class="well-grp" id="dvOrdSchTtl">Item Search</div>
+                    <div class="well-text row" style="margin-left: 0; width: 100%">
+                        <div class="panel-left" id="dvItmSchLf">
+                            <div class="ord-buffer" id="dvx2">
+                                <label for="sb3" class="label-form control-label lbl-black">Manufacturer: </label>
+                                <select name="SrchManuf" id="sb3" class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true" data-rule-required="true" aria-required="true">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        <option value="-1">- ADD NEW MANUFACTURER -</option>
+                                        foreach (var item in Model.Menus.ManufAll.Manufacturers)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb3" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx12">
+                                <label for="sb9" class="label-form control-label lbl-black">Condition: </label>
+                                @Html.DropDownList("Condition", Model.Menus.Condition.GunConditions, "- SELECT - ", new { id = "sb9", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                                <div id="errorsb9" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx3">
+                                <label for="sb4" class="label-form lbl-black">Caliber: </label>
+                                <select name="SrchCaliber" id="sb4" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.AllCaliber.AllCalibers)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb4" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx18" class="ord-buffer">
+                                <label for="sb13" class="label-form lbl-black">Ammo Type: </label>
+                                <select name="AmmoType" id="sb13" class="ag-control input-sm ctrl-width" onchange="shotOrShell(this.value)">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.ItemSubCategories.SubCategories)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb13" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx8">
+                                <label for="sb8" class="label-form lbl-black">Category: </label>
+                                <select name="SrchCaliber" id="sb8" class="ag-control input-sm ctrl-width">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.MerchOtherStuff.Categories)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb8" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx4">
+                                <label for="sb5" class="label-form control-label lbl-black">Action: </label>
+                                @Html.DropDownList("GunAction", Model.Menus.Action.Actions, "- SELECT - ", new { id = "sb5", @class = "ag-control input-sm ctrl-width", data_rule_required = "false", aria_required = "false" })
+                                <div id="errorsb5" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx5">
+                                <label for="sb6" class="label-form control-label lbl-black">Finish: </label>
+                                @Html.DropDownList("GunFinish", Model.Menus.Finish.GunFinishes, "- SELECT - ", new { id = "sb6", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                                <div id="errorsb6" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx10">
+                                <label for="tb3" class="label-form lbl-black">UPC Code: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="UpcCode" id="tb3" onkeypress="return isNumber(event)" placeholder="Numbers Only" maxlength="16">
+                                <div id="errortb3" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx9">
+                                <label for="tb2" class="label-form lbl-black">Model Name: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="ModelName" id="tb2">
+                                <div id="errortb2" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx6">
+                                <label for="tb1" class="label-form lbl-black">Total Rounds: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="TotalRounds" id="tb1">
+                                <div id="errortb1" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx11">
+                                <label for="tb4" class="label-form lbl-black">Price: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="Price" id="tb4">
+                                <div id="errortb4" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx55">
+                                <label for="tb44" class="label-form lbl-black">Units: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="Units" id="tb44" onkeypress="return isNumber(event)" maxlength="4">
+                                <div id="errortb44" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx13">
+                                <label for="sb10" class="label-form control-label lbl-black">Original Box: </label>
+                                <select name="OrigBox" id="sb10" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <div id="errorsb10" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx14">
+                                <label for="sb11" class="label-form control-label lbl-black">CA Lock Brand: </label>
+                                <select name="LockMake" id="sb11" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true" onchange="setLocks()">
+                                    @{
+                                        <option>- SELECT -</option>
+                                        foreach (var item in Model.Menus.GunLockManuf.GunLockMfgs)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb11" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx16">
+                                <label for="tb5" class="label-form lbl-black">Handling Fee: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="SrchQuick" id="tb5">
+                                <div id="errorto3" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx66">
+                                <label for="sb36" class="label-form control-label lbl-black">Recovery Goal: </label>
+                                <select name="RecoveryGoal" id="sb36" class="ag-control input-sm ctrl-width" onchange="showRecoveryFulfill(this.value)">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.RecoveryObjectives)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="ord-buffer" id="dvx56">
+                                <label for="sb30" class="label-form control-label lbl-black">Fulfillment: </label>
+                                <select name="Fulfill" id="sb30" class="ag-control input-sm ctrl-width" onchange="setGoOpt(this.value)">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.Fulfillment.Fulfillments)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb30" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvFulfillAll">
+                                <div id="dvRecovery" style="display:none">
+                                    <div class="top-buffer">
+                                        <label for="tb50" class="label-form lbl-black">Attorney Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AttorneyName" id="tb50">
+                                        <div id="errortb50" class="has-error pad-err"></div>
+                                    </div>
+                                    <div class="top-buffer">
+                                        <label for="tb51" class="label-form lbl-black">Attorney Phone: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AttorneyPhone" id="tb51">
+                                        <div id="errortb51" class="has-error pad-err"></div>
+                                    </div>
+                                    <div class="top-buffer">
+                                        <label for="tb54" class="label-form lbl-black">Attorney Email: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AttorneyEmail" id="tb54">
+                                        <div id="errortb54" class="has-error pad-err"></div>
+                                    </div>
+                                    <div class="top-buffer">
+                                        <label for="tb52" class="label-form lbl-black">Case Officer: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="OfficerName" id="tb52">
+                                        <div id="errortb52" class="has-error pad-err"></div>
+                                    </div>
+                                    <div class="top-buffer">
+                                        <label for="tb53" class="label-form lbl-black">Officer Phone: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="OfficerPhone" id="tb53">
+                                        <div id="errortb53" class="has-error pad-err"></div>
+                                    </div>
+                                    <div class="top-buffer">
+                                        <label for="tb55" class="label-form lbl-black">Officer Email: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="OfficerPhone" id="tb55">
+                                        <div id="errortb55" class="has-error pad-err"></div>
+                                    </div>
+                                </div>
+                                <div id="dvFulWrap">
+                                    <div id="dvx58" style="display: none">
+                                        <div id="dvx48" class="top-buffer">
+                                            <label for="sb31" class="label-form control-label lbl-black" id="lblSb31">Pickup From:  </label>
+                                            @Html.DropDownList("AcqSellerType", Model.Menus.SellerType.GunSellerTypes, "- SELECT - ",
+                                            new { id = "sb31", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setPickup(this.value)" })
+                                            <div id="errorsb31" class="has-error pad-err"></div>
+                                        </div>
+                                        <div id="dvx50" style="display: none">
+                                            <div class="top-buffer">
+                                                <label for="tb47" class="label-form lbl-black">Pickup Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="TagName" id="tb47" placeholder="Pickup Name, Organization or C&R Name">
+                                                <div id="errortb47" class="has-error pad-err"></div>
+                                            </div>
+                                        </div>
+                                        <div id="dvx57" style="display: none">
+                                            <div class="top-buffer">
+                                                <label for="sb33" class="label-form lbl-black">FFL State: </label>
+                                                @Html.DropDownList("FflState", Model.Menus.UsStateNames.UsStates, "- SELECT - ",
+                                                    new { id = "sb33", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                                                <div id="errorsb33" class="has-error pad-err"></div>
+                                            </div>
+                                            <div class="top-buffer">
+                                                <label for="tb48" class="label-form lbl-black">FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="FflName" id="tb48" data-rule-required="true" aria-required="true" placeholder="Select FFL State First">
+                                                <div id="errortb48" class="has-error pad-err"></div>
+                                            </div>
+                                            <div class="top-buffer">
+                                                <label for="tb49" class="label-form lbl-black">Contact Email: </label><input type="text" id="tb49" class="ag-control input-sm ctrl-width pad-lft" name="RecipEmail" aria-required="true">
+                                            </div>
+                                            <div class="top-buffer">
+                                                <div style="text-align: right; margin-right: 7px; padding-top: 3px">
+                                                    <button type="button" class="btn btn-xs btn-red2 btn-inv-guns" id="btnClrPup" onclick="clearFflPickup()">Clear Selection</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-buffer" id="dvx60" style="display: none">
+                                        <label for="tb56" class="label-form lbl-black">Order Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqDate" id="tb56" value="@ordDt">
+                                        <div id="errortb56" class="has-error pad-err"></div>
+                                    </div>
+
+                                    <div id="dvx44" class="top-buffer">
+                                        <label for="sb23" class="label-form control-label lbl-black" id="lblSb23">Order From:  </label>
+                                        @Html.DropDownList("AcqSellerType", Model.Menus.SellerType.GunSellerTypes, "- SELECT - ",
+                                        new { id = "sb23", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setSource(this.value)" })
+                                        <div id="errorsb23" class="has-error pad-err"></div>
+                                    </div>
+                                    <div id="dvx59" style="display: none">
+                                        <div class="top-buffer" id="dvSun">
+                                            <label for="tb31" class="label-form lbl-black" id="lbltb31">Supplier Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SupplierName" id="tb31" placeholder="Supplier Name, Organization or C&R Name" onblur="hasSupp()">
+                                            <div id="errortb31" class="has-error pad-err"></div>
+                                        </div>
+                                        <div id="dvSuppInfo" style="display:none">
+                                            <div style="padding-top:20px">
+                                                <label for="to2" class="label-form lbl-black" style="vertical-align: top">Supplier: </label>
+                                                <div id="dvSupp" class="cust-info"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="dvx46" style="display: none">
+                                        <div class="top-buffer">
+                                            <label for="sb25" class="label-form lbl-black">FFL State: </label>
+                                            @Html.DropDownList("FflState", Model.Menus.UsStateNames.UsStates, "- SELECT - ",
+                                                new { id = "sb25", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true"  })
+                                            <div id="errorsb25" class="has-error pad-err"></div>
+                                        </div>
+                                        <div class="top-buffer">
+                                            <label for="tb26" class="label-form lbl-black">FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="FflName" id="tb26" data-rule-required="true" aria-required="true" placeholder="Select FFL State First" onblur="hasFfl()">
+                                            <div id="errortb26" class="has-error pad-err"></div>
+                                        </div>
+                                        <div class="top-buffer">
+                                            <label for="tb46" class="label-form lbl-black">Contact Email: </label><input type="text" id="tb46" class="ag-control input-sm ctrl-width pad-lft" name="RecipEmail" aria-required="true">
+                                        </div>
+                                        <div class="top-buffer">
+                                            <div style="text-align: right; margin-right: 7px; padding-top: 3px">
+                                                <button type="button" class="btn btn-xs btn-red2 btn-inv-guns" id="btnClrFFL" onclick="clearFflRecip()">Clear Selection</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="dvx47" style="display: none">
+                                        <div class="top-buffer">
+                                            <label for="sb26" class="label-form control-label lbl-black">Warehouse: </label>
+                                            <select name="FflWhse" id="sb26" class="ag-control input-sm ctrl-width" data-rule-required="true" aria-required="true">
+                                                <option value="">-SELECT-</option>
+                                            </select>
+                                            <div id="errorsb26" class="has-error pad-err"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div id="dvx63">
+                                        <div class="top-buffer">
+                                            <label for="sb34" class="label-form lbl-black">ID Address Match: </label>
+                                            <select name="IdAddrMatch" id="sb34" class="ag-control input-sm ctrl-width" data-rule-required="true" aria-required="true">
+                                                <option value="">-SELECT-</option>
+                                                <option value="true">YES</option>
+                                                <option value="false">NO</option>
+                                            </select>
+                                            <div id="errorsb34" class="has-error pad-err"></div>
+                                        </div>
+                                        <div class="top-buffer">
+                                            <label for="sb35" class="label-form lbl-black">Has Real ID: </label>
+                                            <select name="IsRealId" id="sb35" class="ag-control input-sm ctrl-width" data-rule-required="true" aria-required="true">
+                                                <option value="">-SELECT-</option>
+                                                <option value="true">YES</option>
+                                                <option value="false">NO</option>
+                                            </select>
+                                            <div id="errorsb35" class="has-error pad-err"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="dvx42" style="padding-top:4px">
+                                    <label for="tb23" class="label-form control-label lbl-black txtArea" style="vertical-align: top; padding-top: 5px;">Notes: </label>
+                                    <textarea id="tb23" name="Notes" class="ag-control input-sm ctrl-width" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <span id="spFulBtns" style="display:none; text-align:center; margin-top:15px; margin-bottom:-10px">
+                                <button type="button" class="btn btn-xs btn-c-red" id="btnFulCan" name="btnFulCan" style="margin-right:5px">Cancel</button>
+                                <button type="button" class="btn btn-xs btn-blue" id="btnFulUpd" name="btnFulUpd" style="margin-right:5px; display:none">Update</button>
+                                <button type="button" class="btn btn-xs btn-c-green" id="btnFulAdd" name="btnFulAdd">Submit</button>
+                            </span>
+
+                        </div>
+                        <div class="panel-right" id="dvItmSchRt">
+
+                            <div id="dvx62">
+                                <label for="tb28" class="label-form lbl-black" id="ltb6">Gun Search: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="SrchQuick" id="tb28" placeholder="Enter Inventory ID, Web ID or Customer Name">
+                                <div id="errortb28" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx41">
+                                <label for="tb22" class="label-form lbl-black">MFG Part #: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="MfgPartNum" id="tb22">
+                                <div id="errortb22" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx53">
+                                <label for="tb43" class="label-form lbl-black">Description: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="MerchDesc" id="tb43">
+                                <div id="errortb43" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx52" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="sb28" class="label-form lbl-black">Is Slug: </label>
+                                    <select name="CboIsSlug" id="sb28" class="ag-control input-sm ctrl-width" aria-required="true">
+                                        <option value="false">NO</option>
+                                        <option value="true">YES</option>
+                                    </select>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="tb41" class="label-form lbl-black">Chamber Size: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="Chamber" id="tb41" placeholder="Decimal Values Only" onkeypress="return isDecimal(event)">
+                                    <div id="errortb41" class="has-error pad-mch"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="tb42" class="label-form lbl-black">Size/Weight: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="ShotSize" id="tb42" placeholder="Decimal Values Only" onkeypress="return isDecimal(event)">
+                                    <div id="errortb42" class="has-error pad-mch"></div>
+                                </div>
+                            </div>
+                            <div class="ord-buffer" id="dvx43">
+                                <label for="tb39" class="label-form lbl-black">Capacity: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="Capacity" id="tb39" onkeypress="return isNumber(event)" placeholder="Numbers Only" maxlength="3">
+                                <div id="errortb39" class="has-error pad-err"></div>
+                            </div>
+                            <div class="ord-buffer" id="dvx7">
+                                <label for="sb7" class="label-form lbl-black">Bullet Type: </label>
+                                <select name="BulletType" id="sb7" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true" onchange="showToAdd(3)">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        <option value="-1">- ADD NEW BULLET TYPE -</option>
+                                        foreach (var item in Model.Menus.Bullets.BulletTypes)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb7" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx23" class="ord-buffer">
+                                <label for="sb15" class="label-form control-label lbl-black">CA Legal: </label>
+                                <select name="SrchManuf" id="sb15" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                                <div id="errorsb15" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx19" class="ord-buffer">
+                                <label for="sb14" class="label-form control-label lbl-black">Gun Type: </label>
+                                <select id="sb14" class="ag-control input-sm ctrl-width" name="GunType" data-rule-required="true" aria-required="true">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.GunType.GunTypes)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb14" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx20" class="ord-buffer">
+                                <label for="tb7" class="label-form lbl-black">Rounds/Box: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="RoundsPerBox" id="tb7" onkeypress="return isNumber(event)" maxlength="9">
+                                <div id="errortb7" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx21" class="ord-buffer">
+                                <label for="tb8" class="label-form lbl-black">Bullet Weight: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="BulletWeight" id="tb8" onkeypress="return isNumber(event)" maxlength="9">
+                                <div id="errortb8" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx22" class="ord-buffer">
+                                <label for="tb9" class="label-form lbl-black">Barrel: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="Barrel" id="tb9" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb9" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx27" class="ord-buffer">
+                                <label for="tb12" class="label-form lbl-black">Cost: </label>
+                                <input type="text" id="tb12" class="ag-control input-sm ctrl-width" name="Cost" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb12" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx28" class="ord-buffer">
+                                <label for="tb13" class="label-form lbl-black">Freight: </label>
+                                <input type="text" id="tb13" class="ag-control input-sm ctrl-width" name="Freight" onkeypress="return isDecimal(event)" maxlength="9" value="0.00">
+                                <div id="errortb13" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx29" class="ord-buffer">
+                                <label for="tb14" class="label-form lbl-black">Fees: </label>
+                                <input type="text" id="tb14" class="ag-control input-sm ctrl-width" name="Fees" onkeypress="return isDecimal(event)" maxlength="9" value="0.00">
+                                <div id="errortb14" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx30" class="ord-buffer">
+                                <label for="tb15" class="label-form lbl-black">Repair Cost: </label>
+                                <input type="text" id="tb15" class="ag-control input-sm ctrl-width" name="Labor" onkeypress="return isDecimal(event)" maxlength="9" value="0.00">
+                                <div id="errort21" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx31" class="ord-buffer">
+                                <label for="tb16" class="label-form lbl-black">Parts Cost: </label>
+                                <input type="text" id="tb16" class="ag-control input-sm ctrl-width" name="Parts" onkeypress="return isDecimal(event)" maxlength="9" value="0.00">
+                                <div id="errortb16" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx65" class="ord-buffer">
+                                <label for="tb32" class="label-form lbl-black">Monthly Rent: </label>
+                                <input type="text" id="tb32" class="ag-control input-sm ctrl-width" name="Rent" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb32" class="has-error pad-err"></div>
+                            </div>
+
+                            <div id="dvx24" class="ord-buffer">
+                                <label for="tb10" class="label-form lbl-black">Serial #: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="SerialNum" id="tb10">
+                                <div id="errortb10" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx32" class="ord-buffer">
+                                <label for="sb17" class="label-form lbl-black">Shipping Size: </label>
+                                <select name="ShippingSize" id="sb17" class="ag-control input-sm ctrl-width">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        foreach (var item in Model.Menus.Shipping.ShippingBoxes)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errorsb17" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx33" class="ord-buffer">
+                                <label for="tb17" class="label-form lbl-black">Shipping Weight: </label>
+                                <div style="display: inline-block; width: calc(100% - 120px)">
+                                    <div style="display: inline-block; width: 50%">
+                                        <input type="text" class="ag-control input-sm" name="Pounds" id="tb17" placeholder="Pounds" style="width: 100%" onkeypress="return isNumber(event)" maxlength="3">
+                                    </div>
+                                    <div style="display: inline-block; width: 50%; float: right; padding-left: 3px">
+                                        @Html.DropDownList("Ounces", Model.Menus.WeightOz.WeightOunces, new { id = "sb18", @class = "ag-control input-sm", data_rule_required = "false", aria_required = "false" })
+                                        @*<select name="Ounces" id="sb18" class="ag-control input-sm" style="width: 100%">
+                                @{
+                                    <option value="">- OUNCES -</option>
+                                    for (var i = 0; i < 16; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="dvx34" class="ord-buffer">
+                                <label for="tb18" class="label-form lbl-black">Items Per Box: </label>
+                                <input type="text" id="tb18" class="ag-control input-sm ctrl-width" name="ItemsPerBox" onkeypress="return isNumber(event)" maxlength="2">
+                                <div id="errortb18" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx25" class="ord-buffer">
+                                <label for="sb16" class="label-form control-label lbl-black">Offer Basis: </label>
+                                <select name="SrchManuf" id="sb16" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="1">PACKAGE / FIXED AMOUNT</option>
+                                    <option value="2">PER ITEM</option>
+                                </select>
+                                <div id="errorsb16" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx26" class="ord-buffer">
+                                <label for="tb11" class="label-form lbl-black">Offer Amount: </label>
+                                <input type="text" class="ag-control input-sm ctrl-width" name="Cost" id="tb11" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9" value="0.00">
+                                <div id="errortb11" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx35" class="ord-buffer">
+                                <label for="tb19" class="label-form lbl-black">Monthly Fee: </label>
+                                <input id="tb19" type="text" class="ag-control input-sm ctrl-width" name="Cost" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb19" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx36" class="ord-buffer">
+                                <label for="tb20" class="label-form lbl-black">Insured Value: </label>
+                                <input id="tb20" type="text" class="ag-control input-sm ctrl-width" name="Cost" placeholder="Numeric Decimal Values Only" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb20" class="has-error pad-err"></div>
+                            </div>
+
+                            <div class="ord-buffer" id="dvx15">
+                                <label for="sb12" class="label-form control-label lbl-black">Valuation: </label>
+                                <select name="Valuation" id="sb12" class="ag-control input-sm ctrl-width" onchange="setCommType(this.value)">
+                                    <option value="">- SELECT -</option>
+                                    <option value="1">PERCENTAGE</option>
+                                    <option value="2">FLAT MINIMUM</option>
+                                </select>
+                                <div id="errorsb12" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx61" class="ord-buffer">
+                                <label for="tb27" class="label-form lbl-black">Comm Rate: </label>
+                                <input id="tb27" type="text" class="ag-control input-sm ctrl-width" name="Fees" onkeypress="return isDecimal(event)" maxlength="9" value="0.25">
+                                <div id="errortb27" class="has-error pad-err"></div>
+                            </div>
+
+                            <div id="dvx37" class="ord-buffer">
+                                <label for="tb21" class="label-form lbl-black">Fixed Price: </label>
+                                <input id="tb21" type="text" class="ag-control input-sm ctrl-width" name="FixedPrice" onkeypress="return isDecimal(event)" maxlength="9">
+                                <div id="errortb21" class="has-error pad-err"></div>
+                            </div>
+
+                            <div id="dvx38" class="ord-buffer">
+                                <label for="sb19" class="label-form control-label lbl-black">Paperwork: </label>
+                                <select name="Paperwork" id="sb19" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <div id="errorsb19" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx54" class="ord-buffer">
+                                <label for="sb29" class="label-form control-label lbl-black">Ship Oversize: </label>
+                                <select name="ShipOversize" id="sb29" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <div id="errorsb29" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx39" class="ord-buffer">
+                                <label for="sb20" class="label-form control-label lbl-black">CA Lock Model: </label>
+                                <select name="LockModel" id="sb20" class="ag-control input-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true">
+                                    <option>- SELECT GUN LOCK MFG FIRST -</option>
+                                </select>
+                                <div id="errorsb20" class="has-error pad-err"></div>
+                            </div>
+                            <div id="dvx40" class="ord-buffer">
+                                <label for="sb21" class="label-form control-label lbl-black">Taxable: </label>
+                                <select name="SrchManuf" id="sb21" class="ag-control input-sm ctrl-width">
+                                    <option value="">- SELECT -</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                                <div id="errorsb21" class="has-error pad-err"></div>
+                            </div>
+                        </div>
+                        <div id="dvx17">
+                            <label for="tb6" class="label-form lbl-black" id="ltb6">Gun Search: </label>
+                            <input type="text" class="ag-control input-sm ctrl-width" name="SrchQuick" id="tb6" placeholder="Enter Inventory ID, Web ID or Customer Name">
+                            <div id="errortb6" class="has-error pad-err"></div>
+                        </div>
+                        <div id="dva17" style="display:none">
+                            <label for="ta6" class="label-form lbl-black">Ammo Search: </label>
+                            <input type="text" class="ag-control input-sm ctrl-width" name="SrchQuick" id="ta6" placeholder="Enter Ammo WebID, TransID or Customer Name">
+                            <div id="errorta6" class="has-error pad-err"></div>
+                        </div>
+                        <div id="dvm17" style="display:none">
+                            <label for="tm6" class="label-form lbl-black">Quick Search: </label>
+                            <input type="text" class="ag-control input-sm ctrl-width" name="SrchQuick" id="tm6" placeholder="Enter Merchandise WebID, TransID or Customer Name">
+                            <div id="errortm6" class="has-error pad-err"></div>
+                        </div>
+                        <div id="dvx51" class="top-buffer" style="float: left; width:100%; padding-top:10px">
+                            <label for="Photos" class="label-form lbl-black" style="vertical-align: top; padding-top: 22px">Photo: </label>
+                            <div style="display: inline-block" id="addPhotoRow">
+                                <div id="Fi_1" class="fileinput fileinput-new img-loop" data-provides="fileinput" style="display: inline-block; padding-right: 3px;">
+                                    <div id="ImgM_1" class="fileinput-preview thumbnail img-frame" data-trigger="fileinput"></div>
+                                    <div class="checkForm" style="text-align: center">
+                                        <span class="btn-file">
+                                            <a href="#" class="fileinput-new uploadTxt" data-trigger="fileinput">Update</a>
+                                            <span class="fileinput-new uploadTxt" id="delCol_1"><span style="color: black; padding-right: 3px">|</span><span><a href="#" class="uploadTxt" onclick="wipeInvImg('1','5')">Delete</a></span></span>
+                                            <input type="file" name="agimg" id="ImgItm" orig-img="">
+                                        </span>
+                                        <a href="#" class="fileinput-exists uploadTxt img-loop" data-dismiss="fileinput" id="rmvLnk_1">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divGrpBtnSrch" style="padding-top:10px; text-align:center">
+                            @*<div id="dvBtnTopOrdSch" style="display:none; padding-right:10px"><button type="button" class="btn btn-xs btn-green2 align-submit" id="btnOrdTopSch">Search</button></div>*@
+                            <div id="dvBtnTopOrdAdd" style="padding-right:10px;"><button type="button" class="btn btn-xs btn-c-blue align-submit" id="btnAddCustom" onclick="routeCustom()">Add Item</button></div>
+                            <div id="dvBtnTopOrdCan" style="padding-right:10px;"><button type="button" class="btn btn-xs btn-red2 align-submit" id="btnOrdTopClr" onclick="cancelCustomAdd()">Cancel</button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btnOrderRow" id="dvBtnRowFulfill">
+                <div style="clear: both; height: 5px" id="dvFulSpace"></div>
+                <div style="display:inline-block; width:100%">
+                    <div id="dvBtnOrdBk" style="width:33%; float:left"><button type="button" class="btn btn-xs btn-c-blue" id="btnOrdBack" name="btnOrdBack" onclick="addMoreItems()"><< Back</button></div>
+                    <div id="dvBtnOrdNw" style="width:34%; float:left; text-align:center; display:none"><button type="button" class="btn btn-xs btn-c-tan" id="btnOrdNew" name="btnOrdNew" onclick="beginTrans()">Add Transaction</button></div>
+                    <div id="dvBtnOrdCn" style="width:34%; float:left; text-align:center; display:none"><button type="button" class="btn btn-xs btn-c-red" id="btnOrdCanc" name="btnOrdCanc" onclick="showContinue()">Cancel Add</button></div>
+                    <div id="dvBtnOrdGo" style="width:33%; float:right; visibility:hidden; text-align: right"><button type="button" class="btn btn-xs btn-c-green" id="btnOrdNext" name="btnOrdNext" onclick="routeFulfill()">Show Invoice</button></div>
+                </div>
+            </div>
+            <div id="dvItmSchRslt" style="margin-top:-4px; display:none">
+                <form id="form-search-params" name="form-search-params">
+                    <input type="hidden" id="did" value="0" />
+                    <input type="hidden" id="mid" value="0" />
+                    <input type="hidden" id="isi" value="0" />
+                    <input type="hidden" id="sci" value="0" />
+                    <input type="hidden" id="dco" value="0" />
+                    <input type="hidden" id="fco" value="0" />
+                    <input type="hidden" id="cnt" value="0" />
+                    <input type="hidden" id="opc" />
+                    <input type="hidden" id="iow" />
+                    <div class="srch-grid-hdr">
+                        <div></div>
+                        <div class="srch-hdr">Description</div>
+                        <div class="srch-hdr" style="text-align:center">Source</div>
+                        <div class="srch-hdr" style="text-align:center">Units</div>
+                        <div class="srch-hdr" style="text-align:center">Cost/Ext</div>
+                        <div class="srch-hdr" style="text-align:center">Sell/Gross</div>
+                        <div class="srch-hdr" style="text-align:center">Profit</div>
+                        <div></div>
+                    </div>
+                    <div class="srch-row" style="border-radius:4px; background:#3366CC; border:solid 2px black; font-size:11px; padding-top:5px; margin-top:-3px">
+                        <div style="text-align:right; padding-top:1px"><img id="imgSchRes" class="srch-img" /></div>
+                        <div style="padding-bottom:3px"><div id="dvSchDesc"></div></div>
+                        <div style="padding-top:10px">
+                            <select id="sb22" class="srch-control input-sm" style="width:350px" name="WarehouseSrc" data-rule-required="true" aria-required="true" onchange="showSchCost(this)"></select>
+                            <div id="errorsb22" class="has-error"></div>
+                        </div>
+                        <div style="text-align:center; padding-top:10px; padding-left:10px">
+                            <input type="text" class="srch-control input-sm" name="SchQty" style="text-align:center" id="tb25" value="2" onkeypress="return isNumberNoZero(event)" onchange="calcSch()">
+                            <div id="errortb25" class="has-error"></div>
+                        </div>
+                        <div style="text-align:center; padding-top:17px; font-weight:bolder"><div id="dvCostUnt" style="color:#00FF00; padding-bottom:14px">$0.00</div><div id="dvCostExt" style="color:#FFFF00">$0.00</div></div>
+                        <div style="text-align:center; padding-top:10px; font-weight:bolder">
+                            <div style="padding-bottom:6px">
+                                <input type="text" class="sell-txt input-sm" style="width:100%" name="SchPrice" id="tb24" value="$0.00" onkeypress="return isDecimal(event)" onchange="calcSch()">
+                                <div id="errortb24" class="has-error"></div>
+                            </div><div id="dvSellGrs" style="color:#FFFF00">$0.00</div>
+                        </div>
+                        <div style="text-align:center; padding-top:17px; font-weight:bolder"><div id="dvSchMgn" style="color:#00FF00; padding-bottom:14px">$810.00</div><div id="dvSchPft" style="color:#FFFF00">28%</div></div>
+                        <div style="padding-top:4px">
+                            <button type="button" class="btn btn-xs srch-btn-add" id="btnSchAddCart" onclick="addCartItem()">Add To Cart</button>
+                            <button type="button" class="btn btn-xs srch-btn-can" id="btnSchAddCart" onclick="canAddItem()" style="margin-top:5px">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="visibility:hidden">
+    <select name="FflCodes" id="sb32" class="ag-control input-sm ctrl-width">
+        @{
+            <option value="">- SELECT -</option>
+            foreach (var item in Model.Menus.FflCodes.Distributors)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>
+</div>
+
+
+<div class="dvStart" style="display:none">
+    <div id="dvg8" class="well-order-grp row">
+        <div id="dvInvoice" style="margin-top:-4px">
+            <form id="form-invoice" name="form-invoice">
+                <div class="inv-grid-hdr">
+                    <div class="inv-hdr">Delete</div>
+                    <div class="inv-hdr">Inventory</div>
+                    <div class="inv-hdr">Units</div>
+                    <div class="inv-hdr">Edit</div>
+                    <div class="inv-hdr">Description</div>
+                    <div class="inv-hdr">Price</div>
+                    <div class="inv-hdr-end">Extension</div>
+                </div>
+                <div class="well-text row" style="margin-left:0; width:100%; min-height:600px">
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="SupModal" class="modal" style="display:none">
+    <span class="close" onclick="closeSupModal();">&times;</span>
+    <div class="cust-frame">
+        <div id="dvCust" class="cust-content row" style="margin-left:0">
+            <div style="text-align:center"><a class="close-lnk" href="#" onclick="closeSupModal();">close window</a></div>
+            <span class="sup-title" id="dvAddTtl"></span>
+            @Html.Partial("_Supplier")
+            <div id="dvAddSupBtn" class="cust-btn">
+                <div style="padding-right:5px" class="cust-btn-pad" id="dvSupBtnCnl">
+                    <button type="button" class="btn btn-xs btn-c-red" id="btnCancel" onclick="clearSupplier()">Cancel</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvSupBtnAdd">
+                    <button type="button" class="btn btn-xs btn-c-green" id="btnAddNewSup" onclick="addSupplier('1')">Add Supplier</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvSupBtnEdt">
+                    <button type="button" class="btn btn-xs btn-c-blue" id="btnEditSup" onclick="editSupplier('1')">Edit Supplier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="caption"></div>
+    <div id="closeLnk" class="caption" onclick="closeSupPreview()">Close Preview</div>
+</div>

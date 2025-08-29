@@ -1,0 +1,102 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<style>
+
+    label.error {
+        color: yellow;
+        padding-top: 3px;
+    }
+
+    .pad-zip { padding-left:68px; }
+
+</style>
+
+<div>
+    <form data-form-validate="true" id="form-supplier">
+        <div id="dvCfl">
+            <div class="top-buffer">
+                <label for="ts1" class="label-form">03 FFL #: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SupCurFfl" id="ts1" data-rule-required="true" aria-required="true" placeholder="Format: X-XX-XXX-XX-XX-XXXXX">
+                <div id="errorts1" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts2" class="label-form">03 FFL Expires: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SupCurExp" id="ts2">
+                <div id="errorts2" class="has-error pad-sup"></div>
+            </div>
+        </div>
+        <div id="pvtParty">
+            <div class="top-buffer field required" id="dvOrg" style="display: none">
+                <label for="ts3" class="label-form">Organization: </label><input type="text" id="ts3" class="ag-control input-sm ctrl-width pad-lft" name="SupOrg" data-rule-required="true" aria-required="true">
+                <div id="errorts3" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer field required" id="divFname">
+                <label for="ts4" class="label-form">First Name: </label><input type="text" id="ts4" class="ag-control input-sm ctrl-width pad-lft" name="SupFirst" data-rule-required="true" aria-required="true">
+                <div id="errorts4" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer field required" id="divLname">
+                <label for="ts5" class="label-form">Last Name: </label><input type="text" id="ts5" class="ag-control input-sm ctrl-width pad-lft" name="SupLast" data-rule-required="true" aria-required="true">
+                <div id="errorts5" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts6" class="label-form">Address: </label><input type="text" id="ts6" class="ag-control input-sm ctrl-width pad-lft" name="SupAddr" data-rule-required="true" aria-required="true">
+                <div id="errorts6" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts7" class="label-form">City: </label><input type="text" id="ts7" class="ag-control input-sm ctrl-width pad-lft" name="SupCity" data-rule-required="true" aria-required="true">
+                <div id="errorts7" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer" style="float:left; margin-left:4px; display:inline-block">
+                <label for="ss1" class="label-form">State: </label>
+                @Html.DropDownList("SupState", Model.Menus.UsStateAbrv.UsStates, "- SELECT - ",
+                 new { id = "ss1", @class = "ag-control input-sm", data_rule_required = "true", aria_required = "true", style = "width:110px" })
+                <div id="errorss1" class="has-error pad-sup"></div>
+            </div>
+            <div style="text-align:left">
+                <div class="top-buffer">
+                    <div class="zip-group">
+                        <label id="l2" for="ts8" class="zip-pad">Zip Code: </label>
+                        <div class="zip-wrap">
+                            <input type="text" class="ag-control input-sm" id="ts8" style="width: 60px !important" name="SupZipCode" maxlength="5" onkeypress="return isNumber(event)" data-rule-required="true" aria-required="true"><span style="padding-left: 3px; padding-right: 3px; color: black">-</span><input type="text" class="input-sm ag-control" id="ts9" style="width: 54px !important" name="AcqZipExt" maxlength="4" onkeypress="return isNumber(event)">
+                            <div id="errorts8" class="has-error pad-zip"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="dvSid">
+            <div class="top-buffer">
+                <label for="ss2" class="label-form control-label">ID Type: </label>
+                <select name="IdType" id="ss2" class="ag-control input-sm ctrl-width">
+                    <option value="">- SELECT -</option>
+                    <option value="1">DRIVER'S LICENSE</option>
+                    <option value="2">STATE ID</option>
+                </select>
+                <div id="errorss2" class="has-error pad-err"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ss3" class="label-form control-label">ID State: </label>
+                @Html.DropDownList("IdState", Model.Menus.UsStateAbrv.UsStates, "- SELECT - ",
+                 new { id = "ss3", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                <div id="errorss3" class="has-error pad-err"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts12" class="label-form">ID Number: </label><input type="text" id="ts12" class="ag-control input-sm ctrl-width pad-lft" name="IdNumber" data-rule-required="true" aria-required="true">
+                <div id="errorts12" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts13" class="label-form">Date of Birth: </label><input type="text" id="ts13" class="ag-control input-sm ctrl-width pad-lft" name="IdDob" data-rule-required="true" aria-required="true">
+                <div id="errorts13" class="has-error pad-sup"></div>
+            </div>
+            <div class="top-buffer">
+                <label for="ts14" class="label-form">ID Expiration: </label><input type="text" id="ts14" class="ag-control input-sm ctrl-width pad-lft" name="IdExpires" data-rule-required="true" aria-required="true">
+                <div id="errorts14" class="has-error pad-sup"></div>
+            </div>
+        </div>
+        <div class="top-buffer" id="dvPhone">
+            <label for="ts10" class="label-form">Contact Phone: </label><input type="text" id="ts10" class="ag-control input-sm ctrl-width pad-lft" name="SupPhone" data-rule-required="true" aria-required="true">
+            <div id="errorts10" class="has-error pad-sup"></div>
+        </div>
+        <div class="top-buffer" id="dvEmail">
+            <label for="ts11" class="label-form">Contact Email: </label><input type="text" id="ts11" class="ag-control input-sm ctrl-width pad-lft" name="SupEmail">
+        </div>
+    </form>
+</div>

@@ -1,0 +1,196 @@
+﻿@using AgMvcAdmin.Common
+@model AgMvcAdmin.Models.PageModel
+
+@{
+
+    var css1 = string.Empty;
+    var css2 = string.Empty;
+    var js0 = string.Empty;
+    var js1 = string.Empty;
+    var js2 = string.Empty;
+    var js3 = string.Empty;
+    var js4 = string.Empty;
+    var js5 = string.Empty;
+    var pgTtl = string.Empty;
+
+
+
+    switch (Model.Page)
+    {
+        case Pages.InventoryGuns:
+            css1 = "<link href=\"/Content/inv-guns.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/customer.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/customer.js\"></script>";
+            js0 = "<script type=\"text/javascript\" src=\"/Scripts/inv-guns.js\"></script>";
+            js5 = "<script type=\"text/javascript\" src=\"/Scripts/inv-common.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/jquery.formatCurrency-1.4.0.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun - Add Guns To Inventory";
+            break;
+        case Pages.InventoryAmmo:
+            css1 = "<link href=\"/Content/inv-guns.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/customer.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/customer.js\"></script>";
+            js0 = "<script type=\"text/javascript\" src=\"/Scripts/instock.js\"></script>";
+            js5 = "<script type=\"text/javascript\" src=\"/Scripts/inv-common.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/jquery.formatCurrency-1.4.0.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun - Add Ammunition To Inventory";
+            break;
+        case Pages.InventoryMerchandise:
+            css1 = "<link href=\"/Content/inv-guns.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/customer.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/customer.js\"></script>";
+            js0 = "<script type=\"text/javascript\" src=\"/Scripts/merchandise.js\"></script>";
+            js5 = "<script type=\"text/javascript\" src=\"/Scripts/inv-common.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/jquery.formatCurrency-1.4.0.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun - Add Merchandise To Inventory";
+            break;
+        case Pages.BoundBook:
+            css1 = "<link href=\"/Content/regs.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/iThing.css\" rel=\"stylesheet\">";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/regs.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun ATF Bound Book (FFL: 9-33-059-01-1L-03205)";
+            break;
+        case Pages.Cflc:
+            css1 = "<link href=\"/Content/regs.css\" rel=\"stylesheet\">";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/regs.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun - California Firearms License Check";
+            break;
+        case Pages.CaHiCap:
+            css1 = "<link href=\"/Content/regs.css\" rel=\"stylesheet\">";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/regs.js\"></script>";
+            pgTtl = "Hillcrest Pawn & Gun - California High-Capacity Magazine Log";
+            break;
+        case Pages.OrdersExisting:
+        case Pages.OrdersCreate:
+        case Pages.OrdersTest:
+            css1 = "<link href=\"/Content/orders.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/customer.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/customer.js\"></script>";
+            js0 = "<script type=\"text/javascript\" src=\"/Scripts/cook-order.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/format-phone.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            pgTtl = "Create Customer Order";
+            break;
+        case Pages.DataFeedGuns:
+            css1 = "<link href=\"/Content/data-feed.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/loader.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/data-feed.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/loader.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            break;
+        case Pages.DataFeedDuplicates:
+            css1 = "<link href=\"/Content/data-feed.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/loader.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/duplicates.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/loader.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.DataFeedManuf:
+        case Pages.ContentHomeScroll:
+            css1 = "<link href=\"/Content/data-feed-mfg.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/feed-mfg.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.DataFeedImages:
+            css1 = "<link href=\"/Content/data-feed.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/feed-images.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.ContentManager:
+            css1 = "<link href=\"/Content/content.css\" rel=\"stylesheet\">";
+            js0 = "<script type=\"text/javascript\" src=\"/Scripts/home.js\"></script>";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/content.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/ckeditor/ckeditor.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.ContentCampaigns:
+            css1 = "<link href=\"/Content/content.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/campaigns.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.SalesCampaigns:
+            css1 = "<link href=\"/Content/content.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/sale.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+        case Pages.CustomerAdd:
+            css1 = "<link href=\"/Content/content.css\" rel=\"stylesheet\">";
+            css2 = "<link href=\"/Content/customer.css\" rel=\"stylesheet\">";
+            js1 = "<script type=\"text/javascript\" src=\"/Scripts/customer.js\"></script>";
+            js2 = "<script type=\"text/javascript\" src=\"/Scripts/format-phone.js\"></script>";
+            js3 = "<script type=\"text/javascript\" src=\"/Scripts/jquery-3.3.1.min.js\"></script>";
+            js4 = "<script type=\"text/javascript\" src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>";
+            break;
+
+
+    }
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@pgTtl</title>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+    <link href="/Content/main.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-select.css" rel="stylesheet" />
+
+    <link href="/Content/jasney-bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/lobibox.css" rel="stylesheet" />
+
+
+    @Html.Raw(css1)
+    @Html.Raw(css2)
+
+    <script type="text/javascript" src="/Scripts/modernizr-2.6.2.js"></script>
+    @Html.Raw(js3)
+    @Html.Raw(js4)
+    <script type="text/javascript" src="/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-min.js"></script>
+    <script type="text/javascript" src="/Scripts/respond.js"></script>
+
+    <script type="text/javascript" src="https://www.jasny.net/bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/Scripts/lobibox.js"></script>
+    <script type="text/javascript" src="/Scripts/global.js"></script>
+    @Html.Raw(js1)
+    @Html.Raw(js5)
+    @Html.Raw(js2)
+    @Html.Raw(js0)
+
+</head>
+<body>
+
+<div class="container body-content" style="padding-top: 30px">
+    @Html.Partial("_Header")
+    @RenderBody()
+</div>
+
+</body>
+</html>

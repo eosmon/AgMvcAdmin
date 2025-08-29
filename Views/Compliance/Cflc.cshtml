@@ -1,0 +1,181 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<script type="text/javascript" language="javascript">
+    $(function () { $("#t2").datepicker({ onSelect: function () { } }); });
+    $(function () { $("#t3").datepicker({ onSelect: function () { } }); });
+</script>
+
+<div id="hideToPrint" class="hidePrint">
+
+    <div class="well-header">
+        <div style="display: inline-block; width: calc(100% - 120px) !important">
+            <h3 class="header3">California Firearms License Check - Hillcrest Pawn &amp; Gun</h3>
+        </div>
+    </div>
+    <div style="clear: both; height: 25px"></div>
+
+    <div class="well-content row" style="margin-left: 0">
+        <form data-form-validate="true" method="post" id="form-book-search" novalidate="novalidate">
+            <input type="hidden" id="ttlRowCt" value="" />
+            <input type="hidden" id="gunsPerPg" value="100" />
+            <input type="hidden" id="curPg" value="0" />
+            <input type="hidden" id="ttlPgs" value="0" />
+            <div class="well-grp">Search California Shipments</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="s1" class="label-form lbl-black">Location: </label>
+                        <select name="Location" id="s1" class="ag-control input-sm ctrl-width">
+                            <option value="0">- SELECT -</option>
+                            <option value="1" selected="selected">Oroville, CA</option>
+                            <option value="2">Afton, WY</option>
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s2" class="label-form control-label lbl-black">Manufacturer: </label>
+                        <select name="Manufacturer" id="s2" class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.ManufAll.Manufacturers)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s3" class="label-form control-label lbl-black">Gun Type: </label>
+                        @Html.DropDownList("GunType", Model.Menus.GunType.GunTypes, "- SELECT - ", new { id = "s3", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s4" class="label-form control-label lbl-black">Caliber: </label>
+                        <select name="Caliber" id="s4" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.AllCaliber.AllCalibers)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div class="top-buffer">
+                        <label for="s5" class="label-form control-label lbl-black">Direction: </label>
+                        <select name="AcqOrDisp" id="s5" class="selectpicker form-group-sm ctrl-width">
+                            <option value="0">- SELECT -</option>
+                            <option value="1">Inbound</option>
+                            <option value="2">Outbound</option>
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t1" class="label-form lbl-black">AI/TID: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SrchTxt" id="t1">
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t2" class="label-form lbl-black">Acq Date From: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SrchTxt" id="t2">
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t3" class="label-form lbl-black">Acq Date To: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SrchTxt" id="t3">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div style="width: 100%; padding-top: 8px; margin: 0 auto">
+            <div style="width: 48%; display: inline-block; padding-left: 10px">
+                <img class="prt-ico" src="~/Common/Images/Printer_Blue.png" onclick="printIt('2')" />
+            </div>
+            <div style="width: 51%; display: inline-block; text-align: right">
+                <input type="button" class="btn btn-xs btn-blue1 btn-inv-guns" value="Search" onclick="buildCflc()">
+            </div>
+        </div>
+    </div>
+    <div class="noResults">There were no records found for the search criteria entered</div>
+
+
+    <div style="margin-left: 0; font-size: 11px !important; padding-top: 25px">
+        <div class="nav-heading">
+            <div class="gunsPerPg">
+                <div style="display: inline-block">Items Per Page:</div>
+                <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                    <select id="s6" class="nav-sm-menu" onchange="setPageCount(this.value, 2)">                      
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                </div>
+            </div>
+            <div class="gun-count" id="gunCountHeader">1,000 Records Found</div>
+            <div style="width: 150px; display: inline-block"></div>
+        </div>
+    </div>
+
+    <div id="divPage" style="font-size: 11px !important; height:35px">
+        <div style="float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px; color: black; font-weight: bold;">Goto Page:</div>
+        <div style="float: left; margin-top: 6px" id="pageTop">
+            <div class="nav-paging" id="pagerDt1">
+
+            </div>
+        </div>
+        <div style="display: inline-block; margin-top: 10px; float: left; margin-left: 10px; color: black" class="range-count"></div>
+    </div>
+</div>    
+    <div style="width: 100% !important" id="dvPrt">
+        <table style="width: 100%">
+            <thead>
+            <tr>
+                <th style="text-align: center">
+                    <div id="dvHd" class="page" style="text-align: center; width: 100%">
+                        <div id="dvHdCa" class="grid-ca" style="background: lemonchiffon; display: none">
+                            <div class="grid-head-1">GUN INFO</div>
+                            <div class="grid-head-2">ACQUISITION</div>
+                            <div class="grid-head-3">DISPOSITION</div>
+                            <div class="grid-rt txtHead rowTtl" style="border-left: solid 1px black; text-align: center">Trans Number</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">Gun Description</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">ACQ Date</div>
+                            <div class="grid-rt txtHead rowTtl" style="text-align: center">Received From</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">ACQ AI#</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">DSP Date</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">Shipped To</div>
+                            <div class="grid-rt txtHead rowTtl" style="border-right: solid 2px black; text-align: center">DSP AI#</div>
+                        </div>
+                        <div id="dvHdWy" class="grid-wy" style="background: lemonchiffon; display: none">
+                            <div class="grid-head-1">GUN INFO</div>
+                            <div class="grid-head-4">DISPOSITION</div>
+                            <div class="grid-rt txtHead rowTtl" style="border-left: solid 1px black; text-align: center">Trans Number</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">Gun Description</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">DSP Date</div>
+                            <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">Shipped To</div>
+                            <div class="grid-rt txtHead rowTtl" style="border-right: solid 2px black; text-align: center">DSP AI#</div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody id="tbGuts">
+            <tr>
+                <td style="width: 100%">
+                    <div class="page" style="line-height: 2; position: relative; left: -.5px">
+                        <div id="cflcGrid" style="width: 100%; margin-left: 1px">
+                            <div id="dvAdd">
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+<script type="text/javascript">
+
+
+    $(window).onload(buildCflc());
+
+
+</script>

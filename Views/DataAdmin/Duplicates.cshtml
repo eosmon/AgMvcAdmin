@@ -1,0 +1,185 @@
+﻿@using Microsoft.Ajax.Utilities
+@model AgMvcAdmin.Models.PageModel
+
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Data Feed - Manage Duplicate Items</h3>
+    </div>
+</div>
+<div style="height: 20px"></div>
+<div id="divLoading" class="divWait" style="width: 1200px; height:30px;"></div>
+<div id="divFeed" class="well-content row" style="margin-left: 0; font-size: 11px !important">
+    <form id="gunFeedEdit" action="" method="post">
+        <input type="hidden" id="gunsPerPg" value="100" />
+        <input type="hidden" id="curPg" value="0" />
+        <input type="hidden" id="ttlPgs" value="0" />
+        <input type="hidden" id="ttlRowCt" value="" />
+        <input type="hidden" id="ni" name="ni" value="">
+        <input type="hidden" id="mid" value="0" />
+        <input type="hidden" id="gtp" value="0" />
+        <input type="hidden" id="cid" value="0" />
+        <input type="hidden" id="fid" value="1" />
+        <input type="hidden" id="dbk" value="0" />
+        <input type="hidden" id="mOnly" value="false" />
+        <input type="hidden" id="TxtSch">
+
+
+
+        <input type="hidden" id="srch">
+        <div class="divLeft">
+            <div id="divDfLinks">
+                <div class="gunNav-Section">
+                    <div>
+                        <div id="divNewMfg" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/edit-manufacturers">New Manufacturers</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct1">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divDupes" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/manage-duplicates">Duplicates</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct2">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divMissData" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/missing-gun-specs/all-specs">Missing Data</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct3">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divImages" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/edit-images">Images</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct15">(0)</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="filterTxt">Filter Search:</div>
+
+            <div style="padding-left: 10px; padding-top: 10px; font-size: 10px">
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Filter Data Option:</div>
+                    <div>
+                        <select name="s5" id="s5" class="selectpicker" data-live-search="false" data-dropupauto="true" data-size="10" onchange="setMenusAll(this.value)">
+                            <option value="1">Filter: Duplicate MPN Only</option>
+                            <option value="2">Filter: All Guns</option>
+                        </select>
+
+                    </div>
+                </div>        
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Manufacturer:</div>
+                    <div>
+                        <select name="s2" id="s2" class="selectpicker" data-live-search="true" data-dropupauto="true" data-size="10" onchange="setMenuMfg(this.value)">
+                            <option>- ALL MANUFACTURERS -</option>
+                            @foreach (var item in Model.Menus.FeedManuf)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Gun Type:</div>
+                    <div>
+                        <select name="s3" id="s3" class="selectpicker" data-live-search="true" data-dropupauto="true" onchange="setMenuGunType(this.value)">
+                            <option>- ALL GUN TYPES -</option>
+                            @foreach (var item in Model.Menus.FeedGunType)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Caliber:</div>
+                    <div>
+                        <select name="s4" id="s4" class="selectpicker" data-live-search="true" data-dropupauto="true" data-size="10" onchange="setMenuCaliber(this.value)">
+                            <option>- ALL CALIBERS -</option>
+                            @foreach (var item in Model.Menus.FeedCaliber)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div style="padding-top: 5px; padding-bottom: 5px">Filter Additional Keyword(s):</div>
+                <div style="display: inline">
+                    <div style="display: inline">
+                        <input type="text" id="t1" class="gun-txt-search" name="gunwordsearch" maxlength="50"><button id="btnWordSrch" type="button" class="btn btn-xs btn-Search" onclick="searchTxt()">Search</button>
+                    </div>
+                    <div style="display: inline; width: auto; padding-top: 15px"></div>
+                    <div style="background-color: #ffff00; width: 95%; margin-top: 5px">
+                        <div style="width: 50%; display: table-cell; float: left; padding-left: 3px">
+                            <a id="clrWords" href="#" class="gunNav-Link" onclick="clearTxt()">Clear Keyword(s)</a>
+                        </div>
+                        <div style="width: 50%; display: table-cell; float: left; text-align: right;">
+                            <a onclick="clearClick()" href="/data-feed-admin/manage-duplicates" class="gunNav-Link">New Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="fade">
+            <img src="~/Common/Images/loading.gif" style="width: 100%; height: 100%"/>
+        </div>
+        <div class="divRight">
+            <div class="gun-nav-heading">
+                <div class="gunsPerPg">
+                    <div style="display: inline-block">Guns Per Page:</div>
+                    <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                        <select id="s1" class="sm-menu" onchange="setPageCount(this.value)">
+                            <option value="100" selected="">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="gun-count" id="gunCountHeader"></div>
+                <div style="width: 150px; display: inline-block"></div>
+            </div>
+            <div class="main-grid">
+                <div id="divPage">
+                    <div style="float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px; color: white; font-weight: bold;">Goto Page:</div>
+                    <div style="float: left; margin-top: 6px" id="pageTop">
+                        <div class="paging" id="pagerDt1">
+
+                        </div>
+                    </div>
+                    <div style="display: inline-block; margin-top: 10px; float: left; margin-left: 10px; color: white" class="range-count"></div>
+                </div>
+            </div>
+            <div id="noData" style="text-align: center; padding-top: 25px; display: none"></div>
+
+            <div id="addRowHeader" style="width: 100%; display: inline-grid; grid-template-columns: 43px 100px 208px 100px 100px 90px 27px 27px 27px 27px 27px 27px 27px 27px 27px;">
+                <div class="dup-gridHeader"></div>
+                <div class="dup-gridHeader">Image</div>
+                <div class="dup-gridHeader">Desc</div>
+                <div class="dup-gridHeader">Caliber</div>
+                <div class="dup-gridHeader">MPN</div>
+                <div class="dup-gridHeader">UPC</div>
+                <div class="dup-gridHeader">SSI</div>
+                <div class="dup-gridHeader">WSS</div>
+                <div class="dup-gridHeader">LIP</div>
+                <div class="dup-gridHeader">DAV</div>
+                <div class="dup-gridHeader">RSR</div>
+                <div class="dup-gridHeader">BHC</div>
+                <div class="dup-gridHeader">GRN</div>
+                <div class="dup-gridHeader">ZAN</div>
+                <div class="dup-gridHeader">MGE</div>
+            </div>
+            <div id="addRows" style="width: 100%; text-align: left; display: inline-block; height: 600px; overflow-y: scroll"></div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(window).onload(ShowRows());
+</script>

@@ -1,0 +1,580 @@
+﻿.adSm {
+	width: 277px;
+	height: 187px;
+	border-radius: 4px;
+	border: solid 1.5px white;
+	background: white;
+	display: inline-block;
+	vertical-align: top;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 11px;
+	color: white;
+}
+
+.adSm:hover {
+	border: solid 1.5px yellow;
+	opacity: 0.9;
+}
+	
+.adSm-header {
+	width: 100%; 
+	height: 34px; 
+	overflow: hidden; 
+	border-top-left-radius: 4px; 
+	border-top-right-radius: 4px
+}
+		
+.adSm-header-align {
+	display: inline-block; 
+	position: relative; 
+	left: 93px;
+}
+		
+.adSm-header-img {
+	width: 90px; 
+	height: auto;
+}
+		
+.adSm-savings {
+	display: inline-block; 
+	float: right; 
+	padding-top: 8px; 
+	padding-right: 5px; 
+	font-family: impact; 
+	color: #00FF00; 
+	font-size: 13px;
+}
+		
+.adSm-promo-bar {
+	text-align: center; 
+	font-weight: bold;
+	height: 16px;
+}
+
+.adSm-body {
+	background-repeat: no-repeat;
+	background-size: 135px auto;
+	background-position-y: 70px;
+	height: 188px;
+}
+		
+.adSm-bodyTxt {
+	position: relative; 
+	color: black;
+}
+		
+.adSm-model {
+	text-align: center; 
+	font-family: impact; 
+	padding-bottom: 3px;
+	padding-top: 1px;
+}
+		
+.adSm-itemNum {
+	font-weight: bold; 
+	font-family: arial; 
+	position: relative; 
+	top: -7px; 
+	font-size: 9px;
+}
+		
+.adSm-descBody {
+	width: 100%; 
+	display: inline-block; 
+	position: relative; 
+	top: -4px;
+}
+		
+.adSm-desc {
+	width: 50%; 
+	float: right; 
+	word-wrap: break-word; 
+	font-size: 8px; 
+	font-weight: bold; 
+	font-family: arial;
+	line-height: 1.5;
+}
+		
+.adSm-price {
+	font-weight: bold;
+	font-family: impact;
+	color: red;
+	font-size: 21pt;
+	font-style: italic;
+	position: absolute;
+	right: 10px;
+	top: 63px;
+}
+		
+.adSm-price-cents {
+	font-size: 0.7em; 
+	position: relative; 
+	bottom: 0.35em; 
+	margin-left: -3px;
+}
+		
+.adSm-units {
+	font-weight: bold;
+	font-family: impact;
+	color: blue;
+	font-size: 12px;
+	position: absolute;
+	top: 97px;
+	right: 0;
+	padding-right: 8px;
+}
+		
+.adSm-bottom {
+	color: black;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: right;
+	width: 276px;
+	display: inline-block;
+}
+		
+.adSm-bottomBlk {
+	width: 50%; display: inline-block
+}
+
+
+.adSm-smTxt {
+	color: black;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: center;
+}
+
+
+.adTall {
+	width: 176px;
+	border-radius: 4px;
+	border: solid 1.5px white;
+	background: white;
+	display: inline-block;
+	vertical-align: top;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 11px;
+	color: white;
+}
+
+.adTall:hover {
+	border: solid 1.5px yellow;
+	opacity: 0.9;
+}
+
+.adTall-body {
+	background: white;
+	min-height: 300px;
+}
+		
+.adTall-id {
+	font-weight: bold; 
+	font-size: 9px; 
+	color: black; 
+	text-align: center;
+	position: relative;
+	top:2px;
+}
+		
+.adTall-desc {
+	color: #666666; 
+	margin-left: 5px; 
+	margin-right: 3px; 
+	text-align: left; 
+	font-size: 11px; 
+	min-height: 75px;
+	padding-bottom: 10px;
+}
+		
+.adTall-header {
+	width: 100%; 
+	height: 34px; 
+	overflow: hidden; 
+	border-top-left-radius: 4px; 
+	border-top-right-radius: 4px;
+	text-align:center;
+}
+		
+.adTall-savings {
+	text-align: center;
+	padding-top: 5px; 
+	font-family: impact; 
+	color: red; 
+	font-size: 15px;
+}
+	
+.adTall-price {
+	font-weight: bold;
+	font-family: impact;
+	color: red;
+	font-size: 21pt;
+	font-style: italic;
+	text-align: center;
+}
+
+.adTall-padBtm {
+	padding-top: 5px;
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.adTall-smTxt {
+	color: black;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 8px;
+	text-align: center;
+}
+
+
+.adBig {
+	width: 580px;
+	border-radius: 4px;
+	border: solid 1.5px white;
+	background: white;
+	display: inline-block;
+	vertical-align: top;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 11px;
+	color: white;
+}
+
+
+.adBig:hover {
+	border: solid 1.5px yellow;
+	opacity: 0.9;
+}
+	
+
+.adBig-body {
+	background-repeat: no-repeat;
+	background-size: 170px auto;
+	background-position-y: 59px;
+	background-position-x: 10px;
+	height: 188px;
+}
+	
+.adBig-cond
+{
+	font-weight: bold;
+	font-family: impact;
+	color: blue;
+	font-size: 20px;
+	padding-left: 11px;	
+}
+		
+.adBig-left
+{
+	width:65%; 
+	float:right; 
+	color: black; 
+	text-align:left; 
+	padding-top: 5px;
+}
+	
+.adBig-item
+{
+	font-weight: bold;
+	font-style: italic;
+	padding-left: 11px;	
+}
+	
+.adBig-desc {
+	font-family: arial;
+	font-size: 13px;
+	line-height: 1.5;
+	padding-right: 5px;
+}
+	
+.adBig-content {
+	width:67%; 
+	float:right; 
+	color: black; 
+	text-align:left;
+}
+		
+		
+.adBig-savings {
+	font-family: impact; 
+	color: #00FF00; 
+	font-size: 13px;
+	vertical-align: top;
+	position: relative;
+	top: 10px;
+	right: 5px;
+}
+
+.adBig-model {
+	font-family: impact;
+	font-size: 22px;
+}
+		
+.adBig-priceRow
+{
+	width:47%; 
+	float: right; 
+	display:inline-block; 
+	margin-top:-3px;
+}
+		
+.adBig-price {
+	font-weight: bold;
+	font-family: impact;
+	color: red;
+	font-size: 30pt;
+	font-style: italic;
+	transform: scale(1, 1.2);
+}
+				
+.adBig-price-cents {
+	font-size: 0.7em; 
+	position: relative; 
+	bottom: 0.35em; 
+	margin-left: -3px;
+}
+		
+		
+.adBig-txt {
+	color: black;
+	font-family: arial;
+	font-weight: bold;
+	font-size: 10px;
+}
+
+
+
+.txtArea
+{
+	vertical-align: top; padding-top: 25px
+}
+
+.botBtm {
+	display: inline-block;
+	padding-left: 5px;
+}
+
+.ctrl-brn-width {
+	width: calc(100% - 103px) !important;
+}
+
+
+.idLnk-txt {
+	color: blue;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.idLnk-txt:hover {
+	color: red;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+
+.img-header-frame {
+	width: 152px;
+	height: 113px;
+	background-color: #333333;
+	vertical-align: top;
+	border: solid 1px white;
+}
+
+.label-bnr {
+	text-align: right;
+	width: 100px;
+	padding-right: 4px;
+}
+
+
+.txt-ct-w1 {
+	width: 99%;
+}
+
+.txt-ct-w2 {
+	width: 70%;
+}
+
+.cmpGrid-row {
+	display: table-cell; 
+	vertical-align: middle;
+	color: black;
+}
+
+.cmpGrid-rowC {
+	display: table-cell; 
+	vertical-align: middle;
+	text-align: center;
+	color: black;
+}
+
+.cmpLink {
+	color: yellow;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.cmpLink:hover {
+	color: red;	
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.sale-p1 {
+	text-align: center;
+	position: relative;
+	top: 25px;	
+	word-wrap: break-word;
+	color: white;
+}
+
+.sale-p2 {
+	text-align: center;
+	position: relative;
+	top: 10px;	
+	word-wrap: break-word;
+	color: white;
+}
+
+.sale-p3 {
+	text-align: center;
+	position: relative;
+	top: 20px;	
+}
+
+.sale-margin {
+	font-weight: bold;
+	font-size: 18px;
+	color: yellow;	
+}
+
+.sale-profit {
+	font-weight: bold;
+	font-size: 14px;
+	color: #00FF00;	
+}
+
+.sale-bdr {
+	border-right: solid 1px black;
+}
+
+.sale-img {
+	width: 85px;
+	height: auto;
+	border: solid 1px black;
+	border-radius: 4px;
+}
+
+.sale-img-cell {
+	text-align: center;
+	padding: 3px;
+}
+
+.sale-item-pad {
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 3px;
+}
+
+.sale-row {
+	display: inline-grid;
+	grid-template-columns: 5% 10% 35% 7% 5% 7% 8% 16% 7%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 50px;
+}
+
+
+.sale-grid-hdr {
+	display: inline-grid; 
+	grid-template-columns: 5% 10% 35% 7% 5% 7% 8% 16% 7%;
+	width: calc(100% - 17px);
+	float: left;
+}
+
+.sale-hdr-item {
+	border-right: solid 1px white;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	word-wrap: break-word;
+}
+
+.sale-feature-item {
+	text-align: center;
+	position: relative;
+	vertical-align: top;
+	top: 25px;
+	left: -2px;
+}
+
+.feature-grid-hdr {
+	display: inline-grid;
+	word-wrap: break-word;
+	grid-template-columns: 5% 5% 5% 5% 15% 65%;
+	width: calc(100% - 17px);
+}
+
+.feature-row {
+	display: inline-grid;
+	grid-template-columns: 5% 5% 5% 5% 15% 65%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 50px;
+}
+
+.feature-no-data {
+	width: 100%; 
+	margin: 0 auto; 
+	text-align: center; 
+	padding: 8px;
+	display: none;
+	background: black;
+	border-radius: 4px;
+}
+
+
+.home-grid-hdr {
+	display: inline-grid;
+	grid-template-columns: 6% 10% 20% 6% 10% 10% 6% 10% 10% 6% 6%;
+	width: calc(100% - 17px);
+	text-align: center;
+	min-height: 25px;
+	position: relative;
+	top: 4px;
+}
+
+
+.home-row {
+	display: inline-grid;
+	grid-template-columns: 6% 10% 20% 6% 10% 10% 6% 10% 10% 6% 6%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 44px;
+}
+
+.home-row-title {
+	display: inline-grid;
+	grid-template-columns: 6% 10% 20% 6% 10% 10% 6% 10% 10% 6% 6%;
+	color: black;
+	//border: solid .5px black;
+	border: solid 1px blue;
+	width: 100%;
+	min-height: 44px;
+}
+
+
+.home-row-item {
+	position: relative;
+	top: 7px;
+	text-align: center;	
+}

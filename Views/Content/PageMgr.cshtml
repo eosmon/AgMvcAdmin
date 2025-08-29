@@ -1,0 +1,274 @@
+﻿@using AgMvcAdmin.Common
+@model AgMvcAdmin.Models.PageModel
+           
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Page Content Manager</h3>
+    </div>
+</div>
+<div style="padding-top: 30px"></div>
+<div class="well-content row" style="margin-left: 0">
+    <form id="form-pg-content" action="" method="post">
+        <input type="hidden" id="pgId" value="0" />
+        <input type="hidden" id="stId" value="0" />
+        <input type="hidden" id="hiUl" value="0" />
+        <div>
+            <div style="width: 50%; display: inline-block">
+                <div class="top-buffer">
+                    <label for="s1" class="label-form">Site Category:</label>
+                    <select class="ag-control input-sm ctrl-width" id="s1" name="s1" onchange="setMenus(this.value)">
+                        <option>- SELECT -</option>
+                        @foreach (var item in Model.Menus.Categories.ContentList)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div style="width: 50%; display: inline-block; float: right">
+                <div class="top-buffer">
+                    <label for="s2" class="label-form">Page:</label>
+                    <select class="ag-control input-sm ctrl-width" id="s2" name="s2" onchange="setContent(this.value)">
+                        <option>- SELECT -</option>
+                        @foreach (var item in Model.Menus.ContentPgs.ContentList)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="pgBody">
+
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">SEO</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="t1" class="label-form lbl-black">Page Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="model" id="t1">
+                        <div id="errorst1" class="has-error pad-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t2" class="label-form control-label lbl-black txtArea">Keywords: </label>
+                        <textarea id="t2" name="LongDesc" class="ag-control input-sm ctrl-width" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div class="top-buffer">
+                        <label for="t7" class="label-form lbl-black">OG Title: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="model" id="t8">
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t7" class="label-form lbl-black">OG Type: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="model" id="t7">
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t3" class="label-form control-label lbl-black txtArea">OG Desc: </label>
+                        <textarea id="t3" name="LongDesc" class="ag-control input-sm ctrl-width" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="rowBtm">
+                    <div class="botBtm" style="display: none">Error Message Here</div>
+                    <div style="display: inline-block" id="rowUpt">
+                        <div class="botBtm" style="display: none">
+                            <a class="link12Blue" href="#" onclick="showAddOg()">Add OgType</a>
+                        </div>
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-green2" onclick="return updateSeo()">Update SEO</button>
+                        </div>
+                    </div>
+
+                    <div class="botBtm" id="rowAddOg" style="display: none">
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-red2" onclick="cancelOg()">Cancel</button>
+                        </div>
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-blue">ADD OgType</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Header Content</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div id="dvHasHdr" style="display: none">
+                    <div style="width: calc(100% - 162px); display: inline-block; vertical-align: top">
+                        <div class="top-buffer">
+                            <label for="t5" class="label-form lbl-black">Section Title: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="model" id="t5">
+                            <div id="errorst5" class="has-error pad-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="t6" class="label-form control-label lbl-black txtArea">Content: </label>
+                            <textarea id="t6" name="LongDesc" class="ag-control input-sm ctrl-width" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div style="display: inline-block; padding-top: 2px">
+                        <div class="fileinput fileinput-new img-loop" data-provides="fileinput" style="display: inline-block">
+                            <div id="img_1" class="fileinput-preview thumbnail img-header-frame" data-trigger="fileinput"></div>
+                            <div class="checkForm" style="text-align: center">
+                                <span class="btn-file" id="selImg"><a href="#" class="fileinput-new uploadTxt" data-trigger="fileinput">Select Image</a><input type="file" name="agimg" id="ImgHse_1"></span>
+                                <a href="#" class="fileinput-exists uploadTxt img-loop" data-dismiss="fileinput" onclick="nixHeaderImg()">Remove</a>                               
+                                
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: inline-block; width: 100%">
+                        <div style="display: inline-block; width: 50%">
+                            <span class="link12Blue" onclick="delHeader()">Delete Header</span>
+                        </div>
+                        <div style="display: inline-block; float: right; width: 50%; text-align:right">
+                            <div class="botBtm" id="rowUpdHdr">
+                                <button type="button" class="btn btn-xs btn-green2" onclick="updateHeader()">Update Header</button>
+                            </div>
+                            <div class="botBtm" id="rowAddHdr" style="display: none">
+                                <div class="botBtm">
+                                    <button type="button" class="btn btn-xs btn-red2">Cancel</button>
+                                </div>
+                                <div class="botBtm">
+                                    <button type="button" class="btn btn-xs btn-blue" onclick="addHeader()">ADD Header</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                <div id="dvNoHdr" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color: black">There are no headers defined for this section</div>
+                <div class="botBtm" id="dvHdrAdd" style="float: right; padding-right: 10px">
+                    <span class="link12Blue" onclick="showHeader()">Add Header</span>
+                </div>
+            </div>
+
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Tool Tips</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                
+                <div id="dvTips" style="width: 100%; display: none">
+                    <div id="dvTipsHdr" style="background: black; height: 22px">
+                        <div style="width: 5%; display: inline-block"></div>
+                        <div style="width: 5%; display: inline-block; color: white; vertical-align: sub; text-align: center">ID</div>
+                        <div style="width: 15%; display: inline-block; color: white; vertical-align: sub">Desc</div>
+                        <div style="width: 69%; display: inline-block; color: white; vertical-align: sub">Content</div>
+                        <div style="width: 6%; display: inline-block"></div>
+                    </div>
+                    <div id="dvTipRows" style="border: solid 1px black; height: 250px; overflow-y: scroll">
+                        
+                    </div>
+                </div>
+                <div id="dvNoTips" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color:black">There are no tool tips defined for this section</div>
+                
+                <div class="rowBtm">
+                    <div class="botBtm" id="rowTtp">
+                        <div class="botBtm">
+                            <span class="link12Blue" onclick="addToolTipRow()">Add ToolTip</span>
+                        </div>
+                        <div class="botBtm" style="display: none">
+                            <button type="button" class="btn btn-xs btn-green2">Update ToolTips</button>
+                        </div>
+                    </div>
+                    <div class="botBtm" id="rowAddTtp" style="display: none">
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-red2">Cancel</button>
+                        </div>
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-blue">ADD ToolTip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Banner Campaigns</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+
+                <div id="dvCmp" style="width: 100%">
+                    <div id="dvCmpHdr" style="background: black; height: 22px">
+                        <div style="width: 60px; display: inline-block">&nbsp;</div>
+                        <div style="width: 80px; display: inline-block; text-align: center; vertical-align: sub">Position</div>
+                        <div style="width: calc(100% - 373px); display: inline-block; vertical-align: sub">Campaign</div>
+                        <div style="width: 80px; display: inline-block; text-align: center; vertical-align: sub">Banners</div>
+                        <div style="width: 80px; display: inline-block; text-align: center; vertical-align: sub">Timeout</div>
+                        <div style="width: 15px; display: inline-block">&nbsp;</div>
+                    </div>                    
+                    <div id="dvCmpRows" style="border: solid 1px black; height: 250px; overflow-y: scroll">
+
+                    </div>
+                </div>
+                <div id="dvNoCmp" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color: black">There are no banner campaigns defined for this section</div>
+
+                <div class="rowBtm">
+                    <span class="link12Blue" onclick="addBnrCmpRow()">New Campaign</span>
+                </div>
+            </div>            
+            
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Static Content</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div id="dvStcCnt" style="display: none">
+                    <div>
+                        <textarea class="cke_editor" name="content" id="content"></textarea>
+                    </div>
+                    <div style="text-align: right; width: 100%">
+                        <div class="botBtm" id="rowBtnAdd" style="display: none">
+                            <button type="button" class="btn btn-xs btn-blue" onclick="return addStaticContent()">Add Static Content</button>
+                        </div>
+                        <div class="botBtm" id="rowBtnUpd" style="display: none">
+                            <button type="button" class="btn btn-xs btn-green2" onclick="return updStaticContent()">Update Static Content</button>
+                        </div>
+                        <div class="botBtm">
+                            <button type="button" class="btn btn-xs btn-red2" onclick="return nixStaticContent()">Delete Static Content</button>
+                        </div>
+                    </div>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('content')
+                        </script>
+                    </div>
+                <div id="dvNoCnt" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; color: black">There is no static content defined for this section</div>
+                <div class="rowBtm" id="rowAddCnt">
+                        <span class="link12Blue" onclick="showStaticContent()">Add Static Content</span>
+                </div>
+            </div>
+            
+            <div id="dvHomeContent" style="display: none">
+                <div style="clear: both; height: 25px"></div>
+                <div>
+                    <div id="dvSmall"></div>
+                    <div id="dvTall"></div>
+                    <div id="dvBig"></div>
+                </div>
+                <div style="clear: both; height: 25px"></div>
+                <div class="well-grp">Home Content Manager</div>   
+                <div class="well-text row" style="width: 100%; margin: 0 auto">
+                    
+                    <div id="dvHome" style="width: 100%; background: black; border-radius:4px">
+                        <div class="home-grid-hdr">
+                            <div>Delete</div>                            
+                            <div>Position</div>
+                            <div>Display Type</div>
+                            <div>Active</div>
+                            <div>Feature ID</div>
+                            <div>Size</div>
+                            <div>Promo</div>
+                            <div>Color</div>
+                            <div>Message</div>
+                            <div>Update</div>
+                            <div>Preview</div>
+                        </div>
+                        <div id="dvHomeRows" style="border: solid 1px black; max-height: 230px; overflow-y: scroll; display: inline-block; width: 100%; text-align: left; min-height: 315px;">
+
+                        </div>
+                    </div>
+                    <div id="dvNoHome" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color: black">There are no features defined for the Home Page</div>
+
+                    <div class="rowBtm">
+                        <span class="link12Blue" onclick="updateHomeAll()" style="padding-right: 25px">Update All Content</span>                        
+                        <span class="link12Blue" onclick="addHomeRow()">Add Content</span>
+                    </div>                    
+
+                </div>             
+            </div>
+
+
+        </div>
+    </form>
+</div>

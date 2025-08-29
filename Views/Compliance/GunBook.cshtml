@@ -1,0 +1,746 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+@{
+
+    var menLoc = 1;
+
+}
+
+<script type="text/javascript" language="javascript">
+    $(function () { $("#t2").datepicker({ onSelect: function () { } }); });
+</script>
+
+<div id="hideToPrint" class="hidePrint">
+
+    <div class="well-header">
+        <div style="display: inline-block; width: calc(100% - 120px) !important">
+            <h3 class="header3">Bound Book - Hillcrest Pawn &amp; Gun</h3>
+        </div>
+    </div>
+    <div style="clear: both; height: 25px"></div>
+
+
+    <div class="well-content row" style="margin-left: 0">
+        <form data-form-validate="true" method="post" id="form-book-search" novalidate="novalidate">
+            <input type="hidden" id="ttlRowCt" value="" />
+            <input type="hidden" id="gunsPerPg" value="25" />
+            <input type="hidden" id="curPg" value="0" />
+            <input type="hidden" id="ttlPgs" value="0" />
+            <div style="text-align: center; padding-bottom: 5px; display: none">Enter Audit Mode</div>
+            <div class="well-grp">Search Bound Book Entries</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div class="top-buffer" style="clear: both">
+                    <div class="regchk-title">Select Books:</div>
+                    <div style="display: inline-block; padding-left: 20px">
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c13" checked="checked" onchange="setBooks(this.checked)" /><label for="c13" class="label-chk lbl-black">All Books</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c1" checked="checked" disabled="disabled" /><label for="c1" class="label-chk lbl-black">Gun Sales</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c2" checked="checked" disabled="disabled" /><label for="c2" class="label-chk lbl-black">Consignment</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c3" checked="checked" disabled="disabled" /><label for="c3" class="label-chk lbl-black">Transfers</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c4" checked="checked" disabled="disabled" /><label for="c4" class="label-chk lbl-black">Gun Shipping</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c5" checked="checked" disabled="disabled" /><label for="c5" class="label-chk lbl-black">Gun Storage</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c6" checked="checked" disabled="disabled" /><label for="c6" class="label-chk lbl-black">Gun Repairs</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c7" checked="checked" disabled="disabled" /><label for="c7" class="label-chk lbl-black">Acquisition</label>
+                        </div>
+                    </div>
+                </div>
+                @*<div id="divPpt" style="display: none">
+                        <div class="top-buffer">
+                            <label for="s1" class="label-form lbl-black">Pvt Party Only: </label>
+                            <select class="ag-control input-sm ctrl-width" id="s1" name="PptOnly">
+                                <option value="">- SELECT -</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            <div id="errors1" class="has-error pad-err"></div>
+                        </div>
+                    </div>*@
+                <div class="top-buffer" style="clear: both">
+                    <div class="regchk-title">Gun Types:</div>
+                    <div style="display: inline-block; padding-left: 20px">
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c14" checked="checked" onchange="setGunTypes(this.checked)" /><label for="c14" class="label-chk lbl-black">All Types</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c8" checked="checked" disabled="disabled" /><label for="c8" class="label-chk lbl-black">Pistols</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c9" checked="checked" disabled="disabled" /><label for="c9" class="label-chk lbl-black">Revolvers</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c10" checked="checked" disabled="disabled" /><label for="c10" class="label-chk lbl-black">Rifles</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c11" checked="checked" disabled="disabled" /><label for="c11" class="label-chk lbl-black">Shotguns</label>
+                        </div>
+                        <div class="regchk-row">
+                            <input type="checkbox" class="input-sm chk-item" id="c12" checked="checked" disabled="disabled" /><label for="c12" class="label-chk lbl-black">Receivers</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="s1" class="label-form lbl-black">Location: </label>
+                        <select name="SrchCaliber" id="s1" class="ag-control input-sm ctrl-width" onchange="setLocPref(this.value)">
+                            @*onchange="setLoc(this.value)"*@
+                            <option value="0">- SELECT -</option>
+                            <option value="1">Oroville, CA</option>
+                            <option value="2">Afton, WY</option>
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s3" class="label-form lbl-black">Acquisition Date: </label>
+                        <select class="ag-control input-sm ctrl-width" id="s3" name="AcqDateRange" onchange="showAcqDate(this.value)">
+                            <option value="">- SELECT -</option>
+                            <option value="1">Enter Acquisition Date Range Below</option>
+                        </select>
+                        <div id="errors3" class="has-error pad-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s24" class="label-form lbl-black">Disposition Date: </label>
+                        <select class="ag-control input-sm ctrl-width" id="s24" name="DspDateRange" onchange="showDspDate(this.value)">
+                            <option value="">- SELECT -</option>
+                            <option value="1">Enter Disposition Date Range Below</option>
+                        </select>
+                        <div id="errors24" class="has-error pad-err"></div>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div class="top-buffer">
+                        <label for="s2" class="label-form lbl-black">Inventory: </label>
+                        <select class="ag-control input-sm ctrl-width" id="s2" name="Disposed">
+                            <option value="-1">- SELECT -</option>
+                            <option value="0">In Stock Only</option>
+                            <option value="1">Dispositions Only</option>
+                        </select>
+                        <div id="errors2" class="has-error pad-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s4" class="label-form lbl-black">Corrections: </label>
+                        <select class="ag-control input-sm ctrl-width" id="s4" name="CboCorr">
+                            <option value="-1">- SELECT -</option>
+                            <option value="0">Original Entries Only</option>
+                            <option value="1">Corrected Entries Only</option>
+                        </select>
+                        <div id="errors4" class="has-error pad-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s5" class="label-form lbl-black">Sort By: </label>
+                        <select class="ag-control input-sm ctrl-width" id="s5" name="PptOnly">
+                            <option value="">- SELECT -</option>
+                            <option value="1">Transaction ID</option>
+                            <option value="2">Manufacturer</option>
+                            <option value="3">Importer</option>
+                            <option value="4">Model</option>
+                            <option value="5">Caliber</option>
+                            <option value="6">Gun Type</option>
+                            <option value="7">Acquisiton Date</option>
+                            <option value="8">Disposition Date</option>
+                        </select>
+                        <div id="errors5" class="has-error pad-err"></div>
+                    </div>
+                </div>
+                <div class="top-buffer" style="clear: both">
+                    <label for="t1" class="label-form lbl-black">Search Term: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="NewBulletType" id="t1">
+                    <div id="errort1" class="has-error pad-err"></div>
+                </div>
+                <div id="dvAcqDateRange" style="visibility:hidden;">
+                    <div class="top-buffer">
+                        <label class="label-form lbl-black" style="vertical-align: top; padding-top: 7px">Acq Date Range: </label>
+                        <div style="width: calc(100% - 120px); display: inline-block">
+                            <div id="acqSlider"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dvDspDateRange" style="visibility:hidden;">
+                    <div class="top-buffer">
+                        <label class="label-form lbl-black" style="vertical-align: top; padding-top: 7px">Disp Date Range: </label>
+                        <div style="width: calc(100% - 120px); display: inline-block">
+                            <div id="dspSlider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div style="width: 100%" class="top-buffer">
+            <div style="width: 33%; display: inline-block; padding-left: 25px">
+                <img class="prt-ico" src="~/Common/Images/Printer_Blue.png" onclick="printIt('1')" />
+            </div>
+            <div style="width: 33%; display: inline-block; text-align: center">
+                <span id="spCt" class="row-Ct">1000 Records Found</span>
+            </div>
+            <div style="width: 33%; display: inline-block; text-align: right; padding-right: 16px">
+                <input type="button" class="btn btn-xs btn-blue1 btn-inv-guns" value="Search" onclick="getInput()">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="noResults">There were no records found for the search criteria entered</div>
+
+    <div style="margin-left: 0; font-size: 11px !important; padding-top: 25px">
+        <div class="nav-heading">
+            <div class="grd-ct-header">
+                <div class="grd-ct-right">Items Per Page:</div>
+                <div class="grd-ct-left">
+                    <select id="s6" class="nav-sm-menu" onchange="setPageCount(this.value, '1')">
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                </div>
+                <div id="gunCountHeader" class="grd-ct"></div>
+                <div class="grd-ct-right">Sort By:</div>
+                <div class="grd-ct-left">
+                    <select id="s25" class="nav-sm-menu" onchange="getInput()">
+                        <option value="1" selected>Acquisition Date</option>
+                        <option value="2">Transaction Number</option>
+                        <option value="3">Manufacturer</option>
+                        <option value="4">Importer</option>
+                        <option value="5">Model</option>
+                        <option value="6">Caliber</option>
+                        <option value="7">Gun Type</option>
+                        <option value="8">Disposition Date</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="width: 150px; display: inline-block"></div>
+        </div>
+
+
+
+        @*<div class="nav-heading">
+            <div class="gunsPerPg">
+                <div style="display: inline-block">Items Per Page:</div>
+                <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                    <select id="s6" class="nav-sm-menu" onchange="setPageCount(this.value, '1')">
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                </div>
+            </div>
+            <div class="gun-count" id="gunCountHeader">1,000 Records Found</div>
+            <div style="width: 150px; display: inline-block"></div>
+        </div>*@
+    </div>
+
+    <div id="divPage" style="font-size: 11px !important; height:35px">
+        <div style="float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px; color: black; font-weight: bold;">Goto Page:</div>
+        <div style="float: left; margin-top: 6px" id="pageTop">
+            <div class="nav-paging" id="pagerDt1">
+
+            </div>
+        </div>
+        <div style="display: inline-block; margin-top: 10px; float: left; margin-left: 10px; color: black" class="range-count"></div>
+    </div>
+</div>
+
+<!-- REPLACE HEADER HERE -->
+<div>
+    <div class="bk-grid-header">
+        <div class="bk-grid">
+            <div class="bk-grid-acq-ttl">ACQUISITION OF FIREARM</div>
+            <div class="bk-grid-dsp-ttl">DISPOSITION</div>
+            <div class="bk-grid-end-ttl">&nbsp;</div>
+        </div>
+        <div class="bk-grid">
+            <div class="bk-grid-header-item">Book</div>
+            <div class="bk-grid-header-item">Transaction Number</div>
+            <div class="bk-grid-header-item">Manufacturer and/or Importer</div>
+            <div class="bk-grid-header-item">Model<br />Caliber/Gauge</div>
+            <div class="bk-grid-header-item">Serial Number<br />Type</div>
+            <div class="bk-grid-header-item">Date</div>
+            <div class="bk-grid-header-item" style="border-right:solid 2px black;">Name and Address or FFL and License Number</div>
+            <div class="bk-grid-header-break">Date</div>
+            <div class="bk-grid-header-item">Name</div>
+            <div class="bk-grid-header-item" style="border-right:solid 2px black;">Address or FFL Number or Form 4473 Serial #</div>
+            <div class="bk-grid-header-break" style="border-right:solid 1px black;">Date Changed</div>
+        </div>
+        <div id="dvBkGrid"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="dvBbk" class="modal">
+    <form data-form-validate="true" method="post" id="form-editor" novalidate="novalidate">
+        <input type="hidden" id="addEdit" />
+        <input type="hidden" id="fsAcq" />
+        <input type="hidden" id="fsDsp" />
+        <input type="hidden" id="fiAq" />
+        <input type="hidden" id="fidDsp" />
+        <input type="hidden" id="tid" />
+        <input type="hidden" id="rid" />
+        <input type="hidden" id="loc" />
+        <input type="hidden" id="aqFnm" />
+        <input type="hidden" id="aqFlc" />
+        <input type="hidden" id="dpFnm" />
+        <input type="hidden" id="dpFlc" />
+        <input type="hidden" id="dfs" />
+        <input type="hidden" id="dfid" />
+
+        <div id="dvEdit" class="modalForm">
+            <div id="dvBkSpan" style="width: 100%; margin: 0 auto">
+                <div class="well-grp" id="editTtl">Bound Book Entry</div>
+                <div class="well-text row" style="width: 100%; margin: 0 auto">
+                    <div class="pnl-left" id="dvAcqEdit">
+                        <div class="top-buffer">
+                            <label for="s11" class="label-form control-label lbl-black">Manufacturer: </label>
+                            <select name="Manufacturer" id="s11" class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true" data-rule-required="true" aria-required="true" onchange="showIfAdd(1)">
+                                @{
+                                    <option value="">- SELECT -</option>
+                                    <option value="-1">- ADD NEW MANUFACTURER -</option>
+                                    foreach (var item in Model.Menus.ManufAll.Manufacturers)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <div id="errors11" class="has-error error-pad"></div>
+                        </div>
+                        <div id="addMfg" style="display: none">
+                            <div class="top-buffer">
+                                <label for="t13" class="label-form lbl-black">New Mfg Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="ManufacturerAdd" id="t13">
+                                <div id="errort13" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                                <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddMfg" onclick="addManuf(1)">Add Manuf</button>
+                            </div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="s12" class="label-form control-label lbl-black">Importer: </label>
+                            <select name="Importer" id="s12" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true" onchange="showIfAdd(2)">
+                                @{
+                                    <option>- SELECT -</option>
+                                    <option value="-1">- ADD NEW IMPORTER -</option>
+                                    foreach (var item in Model.Menus.Importers.Manufacturers)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <div id="errors12" class="has-error error-pad"></div>
+                        </div>
+                        <div id="addImpt" style="display: none">
+                            <div class="top-buffer">
+                                <label for="t14" class="label-form lbl-black">New Importer: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="NewImporterAdd" id="t14">
+                                <div id="errort14" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                                <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddImpt" onclick="addManuf(2)">Add Importer</button>
+                            </div>
+                        </div>
+                        <div id="dvTypeCal">
+                            <div class="top-buffer">
+                                <label for="s17" class="label-form control-label lbl-black">Gun Type: </label>
+                                @Html.DropDownList("GunType", Model.Menus.GunType.GunTypes, "- SELECT - ",
+                                    new { id = "s17", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                                <div id="errors17" class="has-error pad-err"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="s18" class="label-form control-label lbl-black">Caliber: </label>
+                                <select name="Caliber" id="s18" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true" onchange="showIfAdd(3)">
+                                    @{
+                                        <option value="">- SELECT -</option>
+                                        <option value="-1">- ADD NEW CALIBER -</option>
+                                        foreach (var item in Model.Menus.AllCaliber.AllCalibers)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                                <div id="errors18" class="has-error error-pad"></div>
+                            </div>
+                            <div id="addCal" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="s19" class="label-form control-label lbl-black">Caliber Group:</label>
+                                    <select class="ag-control input-sm ctrl-width" id="s19" name="CaliberTypeAdd">
+                                        <option value="">- SELECT -</option>
+                                        <option value="1">ENGLISH</option>
+                                        <option value="2">METRIC</option>
+                                        <option value="3">GAUGE</option>
+                                    </select>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t30" class="label-form lbl-black">New Caliber: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="NewCaliberAdd" id="t30">
+                                    <div id="errort30" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                                    <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddCal" onclick="addCaliber()">Add Caliber</button>
+                                </div>
+
+                                <div class="top-buffer">
+                                    <label for="t31" class="label-form lbl-black">Acquisition Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqDate" id="t31">
+                                    <div id="errort31" class="has-error error-pad"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="t15" class="label-form lbl-black">Model: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="BookModel" id="t15">
+                            <div id="errort15" class="has-error error-pad"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="t16" class="label-form lbl-black">Serial #: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SerialNumber" id="t16">
+                            <div id="errort16" class="has-error error-pad"></div>
+                        </div>
+
+                        <div class="top-buffer" id="dvAcqGroup">
+                            <label for="s13" class="label-form control-label lbl-black">Acquisition: </label>
+                            @Html.DropDownList("AcqSellerType", Model.Menus.SellerType.GunSellerTypes, "- SELECT - ",
+                    new { id = "s13", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setAcqSrc(this.value)" })
+                            <div id="errors13" class="has-error error-pad"></div>
+                        </div>
+                        <div id="acqFflSrc" style="display: none">
+                            <div class="top-buffer">
+                                <label for="s21" class="label-form control-label lbl-black">FFL Source: </label>
+                                @Html.DropDownList("AcqFflType", Model.Menus.AcqDist.Distributors, "- SELECT - ",
+                        new { id = "s21", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "acqFflSelect(this.value)" })
+                                <div id="errors21" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="acqFindFfl" style="display: none">
+                            <div class="top-buffer">
+                                <label for="s14" class="label-form lbl-black">FFL State: </label>
+                                @Html.DropDownList("AcqFflState", Model.Menus.UsStateNames.UsStates, "- SELECT - ",
+                                    new { id = "s14", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setState(this.value, true)" })
+                                <div id="errors14" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="t17" class="label-form lbl-black">FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqFflName" id="t17" data-rule-required="true" aria-required="true" placeholder="Select FFL State First">
+                                <div id="errort17" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="acqWhs" style="display: none">
+                            <div class="top-buffer">
+                                <label for="s15" class="label-form control-label lbl-black">Warehouse: </label>
+                                <select name="AcqFflWhs" id="s15" class="ag-control input-sm ctrl-width" data-rule-required="true" aria-required="true" onchange="getFflData(this.value, true)">
+                                    <option value="">-SELECT-</option>
+                                </select>
+                                <div id="errors15" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="dvCflcIn" style="display: none">
+                            <div class="top-buffer">
+                                <label for="t33" class="label-form lbl-black">CA AI# IN: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCflcIn" id="t33">
+                            </div>
+                        </div>
+                        <div id="acqCurFfl" style="display: none">
+                            <div class="top-buffer">
+                                <label for="t18" class="label-form lbl-black">03 FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCurioName" id="t18" data-rule-required="true" aria-required="true">
+                                <div id="errort18" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="t19" class="label-form lbl-black">03 FFL #: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCurioFfl" id="t19" data-rule-required="true" aria-required="true" placeholder="Format: X-XX-XXX-XX-XX-XXXXX">
+                                <div id="errort19" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="t20" class="label-form lbl-black">03 FFL Expires: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCurioExp" id="t20">
+                                <div id="errort20" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="dvNameAcq" style="display: none">
+                            <div class="top-buffer field required">
+                                <label for="t21" class="label-form lbl-black">Acqusition Name: </label><input type="text" id="t21" class="ag-control input-sm ctrl-width pad-lft" name="AcqName" data-rule-required="true" aria-required="true">
+                                <div id="errort21" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer field required">
+                                <label for="t22" class="label-form lbl-black">Address/FFL: </label><input type="text" id="t22" class="ag-control input-sm ctrl-width pad-lft" name="AcqAddress" data-rule-required="true" aria-required="true">
+                                <div id="errort22" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="acqPvtPty" style="display: none">
+                            <div class="top-buffer field required" id="acqOrg" style="display: none">
+                                <label for="t23" class="label-form lbl-black">Organization: </label><input type="text" id="t23" class="ag-control input-sm ctrl-width pad-lft" name="AcqOrgName" data-rule-required="true" aria-required="true">
+                                <div id="errort23" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer field required" id="acqFname">
+                                <label for="t24" class="label-form lbl-black">First Name: </label><input type="text" id="t24" class="ag-control input-sm ctrl-width pad-lft" name="AcqFirstName" data-rule-required="true" aria-required="true">
+                                <div id="errort24" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer field required" id="acqLname">
+                                <label for="t25" class="label-form lbl-black">Last Name: </label><input type="text" id="t25" class="ag-control input-sm ctrl-width pad-lft" name="AcqLastName" data-rule-required="true" aria-required="true">
+                                <div id="errort25" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="t26" class="label-form lbl-black">Address: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqAddress" id="t26" data-rule-required="true" aria-required="true">
+                                <div id="errort26" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="t27" class="label-form lbl-black">City: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCity" id="t27" data-rule-required="true" aria-required="true">
+                                <div id="errort27" class="has-error error-pad"></div>
+                            </div>
+                            <div class="state-row top-buffer">
+                                <label for="s16" class="label-form lbl-black">State: </label>
+                                @Html.DropDownList("AcqState", Model.Menus.UsStateAbrv.UsStates, "- SELECT - ",
+                                new { id = "s16", @class = "ag-control input-sm", data_rule_required = "true", aria_required = "true", style="width:110px" })
+                                <div id="errors16" class="has-error error-pad"></div>
+                            </div>
+                            <div style="display: inline-block">
+                                <div class="top-buffer">
+                                    <div class="zip-group">
+                                        <label id="l2Acq" for="t28" class="zip-pad lbl-black">Zip Code: </label>
+                                        <div class="zip-wrap">
+                                            <input type="text" class="ag-control input-sm" id="t28" style="width: 60px !important" name="AcqZipCode" maxlength="5" onkeypress="return isNumber(event)" data-rule-required="true" aria-required="true"><span style="padding-left: 3px; padding-right: 3px; color: black">-</span><input type="text" class="input-sm ag-control" id="t29" style="width: 54px !important" name="AcqZipExt" maxlength="4" onkeypress="return isNumber(event)">
+                                            <div id="errort28" class="has-error pad-err-zip"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div id="dvDspEdit" class="pnl-right">
+                        <div class="top-buffer">
+                            <label for="s20" class="label-form control-label lbl-black">Is Disposed:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s20" name="IsDisposed" onchange="showDisp(this.value)">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div id="dvDspHiCaps">
+                            <div class="top-buffer">
+                                <label for="s23" class="label-form control-label lbl-black">CA Hi-Cap Mags: </label>
+                                <select class="ag-control input-sm ctrl-width" id="s23" name="IsDisposed">
+                                    <option value="true">DISPOSE ALL MAGAZINES remaining with the gun</option>
+                                    <option value="false">Keep Magazines - Do Not Dispose</option>
+                                </select>
+                                <div id="errors23" class="has-error error-pad"></div>
+                            </div>
+                        </div>
+                        <div id="dvDispGuts">
+                            <div class="top-buffer">
+                                <label for="t2" class="label-form lbl-black">Disposition Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspDate" id="t2">
+                                <div id="errort2" class="has-error error-pad"></div>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="s22" class="label-form control-label lbl-black">Disposed To: </label>
+                                @Html.DropDownList("DspSellerType", Model.Menus.SellerType.GunSellerTypes, "- SELECT - ",
+                                    new { id = "s22", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setDspSrc(this.value)" })
+                                <div id="errors22" class="has-error error-pad"></div>
+                            </div>
+                            <div id="dspFflSrc" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="s7" class="label-form control-label lbl-black">FFL Source: </label>
+                                    @Html.DropDownList("DspFflType", Model.Menus.AcqDist.Distributors, "- SELECT - ",
+                                        new { id = "s7", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "dspFflSelect(this.value)" })
+                                    <div id="errors7" class="has-error error-pad"></div>
+                                </div>
+                            </div>
+                            <div id="dspFindFfl" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="s8" class="label-form lbl-black">FFL State: </label>
+                                    @Html.DropDownList("DspFflState", Model.Menus.UsStateNames.UsStates, "- SELECT - ",
+                                        new { id = "s8", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true", onchange = "setState(this.value, false)" })
+                                    <div id="errors8" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t3" class="label-form lbl-black">FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspFflName" id="t3" data-rule-required="true" aria-required="true" placeholder="Select FFL State First">
+                                    <div id="errort3" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer" style="display: none">
+                                    <div style="text-align: right; margin-right: 7px; padding-top: 3px">
+                                        <button type="button" class="btn btn-xs btn-red2 btn-inv-guns" id="btnClrFFL" onclick="clearFflSelect()">Clear Selection</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="dspWhs" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="s9" class="label-form control-label lbl-black">Warehouse: </label>
+                                    <select name="DspFflWhs" id="s9" class="ag-control input-sm ctrl-width" data-rule-required="true" aria-required="true" onchange="getFflData(this.value, false)">
+                                        <option value="">-SELECT-</option>
+                                    </select>
+                                    <div id="errors9" class="has-error error-pad"></div>
+                                </div>
+                            </div>
+                            <div id="dvCflcOut" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="t34" class="label-form lbl-black">CA AI# OUT: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqCflcOut" id="t34" data-rule-required="true" aria-required="true">
+                                    <div id="errort34" class="has-error error-pad"></div>
+                                </div>
+                            </div>
+                            <div id="dspCurFfl" style="display: none">
+                                <div class="top-buffer">
+                                    <label for="t4" class="label-form lbl-black">03 FFL Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspCurioName" id="t4" data-rule-required="true" aria-required="true">
+                                    <div id="errort4" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t5" class="label-form lbl-black">03 FFL #: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspCurioFfl" id="t5" data-rule-required="true" aria-required="true" placeholder="Format: X-XX-XXX-XX-XX-XXXXX">
+                                    <div id="errort5" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t6" class="label-form lbl-black">03 FFL Expires: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspCurioExp" id="t6">
+                                    <div id="errort6" class="has-error error-pad"></div>
+                                </div>
+                            </div>
+                            <div id="dspPvtPty" style="display: none">
+                                <div class="top-buffer field required" id="dspOrg" style="display: none">
+                                    <label for="t7" class="label-form lbl-black">Organization: </label><input type="text" id="t7" class="ag-control input-sm ctrl-width pad-lft" name="DspOrgName" data-rule-required="true" aria-required="true">
+                                    <div id="errort7" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer field required" id="dspFname">
+                                    <label for="t8" class="label-form lbl-black">First Name: </label><input type="text" id="t8" class="ag-control input-sm ctrl-width pad-lft" name="DspFirstName" data-rule-required="true" aria-required="true">
+                                    <div id="errort8" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer field required" id="dspLname">
+                                    <label for="t9" class="label-form lbl-black">Last Name: </label><input type="text" id="t9" class="ag-control input-sm ctrl-width pad-lft" name="DspLastName" data-rule-required="true" aria-required="true">
+                                    <div id="errort9" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t10" class="top-buffer label-form lbl-black">Address: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspAddress" id="t10" data-rule-required="true" aria-required="true">
+                                    <div id="errort10" class="has-error error-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="t11" class="top-buffer label-form lbl-black">City: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspCity" id="t11" data-rule-required="true" aria-required="true">
+                                    <div id="errort11" class="has-error error-pad"></div>
+                                </div>
+                                <div class="state-row top-buffer">
+                                    <label for="s10" class="top-buffer label-form lbl-black">State: </label>
+                                    @Html.DropDownList("DspState", Model.Menus.UsStateAbrv.UsStates, "- SELECT - ",
+                                        new { id = "s10", @class = "ag-control input-sm", data_rule_required = "true", aria_required = "true", style = "width:110px" })
+                                    <div id="errors10" class="has-error error-pad"></div>
+                                </div>
+                                <div style="display: inline-block" class="top-buffer">
+                                    <div class="zip-group">
+                                        <label id="l2" for="t12" class="top-buffer zip-pad lbl-black">Zip Code: </label>
+                                        <div class="zip-wrap">
+                                            <input type="text" class="ag-control input-sm" id="t12" style="width: 60px !important" name="DspZipCode" maxlength="5" onkeypress="return isNumber(event)" data-rule-required="true" aria-required="true"><span style="padding-left: 3px; padding-right: 3px; color: black">-</span><input type="text" class="input-sm ag-control" id="t32" style="width: 54px !important" name="AcqZipExt" maxlength="4" onkeypress="return isNumber(event)">
+                                            <div id="errort12" class="has-error pad-err-zip"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="btnRow">
+                        <div id="dvBtnClose" class="btnPad">
+                            <input type="button" id="btnClose" class="btn btn-xs btn-red2 btn-inv-guns" value="Close" onclick="closeDiv('dvBbk')">
+                        </div>
+                        <div id="dvBtnDisp" class="btnPad">
+                            <input type="button" id="btnEditItem" class="btn btn-xs btn-blue btn-inv-guns" value="Edit Record" onclick="updateItem()">
+                        </div>
+                        <div id="dvBtnEdit" class="btnPad">
+                            <input type="button" class="btn btn-xs btn-green btn-inv-guns" value="Dispose Gun" onclick="disposeItem()">
+                        </div>
+                        <div id="dvBtnUnDisp" class="btnPad">
+                            <input type="button" class="btn btn-xs btn-tan btn-inv-guns" value="Undo Dispose" onclick="disposeItem()">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="dvDsp" style="font-size: 12px !important; display: none">
+    <form data-form-validate="true" method="post" id="form-dispose" novalidate="novalidate">
+        <div class="well-grp">Dispose Gun Entry</div>
+        <div class="well-text row" style="width: 100%; margin: 0 auto" id="dvDpo">
+        </div>
+    </form>
+</div>
+
+<script src="https://ghusse.github.io/jQRangeSlider/stable/lib/jquery.mousewheel.min.js"></script>
+<script src="/Scripts/jQDateRangeSlider-min.js"></script>
+
+<script type="text/javascript">
+
+    @{ var xLoc = menLoc; }
+    var l = "@xLoc";
+
+    $("#s1").val(l);
+
+    var d = new Date();
+    var dMo = 0;
+    var dDy = 0;
+    var dYr = 0;
+
+    dDy = d.getDate();
+    dMo = d.getMonth();
+    dYr = d.getFullYear();
+
+    $("#acqSlider").dateRangeSlider({
+        bounds: { min: new Date(2009, 1, 1), max: new Date(dYr, dMo, dDy, 12, 59, 59) },
+        defaultValues: {
+            min: new Date(2013, 0, 1),
+            max: new Date(2018, 0, 1)
+        },
+        arrows: true,
+        enabled: true,
+        valueLabels: "show"
+    });
+
+    $("#dspSlider").dateRangeSlider({
+        bounds: { min: new Date(2009, 1, 1), max: new Date(dYr, dMo, dDy, 12, 59, 59) },
+        defaultValues: {
+            min: new Date(2013, 0, 1),
+            max: new Date(2018, 0, 1)
+        },
+        arrows: true,
+        enabled: true,
+        valueLabels: "show"
+    });
+
+    //$("#acqSlider").bind("userValuesChanged", function (e, data) {
+
+    //    //var minTime = Date.parse(data.values.min);
+    //    //var minDms = new Date(minTime);
+    //    //var minDy = minDms.getDate();
+    //    //var minMo = minDms.getMonth() + 1;
+    //    //var minYr = minDms.getFullYear();
+
+    //    var maxTime = Date.parse(data.values.max);
+    //    var maxDms = new Date(maxTime);
+    //    //var maxDy = maxDms.getDate();
+    //    //var maxMo = maxDms.getMonth() + 1;
+    //    //var maxYr = maxDms.getFullYear();
+
+
+    //    //alert(maxMo + '-' + maxDy + '-' + maxYr);
+    //    //alert('the MAX val is ' + data.values.max);
+
+    //});
+
+    //$(document).ready(function () {
+    //    $("#s3").change(function () {
+    //        var v1 = $("#s3").val();
+    //        if (v1.length > 0) {
+    //            $("#dvAcqDateRange").css("visibility", "visible");
+    //            var dateSliderMax = $("#acqSlider").dateRangeSlider("max");
+    //            //alert(dateSliderMax);
+    //        } else { $("#dvAcqDateRange").css("visibility", "hidden"); }
+    //    });
+    //});
+
+    $(window).onload(getInput());
+
+
+</script>

@@ -1,0 +1,374 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Test New Order</h3>
+    </div>
+</div>
+<div style="clear: both; height: 25px"></div>
+
+<div id="dvPrint" class="ord-print-main" style="display:none;">
+    <div style="width:100%; border:solid 1px black">
+        <div class="ord-top" style="background-color:black;">
+            <div class="ord-top-logo"><img src="~/Common/Images/Print_Logo.png" style="width:155px; height:auto;" /></div>
+            <div class="ord-top-biz-info">
+                <div id="dvBzAddr" class="ord-print-addr"></div>
+                <div id="dvBzCszp" class="ord-print-addr"></div>
+                <div class="ord-print-addr">Phone: <span id="spBzPhon"></span></div>
+                <div style="display:inline-block; width:100%; font-size:.8em;">
+                    <div style="display:inline-block; width:45%; text-align:right; padding-right:8px;">Hillcrest Pawn &amp; Gun</div>
+                    <div style="display:inline-block; width:45%; text-align:left; padding-left:10px;">FFL# <span id="spBzFfl"></span></div>
+                </div>
+                <div style="padding-top:5px; font-weight:bold;">** WE BUY USED GUNS **</div>
+                <div id="dvBzEmal" style="padding-top:3px; font-size:.8em;"></div>
+            </div>
+            <div class="ord-print-ord-num">Order #: <span id="spOrdNum" style="font-weight:bold;">240105CA-1</span></div>
+            <div class="ord-print-heading" id="dvInvTtl"></div>
+            <div class="ord-top-cust">
+                <div style="width:100%">
+                    <div style="width:40%; text-align:left; display:inline-block;">Customer:</div><div class="ord-print-date">Date:<span style="font-weight:bold; padding-left:5px;" id="spOrdDat"></span></div>
+                </div>
+                <div class="ord-print-customer">
+                    <div id="dvCsNam"></div>
+                    <div id="dvCsAdr"></div>
+                    <div id="dvCsCsz"></div>
+                    <div><span id="spCsPhn"></span> <span id="spCsEml" style="padding-left:10px;"></span></div>
+                </div>
+            </div>
+            <div style="background-color:white;"></div>
+        </div>
+    </div>
+    <div class="ord-basic">
+        <div class="ord-print-tdt">
+            <div class="ord-print-ttl" style="border-left: 0">Sold By:</div>
+            <div class="ord-print-txt" id="dvSalesRp"></div>
+            <div class="ord-print-ttl">Fulfillment:</div>
+            <div class="ord-print-txt" id="dvFulfill"></div>
+            <div class="ord-print-ttl">Payment Type:</div>
+            <div class="ord-print-txt" id="dvPayMthd"></div>
+        </div>
+    </div>
+    <div class="ord-print-top">
+        <div id="dvPrintGrid" style="font-size:13px;">
+            <div class="ord-print-hdr" id="dvPrtGrdHdr">
+                <div class="ord-print">Item</div>
+                <div class="ord-print">Category</div>
+                <div class="ord-print">Inventory #</div>
+                <div class="ord-print" style="text-align:left; padding-left:10px;">Description</div>
+                <div class="ord-print">Units</div>
+                <div class="ord-print">Price</div>
+                <div class="ord-print">Amount</div>
+                <div class="ord-print" style="border-right:solid 1px black;">Tax</div>
+            </div>
+            <div id="dvPrintRows"></div>
+            <div id="dvPrintBass">
+                <div class="ord-print-bass">
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black;">&nbsp;</div>
+                    <div style="border-left:solid 1px black; border-right:solid 1px black;">&nbsp;</div>
+                </div>
+                <div class="ord-print-bass">
+                    <div class="ord-print-tc-ttl">CUSTOMER TERMS & CONDITIONS</div>
+                    <div class="ord-print-bdr-lb"></div>
+                    <div class="ord-print-bdr-lb"></div>
+                    <div class="ord-print-bdr-lb"></div>
+                    <div class="ord-print-bdr-lb" style="border-right:solid 1px black;"></div>
+                </div>
+                <div class="ord-print-bass">
+                    <div class="ord-print-tc-txt" id="dvTrmCond"></div>
+                    <div style="grid-column-start: 5; grid-column-end: 7; border-left:solid 1px black;">
+                        <div class="ord-print-totals-txt">Sub-Total: </div>
+                        <div class="ord-print-totals-txt">Sales Tax: </div>
+                        <div class="ord-print-totals-txt">Order Total: </div>
+                        <div class="ord-print-totals-txt">Amount Paid: </div>
+                        <div class="ord-print-totals-txt">Balance Due: </div>
+                    </div>
+                    <div style="border-left:solid 1px black;">
+                        <div class="ord-print-totals-amt" id="dvOrdSub"></div>
+                        <div class="ord-print-totals-amt" id="dvOrdTax"></div>
+                        <div class="ord-print-totals-amt" id="dvOrdTtl"></div>
+                        <div class="ord-print-totals-amt" id="dvOrdApd"></div>
+                        <div class="ord-print-totals-amt" id="dvOrdAdu">Balance Due: </div>
+                    </div>
+                    <div style="border-right:solid 1px black;">
+                        <div class="ord-print-ttl-end">&nbsp;</div>
+                        <div class="ord-print-ttl-end">&nbsp;</div>
+                        <div class="ord-print-ttl-end">&nbsp;</div>
+                        <div class="ord-print-ttl-end">&nbsp;</div>
+                        <div class="ord-print-ttl-end">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%">
+                <div style="padding-left:5px; padding-top:10px; font-size:13px;text-align:left;"><span style="font-weight:bold;">LIABILITY: </span> <span id="spLiabTxt"></span></div>
+            </div>
+            <div style="width:100%; text-align:left">
+                <div class="ord-sig-line" style="padding-top:25px; padding-left:5px; text-align:left;">
+                    <div style="height:25px;">I have read and agree to the these conditions:</div>
+                    <div style="border-bottom:solid 1px black; border-right:solid 1px black">&nbsp;</div>
+                    <div style="border-bottom:solid 1px black">&nbsp;</div>
+                </div>
+                <div class="ord-sig-line" style="padding-top:3px; padding-left:5px;">
+                    <div style="height:25px;"></div>
+                    <div style="font-weight:bold;">Customer Signature</div>
+                    <div style="font-weight:bold;">Date</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="well-content row" style="margin-left: 0">
+    <div class="dvStart">
+        <form id="form-start" name="form-start">
+            <input type="hidden" id="cid" value="0" />
+            <input type="hidden" id="ctp" value="0" />
+            <input type="hidden" id="oid" value="0" />
+            <input type="hidden" id="lid" value="0" />
+            <input type="hidden" id="sid" value="0" />
+            <input type="hidden" id="otp" value="0" />
+            <input type="hidden" id="tid" value="0" />
+            <input type="hidden" id="odt" />
+            <input type="hidden" id="onb" />
+            <div style="clear: both; height: 10px"></div>
+            <div id="dvt3" class="well-grp">Basic Order Info</div>
+            <div id="dvt1" class="well-text row" style="margin-left: 0; width: 100%">
+                <div id="dvOrdBas">
+                    <div class="panel-left">
+                        <div class="top-buffer">
+                            <label for="sn1" class="label-form control-label lbl-black">Location: </label>
+                            <select id="sn1" class="ag-control input-sm ctrl-width" name="Location" data-rule-required="true" aria-required="true" onchange="setLocation(this.value)">
+                                <option value="" selected>- SELECT -</option>
+                                <option value="1">Oroville, CA</option>
+                                <option value="2">Afton, WY</option>
+                            </select>
+                            <div id="errorsn1" class="has-error cust-err-pad"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="to1" class="label-form lbl-black">Select Customer: </label>
+                            <input type="text" class="ag-control input-sm ctrl-width" name="SearchCustomer" id="to1" placeholder="Enter Customer Name, Address or Phone" onblur="hasCust()">
+                            <div id="errorto1" class="has-error cust-err-pad"></div>
+                        </div>
+                        <div id="dvCustInfo" style="display:none">
+                            <div style="padding-top:20px">
+                                <label for="to2" class="label-form lbl-black" style="vertical-align: top">Customer: </label>
+                                <div id="dvCust" class="cust-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-right">
+                        <div class="top-buffer">
+                            <label for="to3" class="label-form lbl-black">Order Date: </label>
+                            <input type="text" class="ag-control input-sm ctrl-width" name="OrderDate" id="to3" value="@DateTime.Now.ToShortDateString()">
+                            <div id="errorto3" class="has-error cust-err-pad"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="sn2" class="label-form control-label lbl-black">Sales Rep: </label>
+                            <select id="sn2" class="ag-control input-sm ctrl-width" name="SalesRep" data-rule-required="true" aria-required="true" onchange="setSalesRep(this)">
+                                <option value="" selected>- SELECT -</option>
+                                <option value="1">Nick Nelson</option>
+                                <option value="2">Bill Braswell</option>
+                            </select>
+                            <div id="errorsn2" class="has-error cust-err-pad"></div>
+                        </div>
+                        <div class="top-buffer" id="dvOrdTyp">
+                            <label for="sn3" class="label-form control-label lbl-black">Order Type: </label>
+                            <select id="sn3" class="ag-control input-sm ctrl-width" name="OrderType" data-rule-required="true" aria-required="true" onchange="setOrderType(this)">
+                                <option value="" selected>- SELECT -</option>
+                                <option value="1">INVOICE</option>
+                                <option value="2">QUOTE</option>
+                            </select>
+                            <div id="errorsn3" class="has-error cust-err-pad"></div>
+                        </div>
+                        <div class="start-btns" id="divGrpAdd" style="padding-top:10px">
+                            <div id="dvOrdClear" style="display:inline-block"><button type="button" class="btn btn-xs btn-red2 align-submit" id="btnClearAll" onclick="clearOrder()">Clear Fields</button></div>
+                            <div id="dvOrdCanc" style="display:none"><button type="button" class="btn btn-xs btn-red2 align-submit" id="btnOrdCanc" onclick="canBasOrder()">Cancel</button></div>
+                            <div class="div-wedge"></div>
+                            <div id="dvBtnCont" style="display:inline-block"><button type="button" class="btn btn-xs btn-green2 align-submit" id="btnOrdCont" name="Continue" onclick="startOrder()">Continue</button></div>
+                            <div id="dvOrdEdit" style="display:none"><button type="button" class="btn btn-xs btn-blue2 align-submit" id="btnOrdUpd" name="Continue" onclick="updBasOrd()">Update</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dvt2" class="well-order row" style="margin-left: 0; width: 100%; display:none">
+                <div id="dvOrdSum" style="clear:both">
+                    <div style="display:inline-block; width:29%; vertical-align:top">
+                        <div><b>Location:</b></div>
+                        <div id="fl1"></div>
+                        <div id="fl2"></div>
+                        <div id="fl3"></div>
+                    </div>
+                    <div style="display:inline-block; width:29%; vertical-align:top">
+                        <div><b>Customer:</b></div>
+                        <div id="fl4"></div>
+                        <div id="fl5"></div>
+                        <div id="fl6"></div>
+                    </div>
+                    <div style="display:inline-block; width:25%; vertical-align:top">
+                        <div style="line-height:2">
+                            <div style="display:inline-block; width:90px"><b>ORDER DATE:</b></div>
+                            <div style="display:inline-block" id="fl7"></div>
+                            <div style="display:inline-block; padding-left:50px"><a class="update-lnk" href="#" onclick="editBasicOrder()">Update</a></div>
+                        </div>
+                        <div style="line-height:2">
+                            <div style="display:inline-block; width:90px"><b>ORDER TYPE:</b></div>
+                            <div style="display:inline-block" id="fl8">INVOICE</div>
+                        </div>
+                        <div style="line-height:2">
+                            <div style="display:inline-block; width:90px"><b>SALES REP:</b></div>
+                            <div style="display:inline-block" id="fl9"></div>
+                        </div>
+                    </div>
+                    <div style="display:inline-block; float:right">
+                        <div style="padding:5px" id="dvAddTrans"><button type="button" class="btn btn-xs btn-c-blue" id="btnAddTrans" name="btnEditDoc" onclick="beginTrans()">Add Transaction</button></div>
+                        <div style="padding:5px"><button type="button" class="btn btn-xs btn-red2" id="btnCancOrder" name="btnClrDoc" onclick="nixOrder()">Cancel Order</button></div>
+                    </div>
+                </div>
+            </div>
+            <div id="dvt4" class="well-order row" style="margin-left: 0; width: 100%">
+                <div id="dvCartHolder">
+                </div>
+                <div style="width:75%; display:inline-block; vertical-align:top; min-height:100px">
+                    <div style="width:100%; padding-top:5px; padding-right:5px">
+                        <div class="ord-grp">Payment History</div>
+                        <div class="pymt-grid-hdr" id="dvPymtHdr">
+                            <div></div>
+                            <div class="srch-hdr" style="text-align:center">Date</div>
+                            <div class="srch-hdr" style="text-align:center">Prior Balance</div>
+                            <div class="srch-hdr">Payment Type</div>
+                            <div class="srch-hdr" style="text-align:center">Amount Paid</div>
+                            <div class="srch-hdr" style="text-align:center">Balance Due</div>
+                            <div></div>
+                        </div>
+                        <div id="dvPymtGrid" style="border-bottom:solid 2px black"></div>
+                        <div id="dvNoPymt"></div>
+                    </div>
+                    <div style="width:100%; margin-top:20px">
+                        <div class="well-text row" style="margin:0 auto; width:70%;">
+                            <div class="panel-left">
+                                <div class="top-buffer">
+                                    <label for="sn4" class="label-form control-label lbl-black">Payment Method: </label>
+                                    <select id="sn4" class="ag-control input-sm ctrl-width" name="PayMethod" data-rule-required="true" aria-required="true" onchange="setPymtOptions(this.value)">
+                                        @{
+                                            <option value="">- SELECT -</option>
+                                            foreach (var item in Model.Menus.PaymentMethods)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div id="errorsn4" class="has-error cust-err-pad"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="to4" class="label-form lbl-black">Payment Amount: </label>
+                                    <input type="text" class="ag-control input-sm ctrl-width" name="PymtAmount" id="to4" onkeypress="return isDecimal(event)" maxlength="10">
+                                    <div id="errorto4" class="has-error cust-err-pad"></div>
+                                </div>
+                                <div class="top-buffer" id="dvCard4" style="display:none">
+                                    <label for="to5" class="label-form lbl-black">Card# Last 4: </label>
+                                    <input type="text" class="ag-control input-sm ctrl-width" name="PymtAmount" id="to5">
+                                    <div id="errorto5" class="has-error cust-err-pad"></div>
+                                </div>
+                            </div>
+                            <div class="panel-right">
+                                <div class="top-buffer">
+                                    <label for="to6" class="label-form lbl-black">Payment Date: </label>
+                                    <input type="text" class="ag-control input-sm ctrl-width" name="PymtAmount" id="to6" value="@DateTime.Now.ToShortDateString()">
+                                    <div id="errorto6" class="has-error cust-err-pad"></div>
+                                </div>
+                                <div class="top-buffer" id="dvAprCd" style="display:none">
+                                    <label for="to7" class="label-form lbl-black">Approval Code: </label>
+                                    <input type="text" class="ag-control input-sm ctrl-width" name="PymtAmount" id="to7">
+                                    <div id="errorto7" class="has-error cust-err-pad"></div>
+                                </div>
+                                <div class="top-buffer" id="dvChkNm" style="display:none">
+                                    <label for="to8" class="label-form lbl-black">Check Number: </label>
+                                    <input type="text" class="ag-control input-sm ctrl-width" name="PymtAmount" id="to8">
+                                    <div id="errorto8" class="has-error cust-err-pad"></div>
+                                </div>
+                            </div>
+                            <div class="start-btns" id="dvPymtBtns" style="padding-top:10px">
+                                <div id="dvPymtClr" style="display:inline-block"><button type="button" class="btn btn-xs btn-red2 align-submit" id="btnPymtClr" name="ClrPymt" style="width:70px">Clear</button></div>
+                                <div id="dvPymtSub" style="display:inline-block"><button type="button" class="btn btn-xs btn-green2 align-submit" id="btnPymtSub" name="SubPymt" style="width:70px" onclick="addOrderPayment()">Submit</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: calc(25% - 14px); display:inline-block">
+                    <div style="padding-top:10px">
+                        <div style="padding:2px"><div style="display:inline-block; text-align:right; padding-right:15px; width:50%">Sub-Total:</div><div style="display:inline-block" id="ordSub">$0.00</div></div>
+                        <div style="padding:2px"><div style="display:inline-block; text-align:right; padding-right:15px; width:50%">Sales Tax:</div><div style="display:inline-block" id="ordTax">$0.00</div></div>
+                        <div style="font-weight:bold; padding:2px"><div style="display:inline-block; text-align:right; padding-right:15px; width:50%">Order Total:</div><div style="display:inline-block" id="ordTot">$0.00</div></div>
+                        <div style="padding:2px"><div style="display:inline-block; text-align:right; padding-right:15px; width:50%">Deposit Paid:</div><div style="display:inline-block" id="ordDep">$0.00</div></div>
+                        <div style="font-weight:bold; padding:2px"><div style="display:inline-block; text-align:right; padding-right:15px; width:50%">Balance Due:</div><div style="display:inline-block" id="ordBal">$0.00</div></div>
+                    </div>
+                </div>
+            </div>
+            <div id="dvNicsInfo">
+                <div style="width:100%; display:inline-block; vertical-align:top; min-height:115px">
+                    <div class="ord-grp" id="dvNicsTtl">CA DROS Entry</div>
+                    <div class="dros-grid-hdr" id="dvDrosGrid">
+                        <div class="srch-hdr" style="text-align:center">TransID</div>
+                        <div class="srch-hdr" style="text-align:center">Customer</div>
+                        <div class="srch-hdr" style="text-align:center">Type</div>
+                        <div class="srch-hdr">Item</div>
+                        <div class="srch-hdr" style="text-align:center">Serial #</div>
+                        <div class="srch-hdr" style="text-align:center">Schedule</div>
+                        <div class="srch-hdr" style="text-align:center">Trans Date/Time</div>
+                        <div class="srch-hdr" style="text-align:center">Status</div>
+                        <div class="srch-hdr" style="text-align:center">DROS #</div>
+                        <div class="srch-hdr" style="text-align:center">Submitted By</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    @Html.Partial("_OrderSale")
+</div>
+
+<div id="CustModal" class="modal" style="display:none">
+    <span class="close" onclick="closeCustModal();">&times;</span>
+    <div class="cust-frame">
+        <div id="dvCust" class="cust-content row" style="margin-left:0">
+            <div style="text-align:center; padding-bottom:10px"><a class="close-lnk" href="#" onclick="closeCustModal();">close window</a></div>
+            @Html.Partial("_CustomerEdit")
+            <div id="dvAddDocBtn" class="cust-btn">
+                <div style="display: none; padding-right:5px" class="cust-btn-pad" id="dvCustBtnClr">
+                    <button type="button" class="btn btn-xs btn-c-red" id="btnClear" onclick="wipeCustForm()">Clear</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnAdd">
+                    <button type="button" class="btn btn-xs btn-c-green" id="btnAddNewCust" onclick="addEditCustomer(true)">Add Customer</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnEdit">
+                    <button type="button" class="btn btn-xs btn-c-blue" id="btnEditCust" onclick="addEditCustomer(true)">Edit Customer</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnClrDoc">
+                    <button type="button" class="btn btn-xs btn-c-red2" id="btnClrDocCust" name="btnClrDoc" data-dismiss="fileinput">Clear</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnCurDoc">
+                    <button type="button" class="btn btn-xs btn-c-green" id="btnCurDocCust" name="btnAddDoc" onclick="setCurrent()">Make Current</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnAddDoc">
+                    <button type="button" class="btn btn-xs btn-c-green" id="btnAddDocCust" name="btnAddDoc" onclick="addDoc()">Add Document</button>
+                </div>
+                <div style="display: none" class="cust-btn-pad" id="dvCustBtnEditDoc">
+                    <button type="button" class="btn btn-xs btn-c-blue" id="btnEditDocCust" name="btnEditDoc" onclick="editDoc()">Edit Document</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="caption"></div>
+    <div id="closeLnk" class="caption" onclick="closeDocPreview()">Close Preview</div>
+</div>
+
+
+<script type="text/javascript" language="javascript">
+    $(window).onload(testOrder());
+</script>

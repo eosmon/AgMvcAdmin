@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALLGUNS.COM - Application Manager</title>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+    <link href="/Content/main.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-select.css" rel="stylesheet" />
+    
+    <link href="/Content/jasney-bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/lobibox.css" rel="stylesheet" />
+    
+
+    <link href="/Content/regs.css" rel="stylesheet">
+        
+	<style>
+
+		.slider-price {
+			border: 0;
+			color: blue;
+			background-color: #000000;
+			font-weight: bold;
+			width: 90px;
+		}
+		
+		.priceCount {
+			display: inline;
+			color: #00ff00;
+		}
+		
+		.priceIt {
+			text-decoration: none;
+		}
+		
+		.slider {
+			width: 90%;
+			height: 8px;
+			margin-left: 0;
+			padding-left: 10px;
+			margin-top: 10px;
+			background: #666666 !important;
+		}
+		
+		.ui-state-focus, .ui-widget-content, .ui-state-focus {
+			border: 1px solid #cccccc !important;
+			background: #000000 !important;
+			font-weight: bold;
+			color: #1c94c4 !important;
+		}
+		
+
+	
+	</style>
+		
+		
+    <script type="text/javascript" src="/Scripts/modernizr-2.6.2.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-min.js"></script>
+    <script type="text/javascript" src="/Scripts/respond.js"></script>
+    
+    <script type="text/javascript" src="https://www.jasny.net/bootstrap/dist/js/jasny-bootstrap.min.js"></script>        
+
+    <script type="text/javascript" src="/Scripts/lobibox.js"></script>
+    <script type="text/javascript" src="/Scripts/global.js"></script>
+    <script type="text/javascript" src="/Scripts/regs.js"></script>
+    
+
+</head>
+<body>
+
+<div class="container body-content" style="padding-top: 30px">
+    
+
+<div class="navbar navbar-inverse navbar-fixed-top  topNavShade">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <img style="position: fixed; top: 0; left: 50%; margin-left: -84px" src="/Common/Images/AG_Logo.png" width="168" height="70" />
+        <div class="collapse navbar-collapse">
+            <ul id="horizontal-list">
+                <li id="w1" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marketing<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w2" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w3" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounting<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w4" class="dropdown pad170">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Admin<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w5" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="False">Inventory<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="../inventory/guns">&nbsp;&nbsp;Add Gun To Bound Book</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a href="../inventory/ammo">&nbsp;&nbsp;Add In-Stock Ammunition Item</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a href="../inventory/merchandise">&nbsp;&nbsp;Add In-Stock Merchandise</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w6" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="False">Customers<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w7" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="False">Advertising<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">&nbsp;&nbsp;No Links Yet</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li id="w8" class="dropdown pad25">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="False">Compliance<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="../Compliance/gunbook">&nbsp;&nbsp;ATF Bound Book</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Bound Book - allguns.com</h3>
+    </div>
+</div>
+<div style="clear: both; height: 25px"></div>
+
+
+<div class="well-content row" style="margin-left: 0">
+    <form data-form-validate="true" method="post" id="form-ammo" novalidate="novalidate">
+        <div style="text-align: center; padding-bottom: 5px; display: none">Enter Audit Mode</div>
+        <div class="well-grp">Search Bound Book Entries</div>
+        <div class="well-text row" style="width: 100%; margin: 0 auto">
+            <div class="top-buffer" style="clear: both">
+                <div class="regchk-title">Select Books:</div>
+                <div style="display: inline-block; padding-left: 20px">
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c1" /><label for="c1" class="label-chk lbl-black">All Books</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c2" /><label for="c2" class="label-chk lbl-black">Gun Sales</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c3" /><label for="c3" class="label-chk lbl-black">Transfers</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c4" /><label for="c4" class="label-chk lbl-black">Consignment</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c5" /><label for="c5" class="label-chk lbl-black">Gun Shipping</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c6" /><label for="c6" class="label-chk lbl-black">Gun Storage</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c7" /><label for="c7" class="label-chk lbl-black">Gun Repairs</label>
+                    </div>
+                </div>
+            </div>
+            <div id="divPpt" style="display: none">
+                <div class="top-buffer">
+                    <label for="s1" class="label-form lbl-black">Pvt Party Only: </label>
+                    <select class="ag-control input-sm ctrl-width" id="s1" name="PptOnly">
+                        <option value="">- SELECT -</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                    <div id="errors1" class="has-error pad-err"></div>
+                </div>
+            </div>
+            <div class="top-buffer" style="clear: both">
+                <div class="regchk-title">Gun Types:</div>
+                <div style="display: inline-block; padding-left: 20px">
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c8" /><label for="c8" class="label-chk lbl-black">All Types</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c9" /><label for="c9" class="label-chk lbl-black">Pistols</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c10" /><label for="c10" class="label-chk lbl-black">Revolvers</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c11" /><label for="c11" class="label-chk lbl-black">Rifles</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c12" /><label for="c12" class="label-chk lbl-black">Shotguns</label>
+                    </div>
+                    <div class="regchk-row">
+                        <input type="checkbox" class="input-sm chk-item" id="c13" /><label for="c13" class="label-chk lbl-black">Receivers</label>
+                    </div>
+                </div>
+            </div>
+            <div class="pnl-left">
+                <div class="top-buffer">
+                    <label for="s2" class="label-form lbl-black">Filter Date: </label>
+                    <select class="ag-control input-sm ctrl-width" id="s2" name="PptOnly">
+                        <option value="">- SELECT -</option>
+                        <option value="1">Acquisition Date</option>
+                        <option value="2">Disposition Date</option>
+                    </select>
+                    <div id="errors2" class="has-error pad-err"></div>
+                </div>
+                <div class="top-buffer">
+                    <label for="s3" class="label-form lbl-black">Sort By: </label>
+                    <select class="ag-control input-sm ctrl-width" id="s3" name="PptOnly">
+                        <option value="">- SELECT -</option>
+                        <option value="1">Transaction ID</option>
+                        <option value="2">Manufacturer</option>
+                        <option value="3">Importer</option>
+                        <option value="4">Model</option>
+                        <option value="5">Caliber</option>
+                        <option value="6">Gun Type</option>
+                        <option value="7">Acquisiton Date</option>
+                        <option value="8">Disposition Date</option>
+                    </select>
+                    <div id="errors3" class="has-error pad-err"></div>
+                </div>
+            </div>
+            <div class="pnl-right">
+                <div id="divDateRange">
+                    <div class="top-buffer">
+                        <label for="s3" class="label-form lbl-black">Date Range: </label>
+                        
+                    </div>
+                </div>
+                <div class="top-buffer">
+                    <label for="s4" class="label-form lbl-black">Corrections: </label>
+                    <select class="ag-control input-sm ctrl-width" id="s4" name="PptOnly">
+                        <option value="">- SELECT -</option>
+                        <option value="1">Original Entries Only</option>
+                        <option value="2">Corrected Entries Only</option>
+                        <option value="3">Original & Corrected Entries</option>
+                    </select>
+                    <div id="errors4" class="has-error pad-err"></div>
+                </div>                
+            </div>
+        </div> 
+    </form>
+</div>
+</div>
+                    <div>
+                        <div>Price range:</div>
+                        <div style="display: inline">
+                            <input type="text" id="price" class="slider-price">
+                            <div id="rangeCt" class="priceCount">(12,568)</div>
+                        </div>
+                    </div>
+                    <div class="priceIt slider" id="slider-3">
+						<div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 70.5396%;"></div>
+						<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span>
+						<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 70.5396%;"></span>
+					</div>
+</body>
+</html>

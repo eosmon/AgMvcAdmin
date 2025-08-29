@@ -1,0 +1,262 @@
+﻿body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 11px;
+	font-weight: 400;
+	line-height: 1.5;
+	color: white;
+	text-align: left;
+	/*background-color: #272B30;
+	background-image: url(/Common/Images/darkdenim3.png);*/
+}
+
+.btn-org-sm {
+	height: 24px;
+	border: solid 1px black;
+	background-color: orange;
+	width: 50px;
+	color: white;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.btn-org-sm:hover {
+	color: #fff;
+	background-color: darkorange;
+	border-color: #46B8DA;
+}
+
+
+
+.btn-blu-sm {
+	height: 22px;
+	border: solid 1px #cccccc;
+	background-color: #0066FF;
+	width: 75px;
+	color: white;
+	font-size: 9px;
+	font-weight: bold;
+}
+
+.btn-blu-sm:hover {
+	color: #fff;
+	background-color: #5BC0DE;
+	border-color: #46B8DA;
+}
+
+
+.divLeft {
+	background-color: #000000;
+	width: 165px;
+	position: relative;
+	border: solid 1px #FFFFFF;
+	border-radius: 4px;
+	padding-bottom: 15px;
+	float: left;
+	margin-right: 10px;
+}
+
+.divRight {
+	width: auto;
+	overflow: hidden;
+	text-align: center;
+	margin-left: 165px;
+}
+
+.gun-count {
+	font-weight: bold;
+	color: yellow;
+	font-size: 12px;
+	display: table-cell;
+	width: 33%;
+}
+
+.gunNav-Counter {
+	color: #00FF00;
+	display: inline;
+	padding-left: 5px;
+}
+
+.gun-nav-heading {
+	width: 100%;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-color: #000000;
+	border-radius: 4px;
+	border: 1px solid #ffffff;
+	text-align: center;
+	margin: 0 auto;
+	color: #FFFFFF;
+	display: table;
+}
+
+
+.gunNav-Section {
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.gunsPerPg {
+	display: table-cell;
+	text-align: left;
+	width: 33%;
+	padding-left: 20px;
+}
+
+.menu-2 {
+	padding: 4px;
+	font-size: 11px;
+	background-image: none;
+	border: 1px solid #333333;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	color: saddlebrown;
+	font-weight: 500;
+}
+
+.mfg-gridHeader {
+	grid-row-start: 1; 
+	grid-row-end: 1; 
+	background: black; 
+	color: #00FF00; 
+	font-weight: bold; 
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border-right: solid .5px #cccccc;
+	text-align: center;
+}
+
+.mfg-lBrd {
+	border-left: solid 1px black;
+}
+
+.mfg-Row {
+	display: inline-grid; 
+	grid-template-columns: 40px 50px 170px 150px 120px 50px 50px 27px 27px 27px 27px 27px 27px 27px 27px 27px 59px;
+	margin-left: 14px;
+	color: black;
+	border: solid .5px black;
+	height: 35px;
+}
+
+.mu-w1 {
+	width: calc(100% - 80px) !important;
+}
+
+
+.mu-w2 {
+	width: calc(100% - 110px) !important;
+}
+
+.mu-w3 {
+	width: 40px;
+	height: 26px;
+}
+
+.mu-w4 {
+	width: 160px;
+	height: 26px;
+}
+
+.mu-w5 {
+	width: 110px;
+	height: 26px;
+}
+
+.pt-4 {
+	padding-top: 4px;
+}
+
+.pt-6 {
+	padding-top: 6px;
+}
+
+.pt-9 {
+	padding-top: 9px;
+}
+
+
+.pad-top-5 {
+	padding-top: 5px;
+}
+
+.sm-menu {
+	border-radius: 4px;
+	font-size: 10px;
+	font-family: Arial, Sans-Serif;
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+}
+
+
+.hs-Header {
+	display: inline-grid; 
+	grid-template-columns: 5% 30% 5% 10% 15% 5% 25% 5%;
+	color: black;
+	border: solid .5px black;
+	height: 25px;
+	width: calc(100% - 17px);
+	border-radius: 4px;
+}
+
+.hs-row {
+	display: inline-grid;
+	grid-template-columns: 5% 30% 5% 10% 20% 25% 5%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 44px;
+}
+
+.hs-shell {
+	margin-top: 10px;
+	background: black;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+
+.hs-row-item {
+	position: relative;
+	top: 15px;	
+}
+
+.hs-add {
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+	width: 55px;	
+}
+
+.txt-wx {
+	width: calc(100% - 50px);	
+}
+
+.logo-frame {
+	width: 100%;
+	height: 45px;
+	margin-bottom: 0 !important;
+}
+
+.logo-frame:hover {
+	cursor: pointer;
+}
+
+.hs-scroll-disabled {
+	display: inline-block;
+	color: red;
+	font-size: 12px;
+	font-weight: bold;
+	position: relative;
+	top: 1px;
+	left: 5px;
+	display: none;
+}

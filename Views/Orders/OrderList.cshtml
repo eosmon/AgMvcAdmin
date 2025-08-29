@@ -1,0 +1,31 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Orders</h3>
+    </div>
+</div>
+<div style="clear: both; height: 25px"></div>
+
+<div>
+    <div id="dvOrderHdr" class="ord-list-hdr">
+        <div class="ord-hdr"></div>
+        <div class="ord-hdr">Order #</div>
+        <div class="ord-hdr">Order Date</div>
+        <div class="ord-hdr">Location</div>
+        <div class="ord-hdr">Customer</div>
+        <div class="ord-hdr">Phone</div>
+        <div class="ord-hdr">Order Total</div>
+        <div class="ord-hdr">Amount Paid</div>
+        <div class="ord-hdr">Amount Due</div>
+        <div class="ord-hdr"></div>
+    </div>
+    <div id="dvOrdList" style="margin-top:-5px;">
+
+    </div>
+</div>
+
+
+<script type="text/javascript" language="javascript">
+    $(window).onload(setOrderList());
+</script>

@@ -1,0 +1,629 @@
+﻿.bluff { text-decoration: none; }
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 11px;
+	font-weight: 400;
+	line-height: 1.5;
+	color: white;
+	text-align: left;
+	/*background-color: #272B30;
+	background-image: url(/Common/Images/darkdenim3.png);*/
+}
+
+
+.bold {
+	font-weight: bold;
+}
+
+.bootstrap-select .btn {
+	border: solid .5px #cccccc !important;
+	border: none;
+	font-size: 11px;
+	background-color: #333333;
+	color: yellow;
+	width: 85%;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a {
+	color: white;
+	font-size: 12px;
+	border-top: solid .25px black;
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a:hover {
+	background-color: #333333 !important;
+}
+
+
+.btn-Search {
+	height: 26px;
+	border: solid 1px #0066FF;
+	background-color: #0066FF;
+	width: 50px;
+	color: #FFFFFF;
+	font-size: 10px;
+	margin-top: -5px;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	margin-top: -4px;
+	margin-left: -2px;
+}
+
+.btn-Search:hover {
+	opacity:0.7;
+	color: yellow;
+}
+
+
+.divLeft {
+	background-color: #000000;
+	width: 210px;
+	position: relative;
+	border: solid 1px #FFFFFF;
+	border-radius: 4px;
+	padding-bottom: 15px;
+	float: left;
+	margin-right: 10px;
+}
+
+
+.divRight {
+	width: auto;
+	overflow: hidden;
+	text-align: center;
+	margin-left: 210px;
+}
+
+.divWait
+{
+	font-family:Arial;  
+	font-size: 15pt;
+	font-weight: bold;
+	color:#FFFFFF;
+	position: absolute;
+	top: 260px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
+
+}
+
+
+.dragdrop {
+	width:100%;
+	border: solid 1px black;
+}
+
+.dragdrop-hover {
+	background:lightyellow;   
+}
+.dragdrop-active {
+	background:lightgray   
+}
+
+
+.dropdown-menu > .active > a, 
+.dropdown-menu > .active > a:focus,
+.dropdown-menu > .active > a:hover {
+	background-color: #00CCFF !important;
+	text-decoration: none;
+	outline: 0;
+}
+
+.dup-gridHeader {
+	grid-row-start: 1; 
+	grid-row-end: 1; 
+	background: black; 
+	color: #00FF00; 
+	font-weight: bold; 
+	padding-bottom: 2px; 
+	padding-top: 2px	
+}
+
+.dup-lBrd {
+	border-left: solid 1px black;	
+}
+
+.dup-itemAlign {
+	text-align: center;
+	margin-top: 28px;
+}
+
+.dupEdit-Link {
+	color: yellow;
+	text-decoration: underline !important;
+}
+
+.dupEdit-Link:hover {
+	color: red;
+	font-weight: bold;
+}
+
+
+
+.feed-body {
+	padding-bottom: 10px;
+	padding-top: 5px;	
+}
+
+
+.feed-BtnBl
+{
+	width: 75px;
+	background: blue;
+	border-radius: 4px;
+	color: white;
+	font-weight: bold;
+	border: solid 1px white;
+	padding: 5px;
+}
+
+.feed-BtnBl:hover {
+	background: darkblue;	
+	border: solid 1px yellow;
+	color: yellow;
+}
+
+
+.feed-BtnRed
+{
+	width: 75px;
+	background: red;
+	border-radius: 4px;
+	color: white;
+	font-weight: bold;
+	border: solid 1px white;
+	padding: 5px;
+}
+
+.feed-BtnRed:hover {
+	background: darkred;	
+}
+
+
+
+.feed-ChkA { display: table-cell; }
+
+.feed-ChkCol
+{
+	display: table-cell;
+	padding-left: 7px;
+	width: 72px;
+}
+
+
+.feed-CboSm
+{
+	border-radius: 4px;
+	padding: 5px;
+	background: #333333;
+	color: white;
+	border: solid 1px orange;
+}
+
+
+.feed-Data
+{
+	color: #00FFFF;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 10px;
+	font-weight: bold;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.feed-DataRow
+{
+	text-align: left;
+	padding-left: 3px;
+	display: none;
+}
+
+
+.feed-DecW { width: calc(100% - 52px) !important; }
+
+
+.feed-imgFrame {
+	text-align: center;
+	padding-top: 3px;	
+}
+
+.feed-Item {
+	width:221px; 
+	min-height:640px;
+	background: black;
+	border-radius:4px; 
+	display:inline-block; 
+	margin-right:6px;
+	margin-bottom: 6px;
+	vertical-align: top;
+}
+
+
+.feed-LblCk
+{
+	color: yellow;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 10px;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 3px;
+}
+
+
+.feed-LblSm
+{
+	color: white;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 10px;
+	text-align: right;
+	display: inline-block;
+	padding-right: 2px;
+}
+
+.feed-MainW { width: 55px; }
+
+.feed-MfgEdit {
+	padding-top: 5px;
+	text-align: center;
+	display: none;
+}
+
+.feed-picRowLt {
+	padding-left: 4px;
+	width: 55%;
+	float: left;
+}
+
+.feed-picRowRt
+{
+	width: 45%;
+	float: right;
+}
+
+.feed-picFrame
+{
+	border: 1px solid blue;
+	width: 113px;
+	height: 88px;
+	background-color: white;
+	vertical-align: top;
+}
+
+
+.feed-Row47 {
+	display: inline-block;
+	width: 47px;
+	text-align: right;
+}
+
+.feed-RowBtn {
+	width: 111px; 
+	display: table-cell;
+	text-align: center;
+}
+
+.feed-RwMnLt
+{
+	display: table-cell;
+	width: 20%;
+	text-align: right;
+}
+
+
+.feed-RwMnRt
+{
+	display: table-cell;
+	width: 80%;
+}
+
+
+.feed-shell {
+	background: #333333;
+	width: 222px;
+	border-radius: 4px;
+	/*border: solid 1px yellow;*/
+}
+
+.feed-Txt45
+{
+	clear: both;
+	background: black;
+	color: #00FFFF;
+	border-radius: 4px;
+	font-size: 10px;
+	width: 45px;
+	border: solid 1px white;
+	padding: 3px;
+}
+
+.feed-Mis
+{
+	clear: both;
+	background: black;
+	color: #00FFFF;
+	border-radius: 4px;
+	font-size: 10px;
+	width: 45px;
+	border: solid 1px red;
+	padding: 3px;
+}
+
+
+.feed-TxtA
+{
+	margin-left: 3px;
+	width: 97%;
+	border-radius: 4px;
+	padding: 5px;
+	font-size: 10px;
+	background: black;
+	color: #00FFFF;
+	border: solid 1px white;
+}
+
+.feed-TxtM
+{
+	width: 157px;
+	border-radius: 4px;
+	padding: 5px;
+	font-size: 10px;
+	background: black;
+	color: white;
+	border: solid 1px orange;
+}
+
+.feed-uplPicTxt {
+	color: yellow;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.feed-uplPicTxt:hover {
+	color: red;	
+	font-weight: bold;
+}
+
+
+
+.filterCt {
+	display: table-cell;
+	color: #00ff00;
+	padding-left: 5px;
+}
+
+.filterTxt {
+	padding-left: 19px;
+	padding-top: 15px;
+	color: yellow;
+	font-weight: bold;
+}
+
+.gun-count {
+	font-weight: bold;
+	color: yellow;
+	font-size: 12px;
+	display: inline-block;
+	width: calc(100% - 300px);
+}
+
+
+.gunNav-Counter {
+	color: #00FF00;
+	display: inline;
+	padding-left: 5px;
+}
+
+
+.gunNav-Link {
+	color: #FFFFFF;
+	text-decoration: underline !important;
+	line-height: 20px;
+}
+
+.gunNav-Link:hover {
+	color: yellow !important;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+
+.gun-nav-heading {
+	width: 100%;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-color: #000000;
+	border-radius: 4px;
+	border: 1px solid #ffffff;
+	text-align: center;
+	margin: 0 auto;
+	display: table;
+	color: #FFFFFF;
+}
+
+
+.gunNav-Section {
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.gun-txt-search {
+	width: 143px;
+	height: 26px;
+	border: solid 1px #999999;
+	background-color: #cccccc;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	color: black;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.gunsPerPg {
+	display: inline-block;
+	text-align: left;
+	width: 150px;
+	padding-left: 9px;
+}
+
+.images-chkMiss {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100px;
+}
+
+.images-count {
+	font-weight: bold;
+	color: yellow;
+	font-size: 12px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.images-nav-heading {
+	width: 100%;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	background-color: #000000;
+	border-radius: 4px;
+	border: 1px solid #ffffff;
+	text-align: center;
+	margin: 0 auto;
+	display: table;
+	color: #FFFFFF;
+	height: 30px;
+}
+
+.images-rowsPerPg {
+	display: table-cell;
+	text-align: left;
+	width: 150px;
+	padding-left: 9px;
+	vertical-align: middle;
+}
+
+.images-imgFrame {
+	text-align: center;
+	vertical-align: top;
+	display: inline-block;
+	padding-top: 5px;
+	padding-left: 1.7px;
+	padding-right: 1.7px;
+	min-height: 90px;
+
+}
+
+
+.isDisabled {
+	cursor: default;
+	color: black !important;
+	background-color: #00FF00 !important;
+	border: 1px solid #00FF00 !important;
+}
+
+.isDisabled > a {
+	color: currentColor;
+	display: inline-block;  /* For IE11/ MS Edge bug */
+	pointer-events: none;
+	text-decoration: none;
+}
+
+.main-grid {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+.open > .dropdown-menu {
+	background-color: #3366CC !important;
+}
+
+.pad-24 {
+	padding-left: 24px;
+	display: block;
+}
+
+
+.pad-top-5 {
+	padding-top: 5px;
+}
+
+
+.paging {
+	display: inline-block;
+}
+
+.paging a {
+	color: white;
+	float: left;
+	padding: 2px 6px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+	margin: 0 1px;
+	font-size: 12px;
+	background-color: #000000;
+	border-radius: 4px;
+}
+
+.paging .active {
+	background-color: #00FF00;
+	color: black;
+	border: 1px solid #00FF00;
+}
+
+.paging a:hover:not(.active) {background-color: #ddd;}
+
+
+.priceCount {
+	display: inline; 
+	color: #00ff00;	
+}
+
+
+.range-count {
+	text-decoration: none;
+}
+
+
+.rowTitle {
+	width: calc(100% - 200px) !important;	
+}
+
+
+.sm-menu {
+	border-radius: 4px;
+	font-size: 10px;
+	font-family: Arial, Sans-Serif;
+	padding: 3px;
+	background-color: #000000;
+	color: #ffffff;
+	border: solid 1px #ffffff;
+}
+
+
+.text-muted {
+	color: #00ff00;
+	font-weight: bold !important;
+}
+
+.title-grp {
+	background-color: #000000;
+	border: 1px solid white;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+
+.feed-decRow { padding-bottom: 3px; }
+
+

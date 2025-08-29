@@ -1,0 +1,573 @@
+﻿#pnlCmpL { width: 50%; display: inline-block; float: left; }
+#pnlCmpR { width: 50%; display: inline-block; }
+
+input, select, textarea {
+	max-width: 100% !important; 
+}
+
+.ammo-gridHeader {
+	grid-row-start: 1;
+	grid-row-end: 1;
+	background: black;
+	color: #00FF00;
+	font-weight: bold;
+	padding-bottom: 4px;
+	padding-top: 4px;
+	border-right: solid .5px #cccccc;
+}
+
+.ammo-p1 {
+	text-align: center;
+	position: relative;
+	top: 15px;	
+	word-wrap: break-word;
+}
+
+.ammo-bdr {
+	border-right: solid 1px black;
+}
+
+.ammo-grid-hdr {
+	display: inline-grid; 
+	grid-template-columns: 10% 22% 11% 35% 5% 5% 6% 6%;
+	width: calc(100% - 17px);
+}
+
+.hdr-item {
+	border-right: solid 1px white;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	word-wrap: break-word;
+}
+
+.ammo-img {
+	width:70px; 
+	height: auto;
+	border: solid 1px black;
+	border-radius: 4px;
+}
+
+.ammo-img-row {
+	text-align:center; 
+	overflow:hidden; 
+	padding-top:2px; 
+	padding-bottom: 2px;	
+}
+
+
+.ammo-item {
+	word-wrap: break-word;
+}
+
+.ammo-nav-heading {
+	width: 100%;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-color: #000000;
+	border-radius: 4px;
+	border: 1px solid #ffffff;
+	text-align: center;
+	margin: 0 auto;
+	display: table;
+	color: #FFFFFF;
+}
+
+.ammo-nav-count {
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #000000;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+    color: yellow;
+    font-weight:bold;
+    font-size:1.4em;
+}
+
+.ammo-row {
+	display: inline-grid;
+	grid-template-columns: 10% 22% 11% 35% 5% 5% 6% 6%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 50px;
+}
+
+.btn-inv-guns {
+	width: 100px;
+}
+
+.conf-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #00ff00;
+}
+
+
+.conf-row {
+	padding-bottom: 10px;
+}
+
+.conf-cell {
+	width: 160px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.conf-cell-big {
+	width: 323px;
+	display: inline-block;
+
+}
+
+.conf-cell-giant {
+	width: calc(100% - 152px) !important;
+	display: inline-block;
+}
+
+.conf-txt {
+	word-wrap: break-word;
+}
+
+.confirm-lbl {
+	display: block;
+	margin-bottom: 0 !important;
+	color: yellow;
+}
+
+.done-row {
+	width: 100%; 
+	margin: 0 auto; 
+	text-align: center; 
+	min-height: 135px	
+}
+
+.done-btn {
+	border: solid 1px black !important;
+	font-weight: bold !important;
+	width: 220px !important;
+
+}
+
+.done-btn-row {
+	padding: 5px;
+	display: inline-block;
+}
+
+.done-tags {
+	font-weight: bold; 
+	font-size: 16px; 
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+
+.getdate {
+	text-decoration: none;
+}
+
+.gun-grid-hdr {
+	display: inline-grid; 
+	grid-template-columns: 10% 28% 11% 35% 5% 5% 3% 3%;
+	width: calc(100% - 17px);
+}
+
+.gun-img {
+	width: 115px;
+	height: auto;
+	border: solid 1px black;
+	border-radius: 4px;
+}
+
+
+.gun-row {
+    display: inline-grid;
+    grid-template-columns: 10% 28% 11% 35% 5% 5% 3% 3%;
+    color: black;
+    border: solid .5px black;
+    width: 100%;
+    min-height: 90px;
+}
+
+
+.gun-lbl-hdr {
+	text-align: right;
+	width: 70px;
+	padding-right: 4px;
+}
+
+
+.gun-p1 {
+	padding: 5px;
+	position: relative;
+	word-wrap: break-word;
+}
+
+.hide-it {
+    text-decoration:none;
+}
+
+.inv-error {
+    padding-left: 110px;
+}
+
+.label-1 {
+	width: 121px;
+	text-align: right;
+	padding-right: 4px;	
+}
+
+.label-2 {
+	width: 88px;
+	text-align: right;
+	padding-right: 4px;
+}
+
+
+.make-upc {
+	display: inline-block; 
+	padding-top: 8px; 
+	padding-right: 8px;
+	vertical-align: top;
+	float: right;
+
+}
+
+.menu-w1 {
+	width: calc(100% - 135px);
+}
+
+.menu-w2 {
+	width: calc(100% - 143px);
+}
+
+.menu-w3 {
+	width: calc(100% - 110px);
+}
+
+
+.merch-grid-hdr {
+	display: inline-grid; 
+	grid-template-columns: 8% 4% 7% 15% 17% 28% 12% 9%;
+	width: calc(100% - 17px);
+}
+
+
+.merch-row {
+	display: inline-grid;
+	grid-template-columns: 8% 4% 7% 15% 17% 28% 12% 9%;
+	color: black;
+	border: solid .5px black;
+	width: 100%;
+	min-height: 50px;
+}
+
+.pad-mch {
+	padding-left: 113px;
+}
+
+.pad-err {
+	padding-left: 115px;
+}
+
+
+.pad-err-zip {
+	padding-left: 67px;
+}
+
+.pic-cust {
+    width: 51px;
+    height: auto;
+    border-radius: 4px;
+    border:solid 1px black;
+}
+
+
+.srch-bar {
+	width: 33%;
+	float: left;	
+}
+
+.srch-left {
+	width: 50%;
+	float: left;	
+}
+
+.srch-right {
+	width: 50%;
+	float: right;
+	display: none;
+}
+
+.state-row {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 290px);
+    height: 26px;
+}
+
+.svcLabel {
+	display: inline-block;
+	vertical-align: top;
+	font-weight: bold;
+	padding-top: 7px;
+}
+
+.svc-empty {
+	display: inline-block;
+	position: relative;
+	top: 7px;
+	font-weight: bold;
+	padding-left: 5px;
+	color: yellow;	
+}
+
+.svc-guns {
+	width: calc(100% - 120px); 
+	border-radius: 4px; 
+	display: inline-block; 
+	overflow-y: scroll;
+	margin-top: -3px;
+}
+
+
+.svc-item {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+
+.svc-row-item {
+	min-height: 60px;
+	padding: 8px;
+	border-bottom: solid 1px black;
+	vertical-align: middle;
+}
+
+.tag-body {
+	background-color: white; 
+	width: 180px; 
+	margin-left: 10px; 
+	height: 360px; 
+	border-radius: 4px;
+	border: solid 1px black;
+	text-align: center;
+	margin: 0 auto;	
+}
+
+.tag-banner {
+	background-color: black; 
+	color: white; 
+	margin-top: 15px; 
+	padding: 3px; 
+	font-weight: bold	
+}
+
+.tag-logo {
+	width: 40px; 
+	height: 35px	
+}
+
+.tag-logo-div {
+	padding-top: 5px; 
+	display: table-cell; 
+	padding-left: 3px	
+}
+
+.tag-mfg {
+	text-align: left; 
+	display: table-cell; 
+	color: black; 
+	font-family: Arial Black; 
+	vertical-align: middle;
+	width: 100%; 
+	padding-left: 6px;
+	padding-top: 3px;
+	max-width: 100px;
+	word-wrap: break-word;
+}
+
+.tag-spec-title {
+	display: table-cell; 
+	color: black; 
+	font-size: 9px;
+	padding-left: 5px;	
+}
+
+.tag-spec {
+	display: table-cell; 
+	font-weight: bold; 
+	color: black; 
+	font-size: 9px;
+	padding-left: 3px;
+	padding-right: 3px;
+	word-wrap: break-word;
+	text-align: left;
+}
+
+.tag-title {
+	display: table-cell; 
+	font-weight: bold; 
+	color: black; 
+	font-size: 10px;
+	padding-left: 5px;
+}
+
+
+.tag-price {
+	display: table-cell; 
+	font-weight: bold; 
+	color: darkred; 
+	font-size: 22px;
+	padding-left: 3px;
+}
+
+.tag-spec-line {
+	padding-top: 5px;
+}
+
+.tag-sku {
+	position: absolute; 
+	bottom: 11px;
+	width: 100%;
+	font-weight: bold;
+	background-color: black;
+	font-size: 14px;
+	padding: 2px;
+}
+
+.tag-prop65 {
+	position: absolute; 
+	color: black;
+	bottom: 5px;
+	width: 100%;
+	font-weight: bold;
+}
+
+
+
+@media screen and (min-width: 992px) {
+
+	.pnl-left {
+		width: 50% !important;	
+	}
+
+	.pnl-right {
+		width: 50% !important;	
+	}
+
+	.state-row {
+		width: calc(100% - 198px) !important;
+	}
+}
+
+
+
+@media screen and (max-width: 991px) {
+	.pnl-right, .pnl-left {
+		float: none;
+		clear: both;
+		display: inline-block;
+		width: 100% !important;	
+	}
+}
+
+@media screen and (max-width: 770px) {
+	#divSource {
+		clear: both;
+		float: none !important;
+		padding-top: 2px;
+	}
+
+
+
+	.srch-left {
+		width: 100% !important;
+		clear: both;
+		float: none !important;		
+	}
+
+	.srch-right {
+		width: 100% !important;
+		clear: both;
+		float: none !important;			
+	}
+
+}
+
+@media screen and (max-width: 640px) {
+
+	.conf-cell {
+		padding-bottom: 10px !important;
+	}
+
+	.ctrl-sm-width {
+		width: 100% !important;
+	}
+
+	.ctrl-width {
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.ctrl-unit-lg {
+		width: calc(100% - 68px) !important;
+	}
+
+	.label-form {
+		text-align: left !important;
+		width: 100%;
+	}
+
+	.make-upc {
+		padding-top: 10px !important; 
+		padding-bottom: 10px;
+	}
+
+	.pad-lft {
+		margin-left: 0 !important;
+	}
+
+	.pad-err {
+		padding-left: 0 !important;
+	}
+
+	.pad-err-zip {
+		padding-left: 0 !important;
+	}
+
+	.pnl-right, .pnl-left {
+		float: none;
+		clear: both;
+		display: inline-block;
+		width: 100% !important;	
+	}
+
+	.svc-guns{
+		width: 100% !important;
+		margin-top: 10px !important;
+	}
+
+	.state-row {
+		float: none !important;
+		clear: both;
+		width: 100% !important;
+		display: block !important;
+		height: 55px;
+	}
+
+	.zip-group, .zip-wrap {
+		display: block !important;
+	}
+
+	.zip-pad {
+		padding-left: 0 !important;
+		padding-top: 10px !important;
+	}
+}

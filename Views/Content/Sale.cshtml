@@ -1,0 +1,117 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Feature Campaigns</h3>
+    </div>
+</div>
+<div style="padding-top: 30px"></div>
+<div class="well-content row" style="margin-left: 0">
+    <form id="form-item-sales">
+        <input type="hidden" id="mid" value="0" />
+        <input type="hidden" id="cid" value="0" />
+
+        <div style="clear: both; height: 25px"></div>
+        <div class="well-grp">Home Feature Ads</div>
+        <div id="dvFeature" style="width: 100%; background: black; border-radius: 4px;">
+            <div id="dvFeatureHdr" class="feature-grid-hdr">
+                <div class="sale-hdr-item">Delete</div>
+                <div class="sale-hdr-item">ID</div>
+                <div class="sale-hdr-item">Cond</div>
+                <div class="sale-hdr-item">Sale</div>
+                <div class="sale-hdr-item">Image</div>
+                <div class="sale-hdr-item">Description</div>
+            </div>                
+            <div id="dvFeatureRows" style="border: solid 1px black; height: 220px; overflow-y: scroll; border-radius: 4px;">
+
+            </div>
+        </div>
+        <div id="dvNoFeature" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color: black">There are no feature ads defined for the home page</div>
+        <div class="rowBtm" style="padding-bottom: 7px;">
+            <span class="link12White" onclick="showSearch()" style="padding-right: 11px;">Create Feature Item</span>
+        </div>        
+        
+        <div id="dvSrchBlock" style="display: none">
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Feature Item Search</div>
+            <div class="well-content row" style="margin: 0 auto">
+                <div id="divSrch">
+                    <div style="width: 50%; display: inline-block">
+                        <div class="top-buffer">
+                            <label for="s1" class="label-form">Condition:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s1" name="s1">
+                                <option value="-1">- SELECT -</option>
+                                <option value="1">Used</option>
+                                <option value="0">New</option>
+                            </select>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="s2" class="label-form">Category:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s2" name="s2" onchange="getGroupMenus(this.value)">
+                                <option>- SELECT -</option>
+                                <option value="100">Guns</option>
+                                <option value="200">Ammunition</option>
+                                <option value="300">Merchandise</option>
+                            </select>
+                        </div>
+                        <div class="top-buffer" id="dvMfg" style="display: none">
+                            <label for="s3" class="label-form">Manufacturer:</label>
+                            <select class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true" data-rule-required="true" aria-required="true" id="s3" name="s3" onchange="getMenuCal(this.value)">
+                                <option>- SELECT -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="width: 50%; display: inline-block; float: right">
+                        <div class="top-buffer" id="dvCtg" style="display: none">
+                            <label for="s5" class="label-form">Category:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s5" name="s5">
+                                <option>- SELECT -</option>
+                            </select>
+                        </div>
+                        <div class="top-buffer" id="dvOns" style="display: none">
+                            <label for="s6" class="label-form">On Sale:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s6" name="s6">
+                                <option value="-1">- SELECT -</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="top-buffer" id="dvCal" style="display: none">
+                            <label for="s4" class="label-form">Caliber:</label>
+                            <select class="ag-control input-sm ctrl-width" id="s4" name="s4">
+                                <option>- SELECT -</option>
+                            </select>
+                        </div>
+                        <div class="top-buffer" style="text-align: right; padding-right: 7px; padding-top: 3px; display: none" id="dvBtn">
+                            <button type="button" class="btn btn-xs btn-blue" onclick="searchSale()">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div id="dvFtrGrid" style="margin: 0 auto; text-align: center; display: none">
+                <div style="border: solid 1px white; border-radius: 4px">
+                    <div style="width: 100%; background: black">
+                        <div class="sale-grid-hdr">
+                            <div class="sale-hdr-item">Add</div>
+                            <div class="sale-hdr-item">Image</div>
+                            <div class="sale-hdr-item">Description</div>
+                            <div class="sale-hdr-item">On Sale</div>
+                            <div class="sale-hdr-item">Units</div>
+                            <div class="sale-hdr-item">MSRP/Price</div>
+                            <div class="sale-hdr-item">Margin</div>
+                            <div class="sale-hdr-item">Sale Start & End Date</div>
+                            <div class="sale-hdr-item">Update</div>
+                        </div>
+                        <div id="saleRows" style="width: 100%; text-align: left; display: inline-block; height: 300px; overflow-y: scroll"></div>
+                    </div>
+                </div>
+            </div>   
+            <div id="dvNoData" class="feature-no-data">No items were found for the search criteria</div>                       
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" language="javascript">
+    loadFeatures();
+</script>

@@ -1,0 +1,275 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<script type="text/javascript" language="javascript">
+    $(function () { $("#t1").datepicker({ onSelect: function () { } }); });
+    $(function () { $("#t2").datepicker({ onSelect: function () { } }); });
+    $(function () { $("#t6").datepicker({ onSelect: function () { } }); });
+    $(function () { $("#t9").datepicker({ onSelect: function () { } }); });
+</script>
+
+ 
+<div id="hideToPrint" class="hidePrint">
+
+    <div class="well-header">
+        <div style="display: inline-block; width: calc(100% - 120px) !important">
+            <h3 class="header3">California High Capacity Magazine Log - Hillcrest Pawn & Gun</h3>
+        </div>
+    </div>
+    <div style="clear: both; height: 25px"></div>
+
+    <div class="well-content row" style="margin-left: 0">
+        <form data-form-validate="true" method="post" id="form-book-search" novalidate="novalidate">
+            <input type="hidden" id="ttlRowCt" value="" />
+            <input type="hidden" id="gunsPerPg" value="100" />
+            <input type="hidden" id="curPg" value="0" />
+            <input type="hidden" id="ttlPgs" value="0" />
+            <div class="well-grp">Search Log</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="s1" class="label-form control-label lbl-black">Manufacturer: </label>
+                        <select name="MagMfg" id="s1" class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.ManufAll.Manufacturers) //MUST BE ALL MFG
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s2" class="label-form control-label lbl-black">Gun Type: </label>
+                        @Html.DropDownList("MagGunType", Model.Menus.GunType.GunTypes, "- SELECT - ", new { id = "s2", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true" })
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s3" class="label-form control-label lbl-black">Caliber: </label>
+                        <select name="MagCaliber" id="s3" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.AllCaliber.AllCalibers)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div class="top-buffer">
+                        <label for="s4" class="label-form control-label lbl-black">Capacity: </label>
+                        <select name="CapRange" id="s4" class="selectpicker form-group-sm ctrl-width">
+                            <option value="0">- SELECT -</option>
+                            <option value="1">11-15</option>
+                            <option value="2">16-19</option>
+                            <option value="3">20-24</option>
+                            <option value="4">25-30</option>
+                            <option value="5">31-50</option>
+                            <option value="6">51+</option>
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t1" class="label-form lbl-black">Acq Date From: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DateFr" id="t1">
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t2" class="label-form lbl-black">Acq Date To: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DateTo" id="t2">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div style="width: 100%; padding-top: 8px; margin: 0 auto">
+            <div style="width: 48%; display: inline-block; padding-left: 10px">
+                <img class="prt-ico" src="~/Common/Images/Printer_Blue.png" onclick="printIt('3')" />
+            </div>
+            <div style="width: 51%; display: inline-block; text-align: right">
+                <input type="button" class="btn btn-xs btn-blue1 btn-inv-guns" value="Search" onclick="buildHiCaps()">
+            </div>
+        </div>
+    </div>
+    <div class="noResults">There were no records found for the search criteria entered</div>
+
+
+    <div style="margin-left: 0; font-size: 11px !important; padding-top: 25px">
+        <div class="nav-heading">
+            <div class="gunsPerPg">
+                <div style="display: inline-block">Items Per Page:</div>
+                <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                    <select id="s5" class="nav-sm-menu" onchange="setPageCount(this.value, 2)">
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                    </select>
+                </div>
+            </div>
+            <div class="gun-count" id="gunCountHeader">1,000 Records Found</div>
+            <div style="width: 150px; display: inline-block; text-align: right; padding-right: 15px"><a class="gunNav-Link bold" onclick="openModal()">Add Mags</a></div>
+        </div>
+    </div>
+
+    <div id="divPage" style="font-size: 11px !important; height:35px">
+        <div style="float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px; color: black; font-weight: bold;">Goto Page:</div>
+        <div style="float: left; margin-top: 6px" id="pageTop">
+            <div class="nav-paging" id="pagerDt1">
+
+            </div>
+        </div>
+        <div style="display: inline-block; margin-top: 10px; float: left; margin-left: 10px; color: black" class="range-count"></div>
+    </div>
+</div>
+<div style="width: 100% !important" id="dvPrt">
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="text-align: center">
+                <div id="dvHd" class="page" style="text-align: center; width: 100%">
+                    <div id="dvCaMags" class="grid-mags" style="background: lemonchiffon">
+                        <div class="grid-head-mags-1">MAGAZINE INFO</div>
+                        <div class="grid-head-mags-2">ACQUISITION</div>
+                        <div class="grid-head-mags-3">DISPOSITION</div>
+                        <div class="grid-head-mags-4"></div>
+                        <div class="grid-rt txtHead rowTtl" style="border-left: solid 1px black; text-align: center">ID</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">Trans Number</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">Cap</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">Gun Description</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">ACQ Date</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">Received From</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; text-align: center">DSP Date</div>
+                        <div class="grid-rt txtHead rowTtl" style="vertical-align: middle; border-right: solid 2px black; text-align: center">Transferred To</div>
+                        <div class="grid-rt txtHead rowTtl grid-mags-del">Remove</div>
+                    </div>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="tbMagGuts">
+        <tr>
+            <td style="width: 100%">
+                <div class="page" style="line-height: 2; position: relative; left: -.5px">
+                    <div id="magGrid" style="width: 100%; margin-left: 1px">
+                        
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="dvMag" class="modal">
+    <form data-form-validate="true" method="post" id="form-mags" novalidate="novalidate">
+        <input type="hidden" id="magId" />        
+        <div id="dvMagEditor" class="modalForm">
+            <div class="well-grp" id="editTtl">Magazine Data</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="s6" class="label-form control-label lbl-black">Manufacturer: </label>
+                        <select name="Manufacturer" id="s6" class="selectpicker form-group-sm ctrl-width" data-size="10" data-hide-disabled="true" data-live-search="true" data-rule-required="true" aria-required="true" onchange="showIfAdd(1)">
+                            @{
+                                <option value="">- SELECT -</option>
+                                <option value="-1">- ADD NEW MANUFACTURER -</option>
+                                foreach (var item in Model.Menus.ManufAll.Manufacturers)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errors6" class="has-error error-pad"></div>
+                    </div>
+                    <div id="addMfg" style="display: none">
+                        <div class="top-buffer">
+                            <label for="t3" class="label-form lbl-black">New Mfg Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="ManufacturerAdd" id="t3">
+                            <div id="errort3" class="has-error error-pad"></div>
+                        </div>
+                        <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                            <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddMfg" onclick="addManuf(1)">Add Manuf</button>
+                        </div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s7" class="label-form control-label lbl-black">Caliber: </label>
+                        <select name="Caliber" id="s7" class="selectpicker form-group-sm ctrl-width" data-live-search="true" data-size="10" data-hide-disabled="true" data-rule-required="true" aria-required="true" onchange="showIfAdd(3)">
+                            @{
+                                <option value="">- SELECT -</option>
+                                <option value="-1">- ADD NEW CALIBER -</option>
+                                foreach (var item in Model.Menus.AllCaliber.AllCalibers)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errors7" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s8" class="label-form control-label lbl-black">Gun Type: </label>
+                        @Html.DropDownList("GunType", Model.Menus.GunType.GunTypes, "- SELECT - ",
+                            new {id = "s8", @class = "ag-control input-sm ctrl-width", data_rule_required = "true", aria_required = "true"})
+                        <div id="errors8" class="has-error pad-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t4" class="label-form lbl-black">Capacity: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="Capacity" id="t4">
+                        <div id="errort4" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t5" class="label-form lbl-black">Model: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="Model" id="t5">
+                        <div id="errort5" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t6" class="label-form lbl-black">Acq Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqDate" id="t6">
+                        <div id="errort6" class="has-error error-pad"></div>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div class="top-buffer">
+                        <label for="t7" class="label-form lbl-black">Acq Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqName" id="t7">
+                        <div id="errort7" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t8" class="label-form lbl-black">Acq Addr/FFL: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="AcqAddrFfl" id="t8">
+                        <div id="errort8" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="s9" class="label-form control-label lbl-black">Is Disposed:</label>
+                        <select class="ag-control input-sm ctrl-width" id="s9" name="IsDisposed" onchange="showDisp(this.value)">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t9" class="label-form lbl-black">Dsp Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspDate" id="t9">
+                        <div id="errort9" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t10" class="label-form lbl-black">Dsp Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspName" id="t10">
+                        <div id="errort10" class="has-error error-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="t11" class="label-form lbl-black">Dsp Addr/FFL: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DspAddrFfl" id="t11">
+                        <div id="errort11" class="has-error error-pad"></div>
+                    </div>
+                </div>
+                <div class="btnRow">
+                    <div id="dvBtnClose" class="btnPad">
+                        <input type="button" id="btnClose" class="btn btn-xs btn-red2 btn-inv-guns" value="Close" onclick="closeDiv('dvMag')">
+                    </div>
+                    <div id="dvBtnEdit" class="btnPad" style="display: none">
+                        <input type="button" id="btnEditItem" class="btn btn-xs btn-blue btn-inv-guns" value="Edit Magazine" onclick="editMag()" aria-invalid="false">
+                    </div>
+                    <div id="dvBtnAdd" class="btnPad" style="display: none">
+                        <input type="button" id="btnAddItem" class="btn btn-xs btn-blue btn-inv-guns" value="Add Magazine" onclick="addMag()" aria-invalid="false">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $(window).onload(buildHiCaps());
+
+
+
+</script>

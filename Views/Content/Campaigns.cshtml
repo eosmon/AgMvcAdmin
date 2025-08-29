@@ -1,0 +1,60 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Banner Campaigns</h3>
+    </div>
+</div>
+<div style="padding-top: 30px"></div>
+<div class="well-content row" style="margin-left: 0">
+<form id="form-pg-content" action="" method="post">
+<input type="hidden" id="pgId" value="0" />
+
+<div id="pgBody">
+
+    <div style="clear: both; height: 25px"></div>
+    <div class="well-grp">Campaigns</div>
+    <div class="well-text row" style="width: 100%; margin: 0 auto">
+        <div id="dvCpn" style="width: 100%; display: none">
+            <div id="dvCpnHdr" style="background: black; height: 22px">
+                <div style="width: 5%; display: inline-block"></div>
+                <div style="width: 5%; display: inline-block; color: white; vertical-align: sub; text-align: center">ID</div>
+                <div style="width: 59%; display: inline-block; color: white; vertical-align: sub">Campaign</div>
+                <div style="width: 25%; display: inline-block; color: white; vertical-align: sub">Timeout</div>
+                <div style="width: 6%; display: inline-block"></div>
+            </div>
+            <div id="dvCpnRows" style="border: solid 1px black">
+
+            </div>
+        </div>
+        <div id="dvNoCpn" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color:black">There are no campaigns defined</div>
+
+        <div class="rowBtm" style="text-align: right">
+            <span class="link12Blue" onclick="addCampaignRow()">New Campaign</span>
+        </div>
+    </div>
+    
+    <div style="clear: both; height: 25px"></div>
+    <div class="well-grp">Banners</div>
+    <div class="well-text row" style="width: 100%; margin: 0 auto">
+
+        <div id="dvBnr" style="width: 100%">
+            <div id="dvBnrRows" style="border: solid 1px black; height: 250px; overflow-y: scroll">
+
+            </div>
+        </div>
+        <div id="dvNoBnr" style="width: 100%; margin: 0 auto; text-align: center; padding: 8px; display: none; color: black">There are no banners defined for this section</div>
+        <div class="rowBtm">
+            <span class="link12Blue" onclick="addBannerRow()">Add Banner</span>            
+        </div>
+    </div>  
+
+
+</div>
+</form>
+</div>
+
+
+<script type="text/javascript" language="javascript">
+    loadAll();
+</script>

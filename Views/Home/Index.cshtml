@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "";
+}
+
+<html>
+<head>
+    <title>OCR</title>
+    
+    <script type="text/javascript" language="javascript">
+
+        //function text() {
+        //    $("form-ocr").submit();
+        //}
+
+        var currentString = "";
+
+        function sniff() {
+            if (event.keyCode != 13)
+                currentString += String.fromCharCode(event.keyCode);
+            else {
+                alert(currentString);
+                currentString = "";
+            }
+        }
+
+        function testit() {
+
+            alert(window.event.keyCode);
+
+            var t = document.getElementById("txt").value;
+            //var res = t.replace(";", "-");
+            //alert(t);
+            //document.getElementById("nw").value = res;
+            document.forms[0].submit();
+            return false;
+            //var kk = event.keyCode;
+            //if (kk === 94 || kk === 80 || kk === 78 || kk === 65 || kk === 59 || kk === 57 || kk === 56 || kk === 54 || kk === 52 || kk === 51 || kk === 50 || kk === 49 || kk === 48) { return false; }
+
+            //alert(event.keyCode);
+            //return false;
+        }
+
+        function newCrap(v) {
+            return false;
+            if (window.event.keyCode != 17) { return false; };
+            if (v.length < 80) { return false; };
+            alert(v.length);
+
+            //document.getElementById("nw").value = v;
+            //alert(document.getElementById("nw").value);
+            return false;
+            //document.forms[0].submit();
+        }
+
+        //document.onkeydown = function(e) {
+        //    if (window.event.keyCode != 17) { return; };
+        //    document.forms[0].submit();
+        //}
+
+        document.getElementById("form-ocr").addEventListener("submit", function (event) { event.preventDefault(); });
+
+    </script>
+
+</head>
+<body>
+
+<form method="post" action="/Home/RunOcr" id="form-ocr">
+    
+    <input type="text" id="txt" name="txt" style="width: 900px" placeholder="swipe here" maxlength="5000" />
+</form>
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p>
+        <a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p>
+            <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" language="javascript">
+    
+    document.getElementById("form-ocr").addEventListener("submit", function (event) { event.preventDefault(); });
+
+</script>

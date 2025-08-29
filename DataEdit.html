@@ -1,0 +1,659 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DIV TEST</title>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+    <link href="/Content/main.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-select.css" rel="stylesheet" />
+    <link href="/Content/jasney-bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/data-feed.css" rel="stylesheet">
+
+
+    <script type="text/javascript" src="/Scripts/modernizr-2.6.2.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript" src="/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-select.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-min.js"></script>
+    <script type="text/javascript" src="/Scripts/respond.js"></script>
+    
+    <script type="text/javascript" src="https://www.jasny.net/bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+
+
+
+    
+    <style>
+        
+        body {
+            background: #666666;
+        }
+
+        .decRow {
+            padding-bottom: 3px;
+        }
+
+        .shell {
+            background: #333333;
+            width: 222px;
+            border-radius: 4px;
+            border: solid 1px yellow;
+        }
+
+        .feed-BtnBl
+        {
+            width: 75px;
+            background: blue;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            border: solid 1px white;
+            padding: 5px;
+        }
+
+        .feed-ChkA
+        {
+            display: table-cell;
+        }
+
+        .feed-ChkCol
+        {
+            display: table-cell;
+            padding-left: 7px;
+            width: 72px;
+        }
+
+        .feed-Mfg
+        {
+            color: #00FFFF;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 10px;
+            text-align: center;
+            font-weight: bold;
+            padding-top: 7px;
+            margin: 0 auto;
+            /*background: #cccccc;*/
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+
+        .feed-Data
+        {
+            color: #00FFFF;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 10px;
+            font-weight: bold;
+            padding-left: 3px;
+            padding-top: 5px; 
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .feed-DataRow
+        {
+            text-align: left;
+            padding-left: 3px;
+            display: none;
+        }
+
+        .feed-DecW
+        {
+            width: calc(100% - 54px) !important;
+        }
+
+        .feed-MainW
+        {
+            width: 55px;
+        }
+
+        .feed-MfgEdit {
+            padding-top: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .feed-LblSm
+        {
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 10px;
+            text-align: right;
+            display: inline-block;
+        }
+
+        .feed-LblCk
+        {
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 10px;
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 3px;
+        }
+
+        .feed-Row47 {
+            display: inline-block;
+            width: 47px;
+        }
+
+        .feed-Txt45
+        {
+            clear: both;
+            background: #333333;
+            color: #00FFFF;
+            border-radius: 4px;
+            font-size: 10px;
+            width: 45px;
+            border: solid 1px white;
+            padding: 3px;
+        }
+
+        .feed-CboSm
+        {
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 10px;
+            max-width: 156px;
+            background: #333333;
+            color: white;
+            border: solid 1px orange;
+        }
+
+        .selectSm
+        {
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 9px;
+            width: 200px;
+            border: solid 1px orange;
+            background: #333333;
+            color: white;
+        }
+
+
+        .feed-TxtM
+        {
+            width: 157px;
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 10px;
+            background: #333333;
+            color: white;
+            border: solid 1px orange;
+        }
+
+        .feed-TxtA
+        {
+            margin-left: 3px;
+            width: 97%;
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 10px;
+            background: #333333;
+            color: #00FFFF;
+            border: solid 1px white;
+        }
+
+        .feed-RwMnLt
+        {
+            display: table-cell;
+            width: 20%;
+            text-align: right;
+        }
+
+        .feed-RwMnRt
+        {
+            display: table-cell;
+            width: 80%;
+        }
+
+
+
+        .picRowLt {
+            padding-left: 4px;
+            width: 55%;
+            float: left;
+        }
+
+        .picRowRt
+        {
+            width: 45%;
+            float: right;
+        }
+
+        .picFrame
+        {
+            border: 1px solid blue;
+            width: 113px;
+            height: 88px;
+            background-color: white;
+            vertical-align: top;
+        }
+
+
+
+        .txtRowSm
+        {
+            display: inline-block;
+            width: 47px;
+
+        }
+
+        .uplPicTxt
+        {
+            color: yellow;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .uplPicTxt:hover
+        {
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+    
+    <script type="text/javascript" language="javascript">
+        
+        var gunTypes = {
+            '1': 'Pistol',
+            '2': 'Revolver',
+            '3': 'Rifle',
+            '4': 'Shotgun',
+            '5': 'Receiver'
+        };
+
+        var calibers = { '1': '5.56MM NATO', '2': '7.62x39mm Soviet', '3': '.308 Winchester', '4': '.338 Lapua Magnum', '5': '.300 Win Mag' };
+
+        $(document).ready(function () {
+            $("[id^=muGt],[id^=muCal],[id^=muAtn],[id^=muFsh],[id^=muCnd]").click(function () {
+
+                var n = this.id;
+                var x = {};
+
+                if (n.indexOf("Gt") != -1) { x = gunTypes; }
+                if (n.indexOf("Cal") != -1) { x = calibers; }
+
+                //var t = $(this).html();
+                var dv = $(this).parents("[id^=divRw]").find("div.feed-DataRow");
+                var cbo = $(this).parents("[id^=divRw]").find("select");
+
+                dv.show();
+                $(this).hide();
+
+                cbo.empty();
+
+                $.each(x, function (val, text) {
+                    cbo.append($('<option></option>').val(val).html(text));
+                });
+
+                $("option:contains(" + t + ")", dv).attr('selected', 'selected');
+            });
+        });
+ 
+
+
+
+
+        //$(document).ready(function () {
+        //    $("[id^=menu]").click({ param1: $(this).attr('id'), param2: "World" }, cookCbo);
+
+           
+        //    //$(".feed-Data").click(function () {
+        //    //    var t = $(this).html();
+        //    //    var dv = $(this).parents("[id^=divRw]").find("div.feed-DataRow");
+        //    //    var cbo = $(this).parents("[id^=divRw]").find("select");
+
+        //    //    dv.show();
+        //    //    $(this).hide();
+
+        //    //    cbo.empty();
+
+        //    //    $.each(gunTypes, function (val, text) {
+        //    //        cbo.append($('<option></option>').val(val).html(text));
+        //    //    });
+
+
+        //    //    //child.append(option);
+
+        //    //    $("option:contains(" + t + ")", dv).attr('selected', 'selected');
+        //    //});
+        //});
+
+
+
+
+        $(document).ready(function () {
+            $(".feed-CboSm").on('change', function () {
+                var z = $(this).parent().parent().find("div.feed-Data");
+                var t = $("option:selected", this).text();
+
+                if (this.selectedIndex > 0) {
+                    z.text(t);
+                    z.show();
+                    $(this).parent().hide();
+
+                    
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            $(".selectSm").on('change', function () {
+                var z = $(this).parent().parent().find("div.feed-Mfg");
+                var t = $("option:selected", this).text();
+
+                if (this.selectedIndex > 0) {
+                    z.text(t);
+                    z.show();
+                    $(this).parent().hide();
+                }
+            });
+        });
+
+
+
+        $(document).ready(function(){
+            $(".feed-Mfg").click(function () {
+                var t = $(this).html();
+                var dv = $(this).parents("[id^=divMfg]").find("div.feed-MfgEdit");
+                dv.show();
+                $(this).hide();
+                $("option:contains(" + t + ")", dv).attr('selected', 'selected');
+            });
+        });
+
+
+
+        var numbers = [1, 2, 3, 4, 5];
+        var option = '';
+        for (var i = 0; i < numbers.length; i++) {
+            option += '<option value="' + numbers[i] + '">' + numbers[i] + '</option>';
+        }
+        $('#items').append(option);
+
+
+    </script>
+    
+
+
+</head>
+<body>
+<div class="shell">
+    <div id="divMfg1" style="padding-bottom: 10px; padding-top: 5px">
+        <div class="feed-Mfg" id="m1">ASHBURY PRECISION ORDNANCE MANUFACTURING</div>
+        <div class="feed-MfgEdit">
+            <select name="s1" class="selectSm">
+                <option value="0">- SELECT MANUFACTURER -</option>
+                <option value="1">ASHBURY PRECISION ORDNANCE MANUFACTURING</option>
+                <option value="2">RUSSIAN AMERICAN ARMORY COMPANY</option>
+            </select>
+        </div>        
+    </div>
+    <div>
+        <div class="picRowLt">
+            <div id="divImg1" class="fileinput fileinput-new img-loop block-pics" data-provides="fileinput">
+                <div id="imgDoc_1" class="fileinput-preview thumbnail picFrame" data-trigger="fileinput"><img src="http://localhost:8002/GunImages/BHC/L/BONDBASSIV45410.jpg"/>
+                </div>
+                <div class="checkForm" style="text-align: center; padding-top: 3px">
+                    <span class="btn-file"><a href="#" class="fileinput-new uplPicTxt" data-trigger="fileinput">Select Image</a><input type="file" name="imgstateid" id="Svc1_1" onchange="checkImgErrors(false, 'Svc1_')"></span>
+                    <div class="uplPicTxt" style="padding-top: 2px">
+                        <a href="#" class="fileinput-exists uplPicTxt img-loop" data-dismiss="fileinput" onclick="clearImgError(false)">Cancel</a>
+                        <span class="fileinput-exists uplPicTxt img-loop" data-dismiss="fileinput"> | </span>
+                        <a href="#" class="fileinput-exists uplPicTxt img-loop" data-dismiss="fileinput" onclick="clearImgError(false)">Update</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="picRowRt">
+            <div class="decRow">
+                <div class="feed-LblSm feed-DecW">Capacity:</div>
+                <div class="feed-Row47">
+                    <input type="text" class="feed-Txt45" value="299.614">
+                </div>
+            </div>
+            <div class="decRow">
+                <div class="feed-LblSm feed-DecW">Barrel:</div>
+                <div class="feed-Row47">
+                    <input type="text" class="feed-Txt45" value="299.614">
+                </div>
+            </div>
+            <div class="decRow">
+                <div class="feed-LblSm feed-DecW">Overall:</div>
+                <div class="feed-Row47">
+                    <input type="text" class="feed-Txt45" value="299.614">
+                </div>
+            </div>
+            <div class="decRow">
+                <div class="feed-LblSm feed-DecW">Chamber:</div>
+                <div class="feed-Row47">
+                    <input type="text" class="feed-Txt45" value="299.614">
+                </div>
+            </div>
+            <div class="decRow">
+                <div class="feed-LblSm feed-DecW">Weight:</div>
+                <div class="feed-Row47">
+                    <input type="text" class="feed-Txt45" value="299.614">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both">
+        <div id="rowGunType" class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Gun Type:</div>
+            </div>
+            <div id="divRw1" class="feed-RwMnRt">
+                <div class="feed-Data" id="muGt1">Rifle</div>
+                <div class="feed-DataRow">
+                    <select name="s2" class="feed-CboSm">
+                        <option value="0">- SELECT GUN TYPE -</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="rowCaliber" class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Caliber:</div>
+            </div>
+            <div id="divRw2" class="feed-RwMnRt">
+                <div class="feed-Data" id="muCal1">7.62x39mm Soviet</div>
+                <div class="feed-DataRow">
+                    <select name="s3" class="feed-CboSm">
+                        <option value="0">- SELECT CALIBER -</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="rowAction" class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Action:</div>
+            </div>
+            <div id="divRw3" class="feed-RwMnRt">
+                <div class="feed-Data" id="muAtn1">Semi-Automatic</div>
+                <div class="feed-DataRow">
+                    <select name="s3" class="feed-CboSm">
+                        <option value="0">- SELECT ACTION -</option>
+                        <option value="1">Single Action</option>
+                        <option value="2">Over-Under</option>
+                        <option value="2">Bolt Action</option>
+                        <option value="3">Side-By-Side</option>
+                        <option value="4">Semi-Automatic</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="rowFinish" class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Finish:</div>
+            </div>
+            <div id="divRw4" class="feed-RwMnRt">
+                <div class="feed-Data" id="muFsh1">Parkerized</div>
+                <div class="feed-DataRow">
+                    <select name="s3" class="feed-CboSm">
+                        <option value="0">- SELECT FINISH -</option>
+                        <option value="1">Black</option>
+                        <option value="2">Blued</option>
+                        <option value="2">Stainless</option>
+                        <option value="3">Nickel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="rowCondition" class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Condition:</div>
+            </div>
+            <div id="divRw5" class="feed-RwMnRt">
+                <div class="feed-Data" id="muCnd1">Factory New</div>
+                <div class="feed-DataRow">
+                    <select name="s3" class="feed-CboSm">
+                        <option value="0">- SELECT CONDITION -</option>
+                        <option value="1">Factory New</option>
+                        <option value="2">Excellent</option>
+                        <option value="3">Very Good</option>
+                        <option value="4">Good</option>
+                        <option value="5">Fair</option>
+                        <option value="6">Poor</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Model:</div>
+            </div>
+            <div id="divRw6" class="feed-RwMnRt">
+                <div class="feed-Data">400XTP MAGNUM</div>
+                <div class="feed-DataRow">
+                    <input type="text" class="feed-TxtM" value="400XTP MAGNUM" />
+                </div>
+            </div>
+        </div>
+        <div class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">UPC Code:</div>
+            </div>
+            <div id="divRw7" class="feed-RwMnRt">
+                <div class="feed-Data">902283928342</div>
+                <div class="feed-DataRow">
+                    <input type="text" class="feed-TxtM" value="902283928342" />
+                </div>                                
+            </div>
+        </div>
+        <div class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">MFG#:</div>
+            </div>
+            <div id="divRw8" class="feed-RwMnRt">
+                <div class="feed-Data">90SSC411</div>                 
+                <div class="feed-DataRow">
+                    <input type="text" class="feed-TxtM" value="90SSC411" />
+                </div>
+            </div>
+        </div>
+        <div class="decRow">
+            <div class="feed-RwMnLt">
+                <div class="feed-LblSm feed-MainW">Desc:</div>
+            </div>
+            <div id="divRw9" class="feed-RwMnRt">
+                <div class="feed-Data">THE QUICK BROWN FOX JUMPED OVER THE BIG GIANT FENCE</div>                
+                <div class="feed-DataRow">
+                    <input type="text" class="feed-TxtM" value="THE QUICK BROWN FOX JUMPED OVER THE BIG GIANT FENCE" />
+                </div>
+            </div>
+        </div>
+        <div class="decRow">
+            <textarea cols="10" rows="5" class="feed-TxtA"></textarea> 
+        </div>
+    <div id="chkArr">
+        <div class="feed-ChkCol">
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Active</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Verified</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Hide</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">On Feed</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Cur Mdl</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Oversize</div>
+            </div>
+        </div>
+        <div class="feed-ChkCol">
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Hide CA</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA Legal</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Orig Box</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Orig Pwk</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Req FFL</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">Used</div>
+            </div>
+        </div>
+        <div class="feed-ChkCol">
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA Roster</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA C&R</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA SA Rev</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA SS Pst</div>
+            </div>
+            <div>
+                <div class="feed-ChkA"><input type="checkbox" /></div>
+                <div class="feed-LblCk">CA PPT</div>
+            </div>
+        </div>
+    </div>
+    <div style="padding-bottom: 10px">
+        <div style="width: 111px; display: table-cell; text-align: center">ID: <b style="color: #00FFFF">11256</b></div>
+        <div style="width: 111px; display: table-cell; text-align: center">
+            <button class="feed-BtnBl">Update</button>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

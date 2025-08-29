@@ -1,0 +1,158 @@
+﻿@using Microsoft.Ajax.Utilities
+@model AgMvcAdmin.Models.PageModel
+
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Data Feed - Edit Manufacturers</h3>
+    </div>
+</div>
+<div style="height: 20px"></div>
+<div id="divLoading" class="divWait" style="width: 1200px"></div>
+<div id="divFeed" class="well-content row" style="margin-left: 0; font-size: 11px !important">
+    <form id="mfgFeedEdit" action="" method="post">
+        <input type="hidden" id="trc" value="">        
+        <input type="hidden" id="did" name="ni" value="">
+        <input type="hidden" id="map" value="0"/>
+        <input type="hidden" id="mid" value="0"/>
+        <input type="hidden" id="dfo" value="0"/>
+        <input type="hidden" id="pmo" value="1"/>
+
+        <div class="divLeft">
+            <div id="divDfLinks">
+                <div class="gunNav-Section">
+                    <div>
+                        <div id="divNewMfg" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/edit-manufacturers">Manufacturers</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct1">(99,542)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divDupes" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/manage-duplicates">Duplicates</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct2">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divMissData" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/missing-gun-specs/all-specs">Missing Data</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct3">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divImages" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/edit-images">Images</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct15">(0)</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="divRight">
+
+            <div class="gun-nav-heading" style="margin-bottom: 10px">
+                <div style="width: 40%; display: inline-block">
+                    <div style="padding-bottom: 3px; text-align: right">
+                        <label for="s2" style="padding-right: 5px">Distributor: </label>
+                        <select aria-required="true" class="menu-1 mu-w1" id="s2" name="dist1" onchange="setMenuMapCode(this.value)">
+                            <option>- SELECT -</option>
+                            @foreach (var item in Model.Menus.FeedMfgDistCt.Distributors)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div style="padding-bottom: 3px; text-align: right">
+                        <label for="s3" style="padding-right: 5px">MAP Code: </label>
+                        <select aria-required="true" class="menu-1 mu-w1" id="s3" name="dist1">
+                            <option value="">- SELECT - </option>
+                        </select>
+                    </div>
+                </div>
+                <div style="width: 60%; display: inline-block">
+                    <div style="padding-bottom: 3px; display: inline-block; width: calc(100% - 85px); text-align: right">
+                        <label for="s2" style="padding-right: 5px">Assign To: </label>
+                        <select aria-required="true" class="menu-1 mu-w2" id="s4" name="dist1">
+                            <option>- SELECT -</option>
+                            <option value="-1">ARCHIVE AS NON-GUN</option>
+                            @foreach (var item in Model.Menus.ManufAll.Manufacturers)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div style="display: inline-block; position: relative; top: -2px; padding-right: 3px; padding-left: 1px"><button id="btnAssign" class="btn btn-xs btn-blu-sm" onclick="assignMfg()">Update</button>
+                    </div>
+
+                    <div style="padding-bottom: 3px; display: inline-block; width: calc(100% - 85px); text-align: right;">
+                        <label for="s3" style="padding-right: 5px">Create New MFG: </label>
+                        <input type="text" class="menu-1 mu-w2" name="newMfg" id="t2" aria-required="true" style="margin-left: 3px">
+                    </div>
+                    <div style="display: inline-block; position: relative; top: -2px; padding-right: 3px; padding-left: 1px"><button id="btnAddMfg" class="btn btn-xs btn-blu-sm" onclick="createMfg()">Add New</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="gun-nav-heading">
+                <div class="gunsPerPg">
+                    <div style="display: inline-block">Distributor:</div>
+                    <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                        <select id="s1" class="sm-menu" onchange="callBind()">
+                            <option>- DIST -</option>
+                            @foreach (var item in Model.Menus.FeedMfgDist.Distributors)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="gun-count" id="gunCountHeader">Loading Manufacturers...</div>
+                <div style="display: inline-block; vertical-align: -webkit-baseline-middle">
+                    <div style="display: inline-block">
+                        <div style="display: table-cell; vertical-align: middle">
+                            <input type="checkbox" id="c1" checked="checked" onchange="callBind()" />
+                        </div>
+                        <div style="display: table-cell; padding-left: 5px; padding-top: 1px; padding-right: 5px">Data Feed Only</div>
+                    </div>
+                    <div style="display: inline-block; padding-left: 5px">
+                        <div style="display: table-cell; vertical-align: middle">
+                            <input type="checkbox" id="c2" onchange="callBind()" />
+                        </div>
+                        <div style="display: table-cell; padding-left: 5px; padding-top: 1px; padding-right: 5px">Parents Only</div>
+                    </div>
+                </div>
+            </div>
+            <div id="noData" style="text-align: center; padding-top: 25px; display: none"></div>
+
+            <div id="addRowHeader" style="margin-top: 10px; margin-left: -15px; display: none">
+                <div style="display: inline-grid; grid-template-columns: 40px 50px 170px 150px 120px 50px 50px 27px 27px 27px 27px 27px 27px 27px 27px 27px 59px">
+                    <div class="mfg-gridHeader">Mfg</div>
+                    <div class="mfg-gridHeader">Parent</div>
+                    <div class="mfg-gridHeader">Manuf Name</div>
+                    <div class="mfg-gridHeader">Parent Co</div>
+                    <div class="mfg-gridHeader">URL</div>
+                    <div class="mfg-gridHeader">On Feed</div>
+                    <div class="mfg-gridHeader">Active</div>
+                    <div class="mfg-gridHeader">SSI</div>
+                    <div class="mfg-gridHeader">WSS</div>
+                    <div class="mfg-gridHeader">LIP</div>
+                    <div class="mfg-gridHeader">DAV</div>
+                    <div class="mfg-gridHeader">RSR</div>
+                    <div class="mfg-gridHeader">BHC</div>
+                    <div class="mfg-gridHeader">GRN</div>
+                    <div class="mfg-gridHeader">ZAN</div>
+                    <div class="mfg-gridHeader">MGE</div>
+                    <div class="mfg-gridHeader">Btn</div>
+                </div>
+                <div id="addRows" style="width: 100%; text-align: left; display: inline-block; height: 600px; overflow-y: scroll"></div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(window).onload(bindMfgGrid());
+</script>

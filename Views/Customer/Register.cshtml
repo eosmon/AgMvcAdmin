@@ -1,0 +1,66 @@
+﻿@model AgMvcAdmin.Models.PageModel
+    
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Add/Edit Customer</h3>
+    </div>
+</div>
+<div style="clear: both; height: 25px"></div>
+<div class="well-content row" style="margin-left: 0">
+    <div id="dvCustSrch">
+        <form>
+            <div class="well-grp">Customer Search</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <div>
+                    <div class="top-buffer">
+                        <label for="t40" class="label-form lbl-black">Search Customer: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="SearchCustomer" id="t40" Placeholder="Enter Customer Name, Address, Phone or Email">
+                        <div id="errort40" class="has-error pad-add"></div>
+                    </div>
+                    <div class="top-buffer" id="dvSwipe" style="display: none">
+                        <label for="t41" class="label-form lbl-black">ID Text: </label><input type="password" class="ag-control input-sm ctrl-width pad-lft" name="SearchCustomer" id="t41" placeholder="Swipe Customer State ID" onchange="readData(this)">
+                        <div id="errort41" class="has-error pad-add"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both; height: 25px"></div>
+    @Html.Partial("_CustomerEdit")
+    <div id="dvAddDocBtn" class="cust-btn">
+        <div style="display: none; padding-right:5px" class="cust-btn-pad" id="dvCustBtnClr">
+            <button type="button" class="btn btn-xs btn-c-red" id="btnClear" onclick="wipeCustForm()">Clear</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad" id="dvBtnAdd">
+            <button type="button" class="btn btn-xs btn-c-green" id="btnAddNewCust" onclick="addEditCustomer(false)">Add Customer</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad" id="dvCustBtnEdit">
+            <button type="button" class="btn btn-xs btn-c-blue" id="btnEditCust" onclick="addEditCustomer(false)">Edit Customer</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad"  id="dvCustBtnClrDoc">
+            <button type="button" class="btn btn-xs btn-c-red2" id="btnClrDoc" name="btnClrDocCust" data-dismiss="fileinput">Clear</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad" id="dvCustBtnCurDoc">
+            <button type="button" class="btn btn-xs btn-c-green" id="btnCurDocCust" name="btnAddDoc" onclick="setCurrent()">Make Current</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad" id="dvCustBtnAddDoc">
+            <button type="button" class="btn btn-xs btn-c-green" id="btnAddDocCust" name="btnAddDoc" onclick="addDoc()">Add Document</button>
+        </div>
+        <div style="display: none" class="cust-btn-pad" id="dvCustBtnEditDoc">
+            <button type="button" class="btn btn-xs btn-c-blue" id="btnEditDocCust" name="btnEditDoc" onclick="editDoc()">Edit Document</button>
+        </div>
+    </div>
+</div>
+
+<div id="CustModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+    <div id="closeLnk" class="caption" onclick="closeDocPreview()">Close Preview</div>
+</div>
+
+@*<script type="text/javascript" language="javascript">
+
+    $(window).onload(getCustomer(1));
+
+</script>*@

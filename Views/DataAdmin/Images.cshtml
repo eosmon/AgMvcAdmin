@@ -1,0 +1,143 @@
+﻿@using Microsoft.Ajax.Utilities
+@model AgMvcAdmin.Models.PageModel
+
+
+<div class="well-header">
+    <div style="display: inline-block; width: calc(100% - 120px) !important">
+        <h3 class="header3">Data Feed - Manage Images</h3>
+    </div>
+</div>
+<div style="height: 20px"></div>
+<div id="divLoading" class="divWait" style="width: 1200px; height:30px;"></div>
+<div id="divFeed" class="well-content row" style="margin-left: 0; font-size: 11px !important">
+    <form id="gunFeedEdit" action="" method="post">
+        <input type="hidden" id="gunsPerPg" value="100" />
+        <input type="hidden" id="curPg" value="0" />
+        <input type="hidden" id="ttlPgs" value="0" />
+        <input type="hidden" id="ttlRowCt" value="" />
+        <input type="hidden" id="ni" name="ni" value="">
+        <input type="hidden" id="mid" value="0" />
+        <input type="hidden" id="gtp" value="0" />
+        <input type="hidden" id="cid" value="0" />
+        <input type="hidden" id="fid" value="1" />
+        <input type="hidden" id="mis" />
+
+
+
+        <input type="hidden" id="srch">
+        <div class="divLeft">
+            <div id="divDfLinks">
+                <div class="gunNav-Section">
+                    <div>
+                        <div id="divNewMfg" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/edit-manufacturers">New Manufacturers</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct1">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divDupes" style="display: inline; padding-left: 9px">
+                            <a class="gunNav-Link bold" href="/data-feed-admin/manage-duplicates">Duplicates</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct2">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divMissData" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/missing-gun-specs/all-specs">Missing Data</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct3">(0)</div>
+                    </div>
+                    <div class="pad-top-5">
+                        <div id="divImages" style="display: inline; padding-left: 9px">
+                            <a onclick="setMsChk()" class="gunNav-Link bold" href="/data-feed-admin/edit-images">Images</a>
+                        </div>
+                        <div class="gunNav-Counter" id="ct15">(0)</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="filterTxt">Filter Search:</div>
+
+            <div style="padding-left: 10px; padding-top: 10px; font-size: 10px">
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Manufacturer:</div>
+                    <div>
+                        <select name="s2" id="s2" class="selectpicker" data-live-search="true" data-dropupauto="true" data-size="10" onchange="setImgMenuMfg(this.value)">
+                            <option>- ALL MANUFACTURERS -</option>
+                            @foreach (var item in Model.Menus.FeedManuf)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Gun Type:</div>
+                    <div>
+                        <select name="s3" id="s3" class="selectpicker" data-live-search="true" data-dropupauto="true" onchange="setMenuGunType(this.value)">
+                            <option>- ALL GUN TYPES -</option>
+                            @foreach (var item in Model.Menus.FeedGunType)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div style="padding-bottom: 10px">
+                    <div style="padding-bottom: 3px">Caliber:</div>
+                    <div>
+                        <select name="s4" id="s4" class="selectpicker" data-live-search="true" data-dropupauto="true" data-size="10" onchange="setMenuCaliber(this.value)">
+                            <option>- ALL CALIBERS -</option>
+                            @foreach (var item in Model.Menus.FeedCaliber)
+                            {
+                                <option value="@item.IntValue" data-subtext="(@String.Format("{0:n0}", item.ItemCount))">@item.MenuText</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divRight">
+
+            <div class="images-nav-heading">
+                <div class="images-rowsPerPg">
+                    <div style="display: inline-block">Rows Per Page:</div>
+                    <div style="display: inline-block; vertical-align: middle; padding-left: 5px">
+                        <select id="s1" class="sm-menu" onchange="setPageCount(this.value)">
+                            <option value="100" selected="">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="images-count" id="gunCountHeader">Loading Images...</div>
+                <div class="images-chkMiss">
+                    <div style="display: table-cell; vertical-align: middle">
+                        <input type="checkbox" id="c1" checked="checked" onchange="bindAll()" />
+                    </div>
+                    <div style="display: table-cell; padding-left: 5px; padding-top: 1px; padding-right: 5px">Missing Only</div>
+                </div>
+            </div>
+            <div class="main-grid">
+                <div id="divPage">
+                    <div style="float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px; color: white; font-weight: bold;">Goto Page:</div>
+                    <div style="float: left; margin-top: 6px" id="pageTop">
+                        <div class="paging" id="pagerDt1">
+
+                        </div>
+                    </div>
+                    <div style="display: inline-block; margin-top: 10px; float: left; margin-left: 10px; color: white" class="range-count"></div>
+                </div>
+            </div>
+            <div id="noData" style="text-align: center; padding-top: 25px; display: none"></div>
+            <div id="addRows" style="width: 100%; text-align: left; display: inline-block; height: 600px; overflow-y: scroll"></div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" language="javascript">
+    $(window).onload(getImages());
+</script>

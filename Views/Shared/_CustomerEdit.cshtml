@@ -1,0 +1,679 @@
+﻿@model AgMvcAdmin.Models.PageModel
+
+<div id="dvCustBasic" style="display:none">
+    <form data-form-validate="true" action="" method="post" id="cust-basic-info" novalidate="novalidate">
+        <div class="well-grp">Customer Basic Info</div>
+        <div class="well-text row" style="width: 100%; margin: 0 auto">
+            <div>
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="ct1" class="label-form lbl-black">First Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="FirstName" id="ct1" data-rule-required="true" aria-required="true">
+                        <div id="errorct1" class="has-error cust-edit-pad"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="ct2" class="label-form lbl-black">Last Name: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="LastName" id="ct2" data-rule-required="true" aria-required="true">
+                        <div id="errorct2" class="has-error cust-edit-pad"></div>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div style="padding-top: 4px">
+                        <label for="ct9" class="label-form lbl-black">Email Address: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft req-group" name="EmailAddress" id="ct9">
+                        <div id="errorct9" class="has-error cust-edit-pad"></div>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <label for="ct10" class="label-form lbl-black">Phone: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft req-group" name="Phone" id="ct10">
+                        <div id="errorct10" class="has-error cust-edit-pad"></div>
+                    </div>
+                </div>
+                <div style="clear: both; padding-top: 4px">
+                    <label for="cta1" class="label-form lbl-black" style="vertical-align: top; padding-top: 5px">Notes: </label><textarea id="cta1" class="ag-control input-sm ctrl-width pad-lft" name="CustomerNotes" style="height: 94px"></textarea>
+                    <div id="errorcta1" class="has-error cust-edit-pad"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div style="clear: both; height: 25px"></div>
+    <div id="dvCustProfile">
+        <div class="well-grp">Customer Profile</div>
+        <div class="well-text row" style="width: 100%; margin: 0 auto">
+            <form data-form-validate="true" action="" method="post" id="cust-form-profile" novalidate="novalidate">
+                <div class="pnl-left">
+                    <div class="top-buffer">
+                        <label for="cs16" class="label-form lbl-black">VIP Customer: </label>
+                        <select name="IsVip" id="cs16" class="ag-control input-sm ctrl-width">
+                            <option value="0">- SELECT -</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <div id="errorcs16" class="has-error cust-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="cs2" class="label-form lbl-black">Referred By: </label>
+                        <select name="SourceId" id="cs2" class="ag-control input-sm ctrl-width">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.RefModel.ReferralSources)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errorcs2" class="has-error cust-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="cs13" class="label-form lbl-black">Select Address: </label>
+                        <select name="CustAddressID" id="cs13" class="ag-control input-sm ctrl-width" onchange="setCustAddr(this.value)">
+                            <option value="">- SELECT -</option>
+                            <option value="-1">- ADD NEW ADDRESS -</option>
+                        </select>
+                        <div id="errorcs13" class="has-error cust-err"></div>
+                    </div>
+                    <div id="dvAddr" style="display:none">
+                        <div class="top-buffer">
+                            <label for="ct4" class="label-form lbl-black">Address: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="Address" id="ct4">
+                            <div id="errorct4" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct5" class="label-form lbl-black">Suite: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="Suite" id="ct5">
+                            <div id="errorct5" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct6" class="label-form lbl-black">City: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="City" id="ct6">
+                            <div id="errorct6" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs3" class="label-form lbl-black state-label">State: </label>
+                            <select name="StateId" id="cs3" class="ag-control-short input-sm" style="width: 55px; margin-left: 6px; float:left" onchange="showCt(this.value)">
+                                @{
+                                    <option value="0">-ST- </option>
+                                    foreach (var item in Model.Menus.UsStateAbrv.UsStates)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <div style="float:right; margin-right:3px">
+                                <label id="l2" for="ct7" class="control-label  lbl-black">Zip Code: </label>
+                                <div class="zip-wrap">
+                                    <input type="text" class="ag-control input-sm" id="ct7" style="width: 60px !important" name="ZipCode" maxlength="5" onkeypress="return isNumber(event)"><span style="color: black; padding-left: 3px; padding-right: 3px">-</span><input type="text" class="input-sm ag-control" id="ct8" style="width: 54px !important" name="ZipExt" maxlength="4" onkeypress="return isNumber(event)">
+                                    <div id="errorct7" class="has-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pnl-right">
+                    <div>
+                        <label for="ct28" class="label-form lbl-black">FAX #: </label>
+                        <input type="text" id="ct28" class="ag-control input-sm ctrl-width" name="Fax" aria-required="true" placeholder="Type Numbers Only">
+                        <div id="errorct28" class="has-error cust-err"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="cs4" class="label-form lbl-black">Industry: </label>
+                        <select name="IndustryId" id="cs4" class="ag-control input-sm ctrl-width" onchange="showAddMenuItem(1)">
+                            @{
+                                <option value="0">- SELECT -</option>
+                                <option value="-1">ADD NEW INDUSTRY</option>
+                                foreach (var item in Model.Menus.Industry)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                                <option value="-2">DECLINE TO SAY</option>
+                            }
+                        </select>
+                        <div id="errorcs4" class="has-error cust-err"></div>
+                    </div>
+                    <div id="addIndustry" style="display: none">
+                        <div class="top-buffer">
+                            <label for="ct11" class="label-form lbl-black">New Industry: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="IndustryAdd" id="t11">
+                            <div id="errorsct11" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                            <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddIndustry" onclick="addIndustry()">Add Industry</button>
+                        </div>
+                    </div>
+                    <div class="top-buffer" id="dvCustProfession" style="display: none">
+                        <label for="cs5" class="label-form lbl-black">Profession: </label>
+                        <select name="ProfessionId" id="cs5" class="ag-control input-sm ctrl-width" onchange="showAddMenuItem(2)">
+                            <option value="0">- SELECT -</option>
+                            <option value="-1">ADD NEW PROFESSION</option>
+                            <option value="-2">DECLINE TO SAY</option>
+                        </select>
+                        <div id="errorcs5" class="has-error cust-err"></div>
+                    </div>
+                    <div id="addProfession" style="display: none">
+                        <div class="top-buffer">
+                            <label for="ct12" class="label-form lbl-black">New Profession: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="IndustryAdd" id="ct12">
+                            <div id="errorsct12" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer" style="text-align: right; margin-right: 7px">
+                            <button type="button" class="btn btn-xs btn-blue btn-inv-guns" id="btnAddProfession" onclick="addProfession()">Add Profession</button>
+                        </div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="cs17" class="label-form lbl-black">Website Access: </label>
+                        <select name="IsOnWeb" id="cs17" class="ag-control input-sm ctrl-width" onchange="custWebAccess(this.value)">
+                            <option value="">- SELECT -</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <div id="errorcs16" class="has-error cust-err"></div>
+                    </div>
+                    <div>
+                        <label for="ProfileImg" class="label-form lbl-black" style="vertical-align: top; padding-top: 8px">Profile Pic: </label>
+                        <div class="fileinput fileinput-new img-loop" data-provides="fileinput" style="display: inline-block; width:calc(100% - 115px); margin-bottom:0 !important; padding-top:10px">
+                            <div id="CusImg_1" class="fileinput-preview thumbnail cust-profile-pic" data-trigger="fileinput" style="min-height:90px"></div>
+                            <div class="checkForm" style="text-align: center; display: inline-block; padding-left: 5px;">
+                                <span class="btn-file"><a href="#" class="fileinput-new uploadTxt" data-trigger="fileinput">Select Image</a><input type="file" name="agimg" id="ProfileImg"></span>
+                                <a href="#" class="fileinput-exists uploadTxt img-loop" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="dvCustCt" style="float:left; width:100%">
+                <div class="pnl-left">
+                    <div class="top-buffer" id="dvCustType">
+                        <label for="cs1" class="lbl-black" style="width:110px; text-align:right">Customer Type: </label>
+                        <select name="CustomerTypeId" id="cs1" class="ag-control input-sm ctrl-width" onchange="setPanel(this.value)">
+                            @{
+                                <option value="0">-SELECT-</option>
+                                foreach (var item in Model.Menus.CustTypes.CustomerTypes)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errorcs1" class="has-error cust-err"></div>
+                    </div>
+                    <div class="top-buffer" id="dvDob" style="display:none; text-align:left">
+                        <label for="cs35" class="lbl-black" style="width:114px; text-align:right">Date of Birth: </label>
+                        <div class="date-wrap" style="margin-left:-2px">
+                            @Html.DropDownList("DobMonth", Model.Menus.MoModel.Month, "-MO- ", new { id = "cs35", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                            @Html.DropDownList("DobDay", Model.Menus.DdModel.Day, "-DD- ", new { id = "cs36", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                            @Html.DropDownList("DobYear", Model.Menus.YrModel.Year, "-YR- ", new { id = "cs37", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                        </div>
+                        <div id="errorcs35" class="has-error cust-err" style="float:left"></div>
+                        <div id="errorcs36" class="has-error cust-err" style="float:left"></div>
+                        <div id="errorcs37" class="has-error cust-err" style="float:left"></div>
+                    </div>
+                </div>
+                <div class="pnl-right">
+
+                </div>
+            </div>
+            <div id="pnlCustPvtBiz" style="display: none">
+                <form data-form-validate="true" action="" method="post" id="cust-ppt-biz" novalidate="novalidate">
+                    <div class="pnl-left">
+                        <div class="top-buffer">
+                            <label for="cs9" class="lbl-black" style="text-align: right; width: 110px">Citizenship: </label>
+                            <select id="cs9" class="ag-control input-sm ctrl-width" name="IsCitizen" data-rule-required="true" aria-required="true" onchange="setAlienType(this.value)">
+                                <option value="" selected>- SELECT -</option>
+                                <option value="true">YES: I AM a United States Citizen</option>
+                                <option value="false">NO: I AM NOT a United States Citizen</option>
+                            </select>
+                            <div id="errors9" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer" id="dvResType" style="display:none">
+                            <label for="cs26" class="lbl-black" style="text-align: right; width: 110px">Alien Status: </label>
+                            <select id="cs26" class="ag-control input-sm ctrl-width" name="IsPermResident" data-rule-required="true" aria-required="true">
+                                <option value="" selected>- SELECT -</option>
+                                <option value="true">Permanent Resident Alien</option>
+                                <option value="false">Non-Resident Alien</option>
+                            </select>
+                            <div id="errorcs26" class="has-error cust-err"></div>
+                        </div>
+                        <div id="dvCaCust" style="display: none">
+                            <div class="top-buffer">
+                                <label for="cs10" class="lbl-black" style="text-align: right; width: 110px">Own a Gun Safe: </label>
+                                <select id="cs10" class="ag-control input-sm ctrl-width" name="CaHasGunSafe" data-rule-required="true" aria-required="true">
+                                    <option value="" selected>- SELECT -</option>
+                                    <option value="true">YES</option>
+                                    <option value="false">NO</option>
+                                </select>
+                            </div>
+                            <div class="top-buffer">
+                                <label for="cs11" class="lbl-black" style="text-align: right; width: 110px">DOJ FSC Status: </label>
+                                <select id="cs11" class="ag-control input-sm ctrl-width" name="CaFscStatus" data-rule-required="true" aria-required="true">
+                                    @{
+                                        <option value="0">-SELECT-</option>
+                                        foreach (var item in Model.Menus.CaFsc.FscList)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pnl-right">
+                        <div class="top-buffer" id="dvCustCmpy" style="display: none">
+                            <label for="ct13" class="lbl-black" style="text-align: right; width: 110px">Company: </label>
+                            <div style="display: inline">
+                                <input type="text" id="ct13" class="ag-control input-sm ctrl-width" name="CompanyName" data-rule-required="true" aria-required="true">
+                            </div>
+                            <div id="errorct13" class="has-error cust-err"></div>
+                        </div>
+                        @*<div id="dvFscCust" style="display: none">
+                            <div class="top-buffer">
+                                <label for="ct30" class="lbl-black" style="text-align: right; width: 110px">FSC Number: </label>
+                                <input type="text" id="ct30" class="ag-control input-sm ctrl-width" name="FscNumber" data-rule-required="true" aria-required="true">
+                                <div id="errorct30" class="has-error cust-err"></div>
+                            </div>
+                            <div class="top-buffer" style="text-align:left">
+                                <label for="cs38" class="lbl-black" style="width:114px; text-align:right">FSC Expires: </label>
+                                <div class="date-wrap" style="margin-left:-2px">
+                                    @Html.DropDownList("CustFscMonth", Model.Menus.MoModel.Month, "-MO- ", new { id = "cs38", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                                    @Html.DropDownList("CustFscDay", Model.Menus.DdModel.Day, "-DD- ", new { id = "cs39", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                                    @Html.DropDownList("CustFscYear", Model.Menus.YrModel.Year, "-YR- ", new { id = "cs40", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;" })
+                                </div>
+                                <div id="errorcs38" class="has-error cust-err"></div>
+                            </div>
+                        </div>*@
+                    </div>
+                </form>
+            </div>
+            <div id="pnlCustLeo" style="display: none">
+                <form data-form-validate="true" action="" method="post" id="cust-form-leo" novalidate="novalidate">
+                    <div class="pnl-left">
+                        <div class="top-buffer">
+                            <label for="cs7" class="label-form lbl-black">Jurisdiction: </label>
+                            <select id="cs7" class="ag-control input-sm ctrl-width" name="JurisdictionId" data-rule-required="true" aria-required="true">
+                                <option value="">- SELECT -</option>
+                                <option value="1">City</option>
+                                <option value="2">County</option>
+                                <option value="3">State</option>
+                                <option value="4">Federal</option>
+                                <option value="5">Other</option>
+                            </select>
+                            <div id="errorcs7" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs8" class="label-form lbl-black">Division: </label>
+                            <select id="cs8" class="ag-control input-sm ctrl-width" name="DivisionId" data-rule-required="true" aria-required="true">
+                                <option value="">- SELECT -</option>
+                                <option value="1">Police</option>
+                                <option value="2">Sheriff</option>|
+                                <option value="3">Highway Patrol</option>
+                                <option value="4">U.S. Marshall</option>
+                                <option value="5">Prison/Parole</option>
+                                <option value="6">DHS: ATF/FBI/DEA/ICE</option>
+                            </select>
+                            <div id="errorcs8" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct15" class="label-form lbl-black">Region: </label>
+                            <div style="display: inline">
+                                <input type="text" id="ct15" class="ag-control input-sm ctrl-width" name="RegionName" data-rule-required="true" aria-required="true" placeholder="State, County, City, or Region Name">
+                            </div>
+                            <div id="errorct15" class="has-error cust-err"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="pnlCustFfl" style="display: none">
+                <form data-form-validate="true" action="" method="post" id="cust-form-ffl" novalidate="novalidate">
+                    <input type="hidden" id="ch1" name="FflExists" />
+                    <input type="hidden" id="ch2" name="FflId" />
+                    <input type="hidden" id="fcd" />
+                    <div id="divFflLeft">
+                        <div style="text-align:left">
+                            <div id="rowFflNum" class="top-buffer" style="display: inline-block">
+                                <label for="ct16" class="label-form lbl-black">FFL Number: </label>
+                                <div id="divFflFields" style="padding-left:3px">
+                                    <div class="pad-ffl">
+                                        <input type="text" id="ct16" class="ag-control input-sm" name="LicRegion" style="width: 33px !important" aria-required="true" maxlength="1" onkeypress="return isNumber(event)">
+                                    </div>
+                                    <div class="pad-ffl" id="div2">
+                                        <input type="text" id="ct17" class="ag-control input-sm" name="LicDistrict" style="width: 44px !important" aria-required="true" maxlength="2" onkeypress="return isNumber(event)">
+                                    </div>
+                                    <div class="pad-ffl">
+                                        <input type="text" id="ct18" class="ag-control input-sm" name="LicCounty" style="width: 50px !important" aria-required="true" maxlength="3" onkeypress="return isNumber(event)">
+                                    </div>
+                                    <div class="pad-ffl">
+                                        <input type="text" id="ct19" class="ag-control input-sm" name="LicType" style="width: 44px !important" aria-required="true" maxlength="2" onkeypress="return isNumber(event)">
+                                    </div>
+                                    <div class="pad-ffl">
+                                        <input type="text" id="ct20" class="ag-control input-sm" name="LicExpCode" style="width: 44px !important" aria-required="true" maxlength="2">
+                                    </div>
+                                    <div class="pad-ffl">
+                                        <input type="text" id="ct21" class="ag-control input-sm" name="LicSequence" style="width: 60px !important" aria-required="true" maxlength="5" onkeypress="return isNumber(event)">
+                                    </div>
+                                    <div style="display: inline-block; position: relative; top: 1px; left: 3px">
+                                        <div style="display: inline-block" id="dvBtnFflSch">
+                                            <button type="button" class="btn btn-success btn-xs btn-register" id="btnverifyffl" name="verifyffl" style="width: 60px" onclick="getFfl()">Search</button>
+                                        </div>
+                                        <div style="display: inline-block">
+                                            <button type="button" class="btn btn-danger btn-xs btn-register" id="btnclearffl" name="clearffl" style="width: 46px" onclick="clearFfl()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="errorct16" class="has-error cust-err"></div>
+                        </div>
+                        <div id="dvCustFflInfo" style="display:inline-block; width:100%">
+                            <div id="dvCustFflLt" style="display: none; float:left; width:50%">
+                                <div class="top-buffer">
+                                    <label for="ct22" class="label-form lbl-black">Licensee Name: </label>
+                                    <input type="text" id="ct22" class="ag-control input-sm ctrl-width" name="LicName" data-rule-required="true" aria-required="true" disabled="disabled">
+                                    <div id="errorct22" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer" id="dvCustTradeName">
+                                    <label for="ct23" class="label-form lbl-black">Trade Name: </label>
+                                    <input type="text" id="ct23" class="ag-control input-sm ctrl-width" name="TradeName" data-rule-required="true" aria-required="true" disabled="disabled">
+                                    <div id="errorct23" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="ct24" class="label-form lbl-black">Address: </label>
+                                    <input type="text" id="ct24" class="ag-control input-sm ctrl-width" name="FflAddress" data-rule-required="true" aria-required="true" disabled="disabled">
+                                    <div id="errorct24" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="ct25" class="label-form lbl-black">City: </label>
+                                    <input type="text" id="ct25" class="ag-control input-sm ctrl-width" name="FflCity" data-rule-required="true" aria-required="true" disabled="disabled">
+                                    <div id="errorct25" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer" style="text-align:left; padding-left:2px">
+                                    <label for="cs12" class="label-form lbl-black">State: </label>
+                                    @Html.DropDownList("FflStateId", Model.Menus.UsStateAbrv.UsStates, "-ST- ", new { id = "cs12", @class = "ag-control-short input-sm", style = "width:55px; margin-left: 1px;", disabled = "disabled" })
+                                    <div class="zip-row">
+                                        <label for="ct26" class="pad-zip lbl-black" style="padding-left: 15px">Zip Code: </label>
+                                        <div class="zip-group">
+                                            <input type="text" class="ag-control input-sm" id="ct26" style="width: 60px" name="FflZipCode" maxlength="5" disabled="disabled" onkeypress="return isNumber(event)">
+                                        </div>
+                                    </div>
+                                    <div style="display: table; padding-left: 114px; width: 100%">
+                                        <div id="errorcs12" class="has-error" style="display: table-cell; max-width: 62px"></div>
+                                        <div id="errorct26" class="has-error" style="display: table-cell"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="dvCustFflRt" style="display: none; float:right; width:50%">
+                                <div class="top-buffer" style="text-align:left; padding-left:2px">
+                                    <label for="cs21" class="label-form lbl-black">FFL Expiration: </label>
+                                    <div class="date-wrap">
+                                        @Html.DropDownList("FflExpMo", Model.Menus.MoModel.Month, "-MO- ", new { id = "cs21", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;", disabled = "disabled" })
+                                        @Html.DropDownList("FflExpDay", Model.Menus.DdModel.Day, "-DD- ", new { id = "cs22", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;", disabled = "disabled" })
+                                        @Html.DropDownList("FflExpYear", Model.Menus.YrExpModel.Year, "-YR- ", new { id = "cs23", @class = "ag-control-short input-sm", style = "width:60px; margin-left: 1px;", disabled = "disabled" })
+                                        <div id="dvCustFflExp" style="display: none; color: red; font-weight: bold">EXPIRED!</div>
+                                    </div>
+                                    <div id="errorcs21" class="has-error cust-err"></div>
+                                    <div id="errorcs22" class="has-error cust-err"></div>
+                                    <div id="errorcs23" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer">
+                                    <label for="cs15" class="label-form lbl-black">FFL Type: </label>
+                                    <select id="cs15" class="ag-control input-sm ctrl-width" name="LicTypeId" data-rule-required="true" aria-required="true" disabled="disabled">
+                                        <option value="0">- SELECT -</option>
+                                        <option value="01">01: Gun Dealer/Gunsmith</option>
+                                        <option value="02">02: Pawnbroker</option>
+                                        <option value="03">03: Curio & Relic</option>
+                                        <option value="06">06: Ammo Manufacturer</option>
+                                        <option value="07">07: Gun Manufacturer</option>
+                                        <option value="08">08: Gun Importer</option>
+                                        <option value="09">09: DD Dealer</option>
+                                        <option value="10">10: DD Manufacturer</option>
+                                        <option value="11">11: DD Importer</option>
+                                    </select>
+                                    <div id="errortcs15" class="has-error cust-err"></div>
+                                </div>
+                                <div class="top-buffer" id="dvCustFflPhone">
+                                    <label for="ct27" class="label-form lbl-black" id="lblBusPhone">Business Phone: </label>
+                                    <input type="text" id="ct27" class="ag-control input-sm ctrl-width" name="FflPhone" data-rule-required="true" aria-required="true" placeholder="Type Numbers Only">
+                                    <div id="errorct27" class="has-error cust-err"></div>
+                                </div>
+                                <div id="dvCustCaFfl">
+                                    <div class="top-buffer" id="divCfdNum">
+                                        <label for="ct29" class="label-form lbl-black">CA CFD#: </label>
+                                        <input type="text" id="ct29" class="ag-control input-sm ctrl-width" name="CaCfdNumber" data-rule-required="true" aria-required="true" onkeypress="return isNumber(event)" maxlength="5">
+                                        <div id="errorct29" class="has-error cust-err"></div>
+                                    </div>
+                                    <div class="top-buffer" id="divHiCap">
+                                        <label for="cs24" class="label-form lbl-black">CA Hi-Cap?: </label>
+                                        <select id="cs24" class="ag-control input-sm ctrl-width" name="CaHasHiCap" data-rule-required="true" aria-required="true">
+                                            <option value="" selected>- SELECT -</option>
+                                            <option value="true">YES</option>
+                                            <option value="false">NO</option>
+                                        </select>
+                                        <div id="errorcs24" class="has-error cust-err"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="dvCustCaCmpy" style="display:inline-block; width:100%">
+                <div style="float:left; width:50%">
+                    <div class="top-buffer">
+                        <label for="cs18" class="label-form lbl-black">Buying Resale: </label>
+                        <select id="cs18" class="ag-control input-sm ctrl-width" name="BuyForResale" data-rule-required="true" aria-required="true" onchange="showResale(false, this.value)">
+                            <option value="" selected>- SELECT -</option>
+                            <option value="true">YES</option>
+                            <option value="false">NO</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="dvCustResNum" style="display: none; float:right; width:50%">
+                    <div class="top-buffer">
+                        <label for="ct14" class="label-form lbl-black">Resale Number: </label><input type="text" id="ct14" class="ag-control input-sm ctrl-width pad-lft" name="ResaleNumber" data-rule-required="true" aria-required="true">
+                        <div id="errorct14" class="has-error cust-err"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+
+        <div id="dvWebAccess" style="display:none">
+            <div style="clear: both; height: 25px"></div>
+            <div class="well-grp">Customer Website Access</div>
+            <div class="well-text row" style="width: 100%; margin: 0 auto">
+                <form data-form-validate="true" action="" method="post" id="cust-form-security" novalidate="novalidate">
+                    <div class="pnl-left">
+                        <div class="top-buffer">
+                            <label for="ct33" class="label-form lbl-black">Screen Name: </label>
+                            <input type="text" id="ct33" class="ag-control input-sm ctrl-width" name="UserName" data-rule-required="true" aria-required="true" value="@Model.Login.UserName">
+                            <div id="errorct33" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs19" class="label-form lbl-black">Security Q1: </label>
+                            @Html.DropDownList("SecurityQuestion1", Model.Menus.SecQuest.SecurityQuestions, "- SELECT - ", new { id = "cs19", @class = "ag-control input-sm ctrl-width" })
+                            <div id="errorcs19" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs20" class="label-form lbl-black">Security Q2: </label>
+                            @Html.DropDownList("SecurityQuestion2", Model.Menus.SecQuest.SecurityQuestions, "- SELECT - ", new { id = "cs20", @class = "ag-control input-sm ctrl-width" })
+                            <div id="errorcs20" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs32" class="label-form lbl-black">Security Q3: </label>
+                            @Html.DropDownList("SecurityQuestion3", Model.Menus.SecQuest.SecurityQuestions, "- SELECT - ", new { id = "cs32", @class = "ag-control input-sm ctrl-width" })
+                            <div id="errorcs32" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs33" class="label-form lbl-black">Reset Password: </label>
+                            <select id="cs33" class="ag-control input-sm ctrl-width" name="ResetPassword">
+                                <option value="true" selected="selected">YES</option>
+                                <option value="false">NO</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pnl-right">
+                        <div class="top-buffer">
+                            <label for="ct34" class="label-form lbl-black">Password: </label>
+                            <input type="text" id="ct34" class="ag-control input-sm ctrl-width" name="Password" data-rule-required="true" aria-required="true" value="@Model.Login.Password">
+                            <div id="errorct34" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct35" class="label-form lbl-black">Security A1: </label>
+                            <input type="text" id="ct35" class="ag-control input-sm ctrl-width" name="SecurityAnswer1">
+                            <div id="errorct35" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct36" class="label-form lbl-black">Security A2: </label>
+                            <input type="text" id="ct36" class="ag-control input-sm ctrl-width" name="SecurityAnswer2">
+                            <div id="errorct36" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="ct37" class="label-form lbl-black">Security A3: </label>
+                            <input type="text" id="ct37" class="ag-control input-sm ctrl-width" name="SecurityAnswer3">
+                            <div id="errorct37" class="has-error cust-err"></div>
+                        </div>
+                        <div class="top-buffer">
+                            <label for="cs34" class="label-form lbl-black">Email Customer: </label>
+                            <select id="cs34" class="ag-control input-sm ctrl-width" name="SendEmail">
+                                <option value="true" selected="selected">YES</option>
+                                <option value="false">NO</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dvGridDocs">
+        <div style="clear: both; height: 25px"></div>
+        <div class="well-grp" id="docSumTtl">Customer Docs</div>
+        <div class="docGrid-Top">
+            <div class="docGrid-hdr">
+                <div class="docGrid-item">Version</div>
+                <div class="docGrid-item"></div>
+                <div class="docGrid-item">Group</div>
+                <div class="docGrid-item">Document</div>
+                <div class="docGrid-item">State</div>
+                <div class="docGrid-item">Number</div>
+                <div class="docGrid-item">Exp Date</div>
+                <div class="docGrid-item">Status</div>
+            </div>
+        </div>
+        <div id="dvDocSummaryRows" style="border: solid 1px black; overflow-y: scroll; max-height: 262px;">
+
+        </div>
+        @*<div class="well-text row" style="width: 100%; margin: 0 auto">
+
+        </div>*@
+    </div>
+</div>
+<div id="dvCustDocs" style="display: none">
+    <div class="well-grp" id="dvDocTtl">Customer Documents</div>
+    <div class="well-text row" style="width: 100%; margin: 0 auto">
+        <form data-form-validate="true" action="" method="post" id="cust-form-docs" novalidate="novalidate">
+            <input type="hidden" id="custId" value="0" />
+            <input type="hidden" id="custUk" />
+            <input type="hidden" id="did" />
+
+            <div class="pnl-left">
+                <div class="top-buffer">
+                    <label for="s6" class="label-form lbl-black">Category: </label>
+                    <select name="DocCatId" id="cs6" class="ag-control input-sm ctrl-width" onchange="setDocPanel(this.value)">
+                        <option value="0">-SELECT-</option>
+                        <option value="1">Current Documents</option>
+                        <option value="2">Archived Documents</option>
+                        <option value="3">ADD Document</option>
+                    </select>
+                    <div id="errorcs6" class="err-doc"></div>
+                </div>
+                <div id="dvCustAddDocs" style="display: none">
+                    <div class="top-buffer">
+                        <label for="cs14" class="label-form lbl-black">Document Group: </label>
+                        <select name="DocGroup" id="cs14" class="ag-control input-sm ctrl-width" onchange="getMenuDocs(this.value)">
+                            @{
+                                <option value="">- SELECT -</option>
+                                foreach (var item in Model.Menus.DocCats.DocumentCategories)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errorcs14" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer">
+                        <label for="cs25" class="label-form lbl-black">Document Type: </label>
+                        <select name="DocType" id="cs25" class="ag-control input-sm ctrl-width" onchange="setDocType(this.value)">
+                            <option value="">- SELECT -</option>
+                        </select>
+                        <div id="errorcs25" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer" id="dvIdn" style="display: none">
+                        <label for="ct31" class="label-form lbl-black">ID Number: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DocIdNumber" id="ct31">
+                        <div id="errorct31" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer" id="dvDst" style="display: none">
+                        <label for="cs28" class="label-form lbl-black">State: </label>
+                        <select name="DocStateId" id="cs28" class="ag-control input-sm ctrl-width">
+                            @{
+                                <option value="">-SELECT-</option>
+                                foreach (var item in Model.Menus.UsStateNames.UsStates)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                        <div id="errorcs28" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer" id="dvExd" style="display: none">
+                        <label for="ct38" class="label-form lbl-black">Exp Date: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DocExpDate" id="ct38">
+                        <div id="errorct38" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer" id="dvDob" style="display: none">
+                        <label for="ct39" class="label-form lbl-black">Date of Birth: </label><input type="text" class="ag-control input-sm ctrl-width pad-lft" name="DocDob" id="ct39">
+                        <div id="errorct39" class="err-doc"></div>
+                    </div>
+
+                    <div class="top-buffer" id="dvAdc">
+                        <label for="cs41" class="label-form lbl-black">Current Address: </label>
+                        <select name="CurAddress" id="cs41" class="ag-control input-sm ctrl-width">
+                            <option value="" selected>- SELECT -</option>
+                            <option value="true">YES</option>
+                            <option value="false">NO</option>
+                        </select>
+                        <div id="errorcs41" class="err-doc"></div>
+                    </div>
+                    <div class="top-buffer" id="dvRid">
+                        <label for="cs42" class="label-form lbl-black">Real ID: </label>
+                        <select name="RealID" id="cs42" class="ag-control input-sm ctrl-width">
+                            <option value="" selected>- SELECT -</option>
+                            <option value="true">YES</option>
+                            <option value="false">NO</option>
+                        </select>
+                        <div id="errorcs42" class="err-doc"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="pnl-right" id="dvCustDocImg" style="display:none">
+                <div style="display:inline-block; padding-left:30px">
+                    <div style="display:inline-block">
+                        <div class="fileinput fileinput-new img-loop" data-provides="fileinput" style="display: inline-block; padding-right: 3px; margin-bottom: 0 !important; padding-top: 3px">
+                            <div id="CusImgDoc" class="fileinput-preview thumbnail cust-profile-pic" data-trigger="fileinput" style="min-height:100px">Document Image</div>
+                            <div class="checkForm" style="text-align: center">
+                                <span class="btn-file"><a href="#" class="fileinput-new uploadTxt" data-trigger="fileinput" onclick="clearPic()">Select Image</a><input type="file" name="docImg" id="AddCustDocImg"></span>
+                                <a href="#" class="fileinput-exists uploadTxt img-loop" data-dismiss="fileinput" onclick="clearPic()">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div id="dvCustDocsGrid" style="width: 100%; border-radius: 4px; display: none">
+    <div id="dvCustDocHdr" class="doc-Hdr"></div>
+    <div id="dvCustDocRows" style="border: solid 1px black; overflow-y: scroll; max-height: 262px;">
+
+    </div>
+</div>
+<div id="dvCustNoDocs" class="cust-no-docs">There are no documents available for this customer</div>
+
+<div id="DocModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img02">
+    <div id="docCaption"></div>
+    <div id="closeDocLnk" class="caption" onclick="closeImgPreview()">Close Preview</div>
+</div>
